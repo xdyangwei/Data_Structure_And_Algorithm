@@ -190,12 +190,56 @@ void merge(vector<int> &v,size_t first,size_t last){
             v[k+first]=v1[k];
     }
 
+//用于维护最大堆的性质，假设结点i的左子树和右子树都满足最大堆的性质，此时需要将i和其左右孩子结点所包含的值进行比较
+//找出最大的值，然后将其与i进行交换，然后递归对所交换节点在的子树再调用本函数即可维护最大堆性质
+void max_heapify(vector<int> &v,int i,int len){
+    if(2*i+2<=len){
+    if(v[i]<v[2*i+2]&&v[2*i+1]<=v[2*i+2]){
+    auto x=v[2*i+2];v[2*i+2]=v[i];v[i]=x;
+    max_heapify(v,2*i+2,len);
+    }
+    else if(v[i]<v[2*i+1]&&v[2*i+2]<=v[2*i+1]){
+        auto x=v[2*i+1];v[2*i+1]=v[i];v[i]=x;
+        max_heapify(v,2*i+1,len);
+    }else{
+        return ;
+    }
+    }else if(2*i+1<=len){
+        if(v[i]<v[2*i+1]){
+            auto x=v[2*i+1];v[2*i+1]=v[i];v[i]=x;
+            max_heapify(v,2*i+1,len);
+        } else{
+            return ;
+        }
+    }else{
+        return ;
+    }
+}
+//使用max_heapify函数来从一个无序数组构建一个最大堆，该理论基于证明当数组中含有n个元素时，构建的堆中从第floor(n/2)+1开始
+//成为堆的叶子结点，因此只需要从第n/2个元素开始到最后第一个元素为止一直调用max_heapify函数即可保证构建出的堆为满足最大堆性质
+void build_max_heap(vector<int> &v,int x){
+    auto n=x/2;
+    for (int i = n-1; i >=0 ; --i) {
+        max_heapify(v,i,x);
+    }
+}
+//先调用buil_max_heap由无序数组构建出最大堆，然后将数组的最后一个元素与堆顶元素（数组第一个元素）进行置换，接着将数组组成堆的元素数量
+//减1再递归调用max_heapify维护最大堆性质，每次调用完后继续将数组首尾元素置换直到数组中没有元素可以构成堆即为有序数组。
+void heap_sort(vector<int> &v){
+    build_max_heap(v,v.size()-1);
+    auto n=v.size()-1;
+    auto x=v[0];v[0]=v[n];v[n]=x;
+    while(n--){
+    max_heapify(v,0,n);
+    x=v[0];v[0]=v[n];v[n]=x;
+    }
+}
 
 int main() {
-    vector<int> v{2,5,9,3,1,6,7,10,8,8,9,6,7};
-    merge_sort(v,0,12);
+    vector<int> v{2,11,13,5,9,3,1,6,7,10,8,8,9,6,7};
+    heap_sort(v);
     for(auto &x:v)
         cout<<x<<" ";
-    //cout<<3/2<<endl;
+    cout<<endl;
     return 0;
 }
