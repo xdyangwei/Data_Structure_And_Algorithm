@@ -21,6 +21,9 @@ public:
     head(x){}
     List():
     head(NULL){}
+    bool empty(){
+        return head== nullptr;
+    }
     void addtotail(ListNode<T>* node){
         auto x=head;
         if(x==NULL){
@@ -105,4 +108,6 @@ int main(){
     }
     std::cout<<std::endl;
     reverse_output_list(l.head);
+    std::cout<<std::endl;
+    std::cout<<l.empty()<<std::endl;
 }
