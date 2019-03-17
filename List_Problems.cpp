@@ -93,10 +93,33 @@ void reverse_output_list(ListNode<T>* node){
     }
 }
 
+template <typename T>
+void find_last_k(ListNode<T>* node,std::size_t k){
+    if(k<=0){
+        std::cerr<<"the number k must bigger than 0"<<std::endl;
+    }else{
+        auto x=node;
+        std::cout<<std::endl;
+        for(;k>1&&x!=NULL;x=x->next,k--){
+            //std::cout<<k<<std::endl;
+        }
+        if(k>1){
+            std::cerr<<"the number of this list's nodes is smaller than k"<<std::endl;
+        }else{
+            //std::cout<<"here"<<std::endl;
+            while(x->next!= nullptr){
+                node=node->next;
+                x=x->next;
+            }
+            std::cout<<node->data<<std::endl;
+        }
+    }
+}
+
 int main(){
     List<int> l;
-    l.deletefrom(1);
-    reverse_output_list(l.head);
+    //l.deletefrom(1);
+    //reverse_output_list(l.head);
     for(auto i=0;i<10;i++){
         auto x=new ListNode<int>(i);
         l.addtotail(x);
@@ -106,8 +129,5 @@ int main(){
         std::cout << z->data << " ";
         z=z->next;
     }
-    std::cout<<std::endl;
-    reverse_output_list(l.head);
-    std::cout<<std::endl;
-    std::cout<<l.empty()<<std::endl;
+    find_last_k(l.head,9);
 }
