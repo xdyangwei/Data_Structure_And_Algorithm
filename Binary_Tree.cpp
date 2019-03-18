@@ -3,6 +3,10 @@
 //
 #include <iostream>
 #include <queue>
+#include <stack>
+#include <map>
+#include <algorithm>
+#include <string>
 template <typename T>
 struct Binary_Node{
     T data;
@@ -25,42 +29,32 @@ void preorder_traversal_with_recursive(Binary_Node<T>* node){
     preorder_traversal_with_recursive(node->right_child);}
 }
 
+//非递归版本前序遍历，使用栈保存访问过的结点
 template <typename T>
 void preorder_traversal_without_recursive(Binary_Node<T>* node){
-    auto x=node;auto y=node;
-    while(node!= nullptr){
-        std::cout<<node->data<<std::endl;
+    if(node!= nullptr){
+        std::stack<Binary_Node<T>*> s;
         if(node->left_child!= nullptr){
-            x=node;
-            node=node->left_child;}
-        else{
-            if(x->right_child!= nullptr){
-                node=x->right_child;
-                x=node;
-            } else{
-                break;
-            }
+          while(node!= nullptr||!s.empty()){
+              while(node!= nullptr){
+                  std::cout<<node->data<<std::endl;s.push(node);node=node->left_child;
+              }
+              if(!s.empty()){
+                  auto x=s.top();
+                  s.pop();
+                  node=x->right_child;
+              }
+          }
+        } else{
+            std::cout<<node->data<<std::endl;
+            return ;
         }
-    }
-    if(y->right_child!= nullptr){
-        y=y->right_child;
-    }
-    auto z=y;
-    while(y!= nullptr){
-        std::cout<<y->data<<std::endl;
-        if(y->left_child!= nullptr){
-            z=y;
-            y=y->left_child;}
-        else{
-            if(z->right_child!= nullptr){
-                y=z->right_child;
-                z=y;
-            } else{
-                break;
-            }
-        }
+    } else{
+        std::cerr<<"empty binary tree"<<std::endl;
     }
 }
+
+//递归中序遍历
 
 template <typename T>
 void inorder_traversal_with_recursive(Binary_Node<T>* node){
@@ -70,6 +64,27 @@ void inorder_traversal_with_recursive(Binary_Node<T>* node){
         std::cout<<node->data<<std::endl;
         if(node->right_child!= nullptr)
             inorder_traversal_with_recursive(node->right_child);
+    }else{
+        std::cerr<<"empty binary tree"<<std::endl;
+    }
+}
+
+//非递归版本中序遍历，使用栈保存访问过的结点
+template <typename T>
+void inorder_traversal_without_recursive(Binary_Node<T>* node){
+    if(node!= nullptr){
+std::stack<Binary_Node<T>*> s;
+    while(node!= nullptr||!s.empty()){
+        while(node!= nullptr){
+            s.push(node);
+            node=node->left_child;
+        }
+        if(!s.empty()){
+            auto x=s.top();s.pop();
+            std::cout<<x->data<<std::endl;
+            node=x->right_child;
+        }
+    }
     }else{
         std::cerr<<"empty binary tree"<<std::endl;
     }
@@ -131,5 +146,5 @@ int main(){
     Binary_Node<int> n8(8);Binary_Node<int> n9(9);Binary_Node<int> n10(10);
     n1.left_child=&n2;n1.right_child=&n3;n2.left_child=&n4;n2.right_child=&n5;n3.left_child=&n6;n3.right_child=&n7;
     n4.left_child=&n8;n4.right_child=&n9;n5.left_child=&n10;
-    DFS(&n1);
+    
 }
