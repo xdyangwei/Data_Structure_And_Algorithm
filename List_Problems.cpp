@@ -117,7 +117,7 @@ void find_last_k(ListNode<T>* node,std::size_t k){
 }
 
 template <typename T>
-void delete_node(ListNode<T>* node,ListNode<T>* k){
+void delete_node(ListNode<T>* &node,ListNode<T>* k){
     if(node== nullptr||k== nullptr){
         std::cerr<<"empty list or the node needed to be deleted is nullptr"<<std::endl;
     }else{
@@ -125,48 +125,110 @@ void delete_node(ListNode<T>* node,ListNode<T>* k){
             node= nullptr;
         }else{
             if(node->data==k->data){
-                delete node;
+                auto x=node;
+                node=node->next;
+                //std::cout<<node->data<<std::endl;
+                delete x;
                 return ;
             }
+            //std::cout<<"hh"<<std::endl;
             if(node->data!=k->data&&node->next== nullptr){
                 std::cerr<<"can't find this node in this list"<<std::endl;
             } else{
                 auto x=node;node=node->next;
+                //std::cout<<1<<std::endl;
             while(node!= nullptr){
                 if(node->data==k->data){
                     x->next=node->next;
+                    //std::cout<<node->data<<std::endl;
                     delete node;
                     break;
                 }
                 x=node;
                 node=node->next;
             }
+                //std::cout<<(node== nullptr)<<std::endl;
             if(node== nullptr){
                 std::cerr<<"can't find this node in this list"<<std::endl;
             }
-                return ;
+
             }
         }
     }
 }
 
+template <typename T>
+void delete_repeat_ListNode(List<T> &l){
+    auto x=l.head;
+    if(x->next== nullptr){
+        //std::cout<<x->data<<std::endl;
+        ;
+    }else{
+        auto y=x->next;
+        while(y!= nullptr){
+            if(x->data==y->data){
+                x=y->next;
+                if(x== nullptr){
+                    l.head= nullptr;
+                    break;
+                } else{
+                    y=x->next;
+                }
+                }
+            else{
+                break;
+            }
+        }
+        l.head=x;
+        auto z=l.head;auto zz=z->next;
+        while(zz!= nullptr){
+            auto zzz=zz->next;
+            while(zzz!= nullptr){
+                if(zz->data==zzz->data){
+                    zz=zzz;
+                    zzz=zzz->next;
+                }else{
+                    break;
+                }
+            }
+            //std::cout<<(zzz== nullptr)<<std::endl;
+            z->next=zz;
+            z=zz;
+            if(zzz!= nullptr){
+                zz=zzz->next;}else{
+                break;
+            }
+
+        }
+//std::cout<<"hh"<<std::endl;
+    }
+}
+
+
 int main(){
     List<int> l;
     //l.deletefrom(1);
     //reverse_output_list(l.head);
-    for(auto i=0;i<10;i++){
-        auto x=new ListNode<int>(i);
+    for(auto i=0;i<2;i++){
+        auto x=new ListNode<int>(2);
         l.addtotail(x);
     }
-    auto z=l.head;
-    while(z!=NULL) {
-        std::cout << z->data << " ";
-        z=z->next;
+    for(auto i=0;i<2;i++){
+        auto x=new ListNode<int>(3);
+        l.addtotail(x);
     }
-    auto zz=l.head;
-    delete(new ListNode<int>(2));
-    while(zz!=NULL) {
-        std::cout << z->data << " ";
-        z=z->next;
+    l.addtotail(new ListNode<int>(4));
+    l.addtotail(new ListNode<int>(5));
+    l.addtotail(new ListNode<int>(5));
+    l.addtotail(new ListNode<int>(6));
+    l.addtotail(new ListNode<int>(8));
+    l.addtotail(new ListNode<int>(8));
+    l.addtotail(new ListNode<int>(9));
+    l.addtotail(new ListNode<int>(9));
+    delete_repeat_ListNode(l);
+    auto x=l.head;
+    while(x!= nullptr){
+        std::cout<<x->data<<" ";
+    x=x->next;
     }
 }
