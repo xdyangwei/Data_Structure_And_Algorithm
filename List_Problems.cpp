@@ -116,6 +116,40 @@ void find_last_k(ListNode<T>* node,std::size_t k){
     }
 }
 
+template <typename T>
+void delete_node(ListNode<T>* node,ListNode<T>* k){
+    if(node== nullptr||k== nullptr){
+        std::cerr<<"empty list or the node needed to be deleted is nullptr"<<std::endl;
+    }else{
+        if(node->data==k->data&&node->next== nullptr){
+            node= nullptr;
+        }else{
+            if(node->data==k->data){
+                delete node;
+                return ;
+            }
+            if(node->data!=k->data&&node->next== nullptr){
+                std::cerr<<"can't find this node in this list"<<std::endl;
+            } else{
+                auto x=node;node=node->next;
+            while(node!= nullptr){
+                if(node->data==k->data){
+                    x->next=node->next;
+                    delete node;
+                    break;
+                }
+                x=node;
+                node=node->next;
+            }
+            if(node== nullptr){
+                std::cerr<<"can't find this node in this list"<<std::endl;
+            }
+                return ;
+            }
+        }
+    }
+}
+
 int main(){
     List<int> l;
     //l.deletefrom(1);
@@ -129,5 +163,10 @@ int main(){
         std::cout << z->data << " ";
         z=z->next;
     }
-    find_last_k(l.head,9);
+    auto zz=l.head;
+    delete(new ListNode<int>(2));
+    while(zz!=NULL) {
+        std::cout << z->data << " ";
+        z=z->next;
+    }
 }

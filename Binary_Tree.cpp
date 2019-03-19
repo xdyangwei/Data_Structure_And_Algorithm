@@ -146,5 +146,5 @@ int main(){
     Binary_Node<int> n8(8);Binary_Node<int> n9(9);Binary_Node<int> n10(10);
     n1.left_child=&n2;n1.right_child=&n3;n2.left_child=&n4;n2.right_child=&n5;n3.left_child=&n6;n3.right_child=&n7;
     n4.left_child=&n8;n4.right_child=&n9;n5.left_child=&n10;
-    
+
 }
