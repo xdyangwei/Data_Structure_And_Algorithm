@@ -139,6 +139,38 @@ void DFS(Binary_Node<T>* node){
 }
 
 
+//判断一棵二叉树是否是另外一棵二叉树的子树，使用递归的思路
+// 当树当前结点与所给结点符合时在递归判断二者的左右子树
+template <typename T>
+bool recursive_sub_tree(Binary_Node<T>* node1,Binary_Node<T>* node2){
+    if(node1!= nullptr&&node2!= nullptr) {
+        if (node1->data == node2->data) {
+            return true && recursive_sub_tree(node1->left_child, node2->left_child) &&
+                   recursive_sub_tree(node1->right_child, node2->right_child);
+        } else {
+            return false;
+        }
+    }else if((node1&&!node2)||(!node1&&!node2)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+template <typename T>
+bool sub_tree(Binary_Node<T>* node1,Binary_Node<T>* node2){
+    if(node1== nullptr||node2== nullptr)
+        return false;
+    bool x=false;
+    if(node1->data==node2->data){
+        x=(recursive_sub_tree(node1->left_child,node2->left_child)&&recursive_sub_tree(node1->right_child,node2->right_child));
+    }else{
+        x=(recursive_sub_tree(node1->left_child,node2)||recursive_sub_tree(node1->right_child,node2));
+    }
+    return x;
+}
+
+
 
 int main(){
     Binary_Node<int> n1(1);Binary_Node<int> n2(2);Binary_Node<int> n3(3);
@@ -146,5 +178,7 @@ int main(){
     Binary_Node<int> n8(8);Binary_Node<int> n9(9);Binary_Node<int> n10(10);
     n1.left_child=&n2;n1.right_child=&n3;n2.left_child=&n4;n2.right_child=&n5;n3.left_child=&n6;n3.right_child=&n7;
     n4.left_child=&n8;n4.right_child=&n9;n5.left_child=&n10;
-
+    Binary_Node<int> m1(2);Binary_Node<int> m2(4);
+    m1.left_child=&m2;
+    std::cout<<sub_tree(&n1,&m1);
 }

@@ -164,58 +164,140 @@ void delete_repeat_ListNode(List<T> &l){
         //std::cout<<x->data<<std::endl;
         ;
     }else{
-        auto y=x->next;
-        while(y!= nullptr){
-            if(x->data==y->data){
-                x=y->next;
-                if(x== nullptr){
-                    l.head= nullptr;
-                    break;
-                } else{
-                    y=x->next;
+        auto pre=new ListNode<T>();pre->next=x;
+        auto z=pre;
+        auto cur=x;auto nex=cur->next;
+        while(nex!= nullptr){
+            while(cur->data==nex->data&&nex!= nullptr){
+                nex=nex->next;
+            }
+            if(cur->next!=nex){
+                while(cur!=nex){
+                    pre->next=cur->next;
+                    delete cur;
+                    cur=pre->next;
                 }
-                }
-            else{
-                break;
+                if(nex!= nullptr)
+                    nex=nex->next;
+            }else{
+                pre=cur;
+                nex=nex->next;
+                cur=cur->next;
             }
         }
-        l.head=x;
-        auto z=l.head;auto zz=z->next;
-        while(zz!= nullptr){
-            auto zzz=zz->next;
-            while(zzz!= nullptr){
-                if(zz->data==zzz->data){
-                    zz=zzz;
-                    zzz=zzz->next;
-                }else{
-                    break;
-                }
-            }
-            //std::cout<<(zzz== nullptr)<<std::endl;
-            z->next=zz;
-            z=zz;
-            if(zzz!= nullptr){
-                zz=zzz->next;}else{
-                break;
-            }
-
-        }
-//std::cout<<"hh"<<std::endl;
+        l.head=z->next;
     }
 }
 
+//递归翻转链表并返回翻转后的头指针
+template <typename T>
+ListNode<T>* recursive_reverse_list(ListNode<T>* node){
+    static auto head=node;
+    if(node== nullptr){
+        return nullptr;
+    } else{
+    if(node==head&&node->next!= nullptr){
+        recursive_reverse_list(node->next)->next=node;
+        node->next= nullptr;
+        return head;
+    }
+    else if(node->next!= nullptr){
+        recursive_reverse_list(node->next)->next=node;
+        return node;
+    }else{
+        head =node;
+        return node;
+    }
+    }
+}
+
+//判断链表是否存在环路，使用快慢指针，当快慢指针相遇时即认为链表有环路,返回相遇结点
+template <typename T>
+ListNode<T>* has_circle(ListNode<T>* node){
+auto slowptr=node;auto fastptr=node->next;bool flag=0;
+while (slowptr!= nullptr&&fastptr!= nullptr){
+    if(slowptr==fastptr){
+        flag=1;break;
+    }
+    slowptr=slowptr->next;fastptr=fastptr->next;
+    if(fastptr!= nullptr)
+        fastptr=fastptr->next;
+}
+if(flag==1)
+    return slowptr;
+return nullptr;
+}
+
+//要求链表环路入口，可以先求出环路的长度，由相遇结点肯定在环路内可以得出
+// 等到他下次再走到这个结点时就是环路长度
+template <typename T>
+size_t circle_length(ListNode<T>* node){
+    auto x=has_circle(node);
+    if(x!= nullptr){
+        auto y=x->next;size_t count=0;
+        while(y!=x){
+            y=y->next;
+            count++;
+        }
+        count+=1;
+        return count;
+    }else{
+        return 0;
+    }
+
+}
+
+template <typename T>
+ListNode<T>* circle_entrance(ListNode<T>* node){
+    auto n=circle_length(node);
+    if(n){
+    auto first=node;auto last=first;
+    while(n--){
+        last=last->next;
+    }
+    while(last!=first){
+        first=first->next;last=last->next;
+    }
+    return first;
+    } else{
+        return nullptr;
+    }
+}
+
+template <typename T>
+ListNode<T>* merge_sorted_list(ListNode<T>* node1,ListNode<T>* node2){
+    if(node1== nullptr&&node2!= nullptr)
+        return node2;
+    if(node2== nullptr&&node1!= nullptr)
+        return node1;
+    if(node2== nullptr&&node1 ==nullptr)
+        return nullptr;
+    auto head=node1;
+    //std::cout<<node1->data<<" "<<node2->data<<std::endl;
+    if(node1->data<node2->data){
+        //std::cout<<"hh"<<std::endl;
+        head->next=merge_sorted_list(node1->next,node2);
+    }else{
+        head=node2;
+        //std::cout<<"yy"<<std::endl;
+        head->next=merge_sorted_list(node1,node2->next);
+    }
+    return head;
+}
 
 int main(){
-    List<int> l;
+    List<int> l;List<int> l1;
     //l.deletefrom(1);
     //reverse_output_list(l.head);
     for(auto i=0;i<2;i++){
         auto x=new ListNode<int>(2);
         l.addtotail(x);
+        l1.addtotail(new ListNode<int>(1));
     }
-    for(auto i=0;i<2;i++){
+    for(auto i=0;i<3;i++){
         auto x=new ListNode<int>(3);
         l.addtotail(x);
+        l1.addtotail(new ListNode<int>(11));
     }
     l.addtotail(new ListNode<int>(4));
     l.addtotail(new ListNode<int>(5));
@@ -225,10 +307,13 @@ int main(){
     l.addtotail(new ListNode<int>(8));
     l.addtotail(new ListNode<int>(9));
     l.addtotail(new ListNode<int>(9));
-    delete_repeat_ListNode(l);
+    l.addtotail(new ListNode<int>(10));
+    //auto x=recursive_reverse_list(l.head);
     auto x=l.head;
-    while(x!= nullptr){
-        std::cout<<x->data<<" ";
-    x=x->next;
+    auto y=l1.head;
+    auto z=merge_sorted_list(x,y);
+    while(z!= nullptr){
+        std::cout<<z->data<<" ";
+        z=z->next;
     }
 }

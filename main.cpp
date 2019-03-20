@@ -4,7 +4,7 @@
 #include <mutex>
 #include <cmath>
 #include <list>
-
+#include <iomanip>
 using namespace std;
 //插入排序：算法复杂度为O(n^2)，稳定排序
 //对于前几项已有序的序列不会重排但不能保证每个位置是在自己的最终位置上因为在最后一次
@@ -235,11 +235,44 @@ void heap_sort(vector<int> &v){
     }
 }
 
-int main() {
+//将数组中的所有偶数放在所有奇数的后面
+void swap_odd_even(vector<int>& v){
+    auto n=v.size()-1;
+    auto i=0;
+    while(i<n){
+        if(v[i]%2==0&&v[n]%2==1){
+            auto x=v[n];v[n]=v[i];v[i]=x;i++;n--;
+        }else if(v[i]%2==0&&v[n]%2==0){
+            n--;
+        }else if(v[i]%2==1&&v[n]%2==1){
+            i++;
+        }else{
+            i++;n--;
+        }
+    }
+}
+
+vector<unsigned char> transfer_to_BSD(){
+    vector<unsigned char> a{'0','1','2','3','4','5','6','7','8','9'};
+    vector<unsigned char> BCD(5,'0');
+    for(int i=0;i<=9;i=i+2){
+        BCD[i/2]=(a[i]<<4)|(a[i+1]&0x0f);
+    }
+    return BCD;
+}
+
+    int main() {
     vector<int> v{2,11,13,5,9,3,1,6,7,10,8,8,9,6,7};
-    heap_sort(v);
+    /*swap_odd_even(v);
+    //heap_sort(v);
     for(auto &x:v)
         cout<<x<<" ";
+    cout<<endl;*/
+    auto x=transfer_to_BSD();
+    //cout.setf(ios::hex);
+    for(auto &xx:x)
+        printf("%02d ",xx);
+       // cout<<(xx>>4)<<" "<<(xx&0x0f)<<" ";
     cout<<endl;
     return 0;
 }
