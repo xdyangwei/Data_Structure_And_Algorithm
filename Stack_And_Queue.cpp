@@ -152,7 +152,104 @@ bool two_dimension_array_find(vector<vector<int>> v,int x){
     return flag;
 }
 
+//顺时针输出一个矩阵，主要注意点为边界条件的判定
+void print_one_circle(vector<vector<int> > matrix,vector<int>& v1,int start){
+    auto m=matrix.size();auto n=matrix[0].size();
+    for(int i=start;i<=n-1-start;i++)
+        v1.push_back(matrix[start][i]);
+    for(int i=start+1;i<=m-1-start;i++)
+        v1.push_back(matrix[i][n-1-start]);
+    for(int i=n-2-start;i>=start;i--)
+        v1.push_back(matrix[m-1-start][i]);
+    for(int i=m-2-start;i>=start+1;i--)
+        v1.push_back(matrix[i][start]);
+}
+vector<int> printMatrix(vector<vector<int> > matrix){
+    int start=0;auto m=matrix.size();auto n=matrix[0].size();
+    vector<int> v1;
+    while(start<=(m/2-1)&&start<=(n/2-1)){
+        print_one_circle(matrix,v1,start);
+        start++;
+    }
+    //cout<<start<<" "<<m/2<<" "<<n/2<<endl;
+    if(start==(m/2)){
+        //cout<<"yes"<<endl;
+        for(int i=start;i<=n-1-start;i++)
+            v1.push_back(matrix[start][i]);
+    }
+    if(start==(n/2)) {
+        for (int i = start; i <= m-1  - start; ++i) {
+            v1.push_back(matrix[i][start]);
+        }
+    }
+    return v1;
+}
+
+//实现栈数据结构，并且使得从栈中pop、push和min（取最小值）都是常数级别
+template <typename T>
+struct Stack{
+    stack<T> s1;
+    stack<T> s2;
+    void push(T v){
+        s1.push(v);
+        if(s2.empty())
+            s2.push(v);
+        else{
+            if(v<s2.top())
+                s2.push(v);
+            else{
+                s2.push(s2.top());
+            }
+        }
+    }
+    void pop(){
+        if(!s1.empty()){
+            s1.pop();s2.pop();
+        }else{
+            cerr<<"empty stack can't pop"<<endl;
+        }
+    }
+    T top(){
+        return s1.top();
+    }
+    T min(){
+        if(!s2.empty()){
+            return s2.top();
+        } else{
+            cerr<<"empty stack has no min"<<endl;
+        }
+    }
+};
+
+//栈的压入、弹出序列，给定一个栈的压入顺序和弹出序列，判断弹出序列是否可能是
+//该压栈序列的弹出序列
+bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+    stack<int> s1;int i=0;int j=0;
+    auto copy_popV=popV;
+    while(i!=pushV.size()&&j!=popV.size()){
+        if(pushV[i]!=popV[j]){
+            s1.push(pushV[i]);
+            i++;
+        } else{
+            popV.erase(popV.begin());
+            pushV.erase(i+pushV.begin());
+            i--;
+            j=0;
+        }
+    }
+//    for(auto xx:popV){
+//        cout<<xx<<endl;
+//    }
+    if(popV.empty()){
+        return true;
+    } else{
+        return false;
+    }
+}
+
 int main() {
-    vector<vector<int>> v{{1,2},{3,4},{5,6}};
-    cout<<two_dimension_array_find(v,10);
+    vector<vector<int>> v{{1,2,3},{4,5,6},{7,8,9},{10,11,12},{13,14,15}};
+    vector<int> v1{1,2,3,4,5};vector<int> v2{4,3,5,1,2};
+    cout<<IsPopOrder(v1,v2);
+
 }
