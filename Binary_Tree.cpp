@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <string>
 #include <typeinfo>
+using namespace std;
 template <typename T>
 struct Binary_Node{
     T data;
@@ -307,39 +308,87 @@ bool VerifySquenceOfBST(std::vector<int> sequence){
 //思路：使用两个栈分别存储奇数层和偶数层的结点，这样就不会造成顺序混乱
 template <typename T>
 std::vector<std::vector<int> > Print(Binary_Node<T>* pRoot) {
-    std::stack<Binary_Node<T>*> s1;std::stack<Binary_Node<T>*> s2;
-    s1.push(pRoot);int i=1;
+    std::stack<Binary_Node<T>*> s1; std::stack<Binary_Node<T>*> s2;
+    s1.push(pRoot); int i = 1;
     std::vector<std::vector<T>> result;
-    while(!s1.empty()||!s2.empty()){
-        if(!s1.empty()){
+    while (!s1.empty() || !s2.empty()) {
+        if (!s1.empty()) {
             std::vector<T> data;
-        while(i%2==1){
-            auto x=s1.top();
-            data.push_back(x->data);
-            s1.pop();
-            s2.push(x->right_child);
-            s2.push(x->left_child);
-            if(s1.empty())
-                i++;
+            while (i % 2 == 1) {
+                auto x = s1.top();
+                data.push_back(x->data);
+                s1.pop();
+                if (x->left_child != nullptr)
+                    s2.push(x->left_child);
+                if (x->right_child != nullptr)
+                    s2.push(x->right_child);
+                if (s1.empty()) {
+                    i++;
+                }
+            }
+            result.push_back(data);
         }
-        result.push_back(data);
-        }
-        if(!s2.empty())
+        if (!s2.empty())
         {
             std::vector<T> data;
-            while(i%2==0) {
+            while (i % 2 == 0) {
                 auto x = s2.top();
                 data.push_back(x->data);
                 s2.pop();
-                s1.push(x->left_child);
-                s1.push(x->right_child);
-                if (s2.empty())
+                if(x->right_child!=nullptr)
+                    s1.push(x->right_child);
+                if (x->left_child != nullptr)
+                    s1.push(x->left_child);
+                if (s2.empty()) {
                     i++;
+                }
             }
             result.push_back(data);
         }
     }
     return result;
+}
+
+//求二叉树中和为某一值的路径
+//思路：使用栈进行存储前序遍历上的结点，当和为所给参数时将其放入一个容器中
+template <typename T>
+vector<vector<int> > FindPath(Binary_Node<T>* root,int expectNumber) {
+    if(root!= nullptr) {
+        vector<decltype(root)> v1;auto cur=expectNumber;
+        vector<vector<T>> v2;
+        if(root->left_child!= nullptr){
+        while(root!= nullptr||!v1.empty()) {
+            while (root != nullptr) {
+                v1.push_back(root);
+                root = root->left_child;
+            }
+            if(root== nullptr){
+                auto sum=0;
+                for(auto xx:v1){
+                    sum+=(xx->data);
+                }
+                if(sum==expectNumber){
+                    vector<T> v3;
+                    for(auto xx:v1)
+                        v3.push_back(xx->data);
+                    v2.push_back(v3);
+                }
+            }
+            if(!v1.empty()){
+                auto x=v1[v1.size()-1];
+                v1.erase(v1.end()-1);
+                root=x->right_child;
+            }
+
+        }
+        return v2;
+    } else{
+            cout<<root->data<<endl;
+        }
+    }
+    else{
+        cerr<<"empty binary tree"<<endl;
+    }
 }
 
 int main(){
@@ -353,7 +402,7 @@ int main(){
     std::vector<int> pre{1,2,4,7,3,5,6,8};
     std::vector<int> vin{4,7,2,1,5,3,8,6};
     std::vector<int> v{7,4,6,5};
-    auto z=Print(&n1);
+    auto z=FindPath(&n1,15);
     for(auto x:z){
         for(auto xx:x)
             std::cout<<xx<<" ";
