@@ -350,45 +350,71 @@ std::vector<std::vector<int> > Print(Binary_Node<T>* pRoot) {
 }
 
 //求二叉树中和为某一值的路径
-//思路：使用栈进行存储前序遍历上的结点，当和为所给参数时将其放入一个容器中
+//思路：使用递归遍历二叉树，当和为所给参数时将其放入一个容器中
 template <typename T>
-vector<vector<int> > FindPath(Binary_Node<T>* root,int expectNumber) {
-    if(root!= nullptr) {
-        vector<decltype(root)> v1;auto cur=expectNumber;
-        vector<vector<T>> v2;
-        if(root->left_child!= nullptr){
-        while(root!= nullptr||!v1.empty()) {
-            while (root != nullptr) {
-                v1.push_back(root);
-                root = root->left_child;
-            }
-            if(root== nullptr){
-                auto sum=0;
-                for(auto xx:v1){
-                    sum+=(xx->data);
-                }
-                if(sum==expectNumber){
-                    vector<T> v3;
-                    for(auto xx:v1)
-                        v3.push_back(xx->data);
-                    v2.push_back(v3);
-                }
-            }
-            if(!v1.empty()){
-                auto x=v1[v1.size()-1];
-                v1.erase(v1.end()-1);
-                root=x->right_child;
-            }
+void recursive_find_path(Binary_Node<T>* root, int expectNumber,vector<int>& v,vector<vector<int>>& v1) {
+    if (root != nullptr) {
+        if ((expectNumber-root->data) == 0&&root->left_child==nullptr&&root->right_child==nullptr) {
+            v.push_back(root->data);
+            v1.push_back(v);
+        }
+        else {
+            v.push_back(root->data);
+            if (root->left_child != nullptr)
+                recursive_find_path(root->left_child, expectNumber - root->data, v, v1);
+            if(root->right_child!=nullptr)
+                recursive_find_path(root->right_child, expectNumber - root->data, v, v1);
+        }
+        v.pop_back();
+    }
+    else {
+        return ;
+    }
+}
 
-        }
-        return v2;
-    } else{
-            cout<<root->data<<endl;
-        }
+template <typename T>
+vector<vector<int> > FindPath(Binary_Node<T>* root, int expectNumber) {
+    vector<vector<int>> v1;
+    if (root != nullptr) {
+        vector<int> v;
+        recursive_find_path(root, expectNumber, v, v1);
+        return v1;
     }
-    else{
-        cerr<<"empty binary tree"<<endl;
+    else {
+        return v1;
     }
+}
+
+//将一棵二叉搜索树转换为有序双向链表
+//根据二叉搜索树的性质可知中序遍历即可输出有序数组，因此可以考虑将
+//中序遍历序列放入一个数组中然后改变其节点的左右孩子指针指向
+template <typename T>
+void inorder_travsel(Binary_Node<T>* node,Binary_Node<T>*& last){
+    if(!node)
+        return ;
+    auto phead=node;
+    if(node->left_child!=nullptr) {
+        inorder_travsel(node->left_child,last);
+    }
+    phead->left_child=last;
+    if(last!= nullptr)
+        last->right_child=phead;
+    //cout<<node->data<<endl;
+    last=phead;
+    if(node->right_child!=nullptr)
+        inorder_travsel(node->right_child,last);
+}
+
+template <typename T>
+Binary_Node<T>* Convert(Binary_Node<T>* node){
+    if(!node)
+        return nullptr;
+    vector<Binary_Node<T>*> v;
+    Binary_Node<T>* last= nullptr;
+    inorder_travsel(node,last);
+    while(last!= nullptr&&last->left_child!= nullptr)
+        last=last->left_child;
+    return last;
 }
 
 int main(){
@@ -397,19 +423,10 @@ int main(){
     Binary_Node<int> n8(8);Binary_Node<int> n9(9);Binary_Node<int> n10(10);
     n1.left_child=&n2;n1.right_child=&n3;n2.left_child=&n4;n2.right_child=&n5;n3.left_child=&n6;n3.right_child=&n7;
     n4.left_child=&n8;n4.right_child=&n9;n5.left_child=&n10;
-    Binary_Node<int> m1(2);Binary_Node<int> m2(4);
-    m1.left_child=&m2;
-    std::vector<int> pre{1,2,4,7,3,5,6,8};
-    std::vector<int> vin{4,7,2,1,5,3,8,6};
-    std::vector<int> v{7,4,6,5};
-    auto z=FindPath(&n1,15);
-    for(auto x:z){
-        for(auto xx:x)
-            std::cout<<xx<<" ";
-        std::cout<<std::endl;
+    auto x=Convert(&n1);
+    while(x){
+        cout<<x->data<<" ";
+        x=x->right_child;
     }
-    //std::vector<int> v(vin.begin(),vin.begin());
-    //std::cout<<v.size()<<std::endl;
-   /*auto x=reConstructBinaryTree(pre,vin);
-    BFS(x);*/
+
 }

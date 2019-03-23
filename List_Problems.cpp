@@ -285,35 +285,67 @@ ListNode<T>* merge_sorted_list(ListNode<T>* node1,ListNode<T>* node2){
     return head;
 }
 
+//复杂链表数据结构，除了节点值和指向下一个节点的指针外，还有一个指向随机节点的指针
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next, *random;
+    RandomListNode(int x) :
+            label(x), next(NULL), random(NULL) {
+    }
+};
+
+//复制复杂链表，主要思路除了复制完节点后还要复制指向下一个节点的指针和指向随机节点的指针
+//解决方法复制完节点后再一个个找到其对应的随机节点，每个节点时间复杂度为O(n)，总的时间复杂度为O(n^2)
+//另一种解决方法就是将复制完的节点放在复制节点的后面，此时复制后节点对应的随机节点位置就是原对应随机节点的next节点
+//即可在O(n)的时间复杂度来完成复制
+RandomListNode* Clone(RandomListNode* pHead)
+{
+    auto p=pHead,y=pHead,z=pHead;
+    while(p!= nullptr){
+        auto x=new RandomListNode(0);
+        x->label=p->label;
+        x->next=p->next;
+        p->next=x;
+        p=x->next;
+    }
+    while(y!= nullptr){
+        //std::cout<<y->label<<" "<<y->random->label<<std::endl;
+        y->next->random=y->random->next;
+        y=y->next->next;
+        //std::cout<<y->label<<std::endl;
+    }
+    //std::cout<<2<<std::endl;
+    pHead=pHead->next;
+    while(pHead!= nullptr){
+        std::cout<<pHead->label<<std::endl;
+        if(pHead->next!= nullptr) {
+            pHead->next = pHead->next->next;
+            pHead = pHead->next;
+        }else{
+            pHead=pHead->next;
+        }
+    }
+    if(z){
+    return z->next;}
+    else{
+        return nullptr;
+    }
+}
+
 int main(){
-    List<int> l;List<int> l1;
-    //l.deletefrom(1);
-    //reverse_output_list(l.head);
-    for(auto i=0;i<2;i++){
-        auto x=new ListNode<int>(2);
-        l.addtotail(x);
-        l1.addtotail(new ListNode<int>(1));
-    }
-    for(auto i=0;i<3;i++){
-        auto x=new ListNode<int>(3);
-        l.addtotail(x);
-        l1.addtotail(new ListNode<int>(11));
-    }
-    l.addtotail(new ListNode<int>(4));
-    l.addtotail(new ListNode<int>(5));
-    l.addtotail(new ListNode<int>(5));
-    l.addtotail(new ListNode<int>(6));
-    l.addtotail(new ListNode<int>(8));
-    l.addtotail(new ListNode<int>(8));
-    l.addtotail(new ListNode<int>(9));
-    l.addtotail(new ListNode<int>(9));
-    l.addtotail(new ListNode<int>(10));
-    //auto x=recursive_reverse_list(l.head);
-    auto x=l.head;
-    auto y=l1.head;
-    auto z=merge_sorted_list(x,y);
-    while(z!= nullptr){
-        std::cout<<z->data<<" ";
-        z=z->next;
+    RandomListNode n1(1);
+    n1.next=new RandomListNode(2);
+    n1.next->next=new RandomListNode(3);
+    n1.random=n1.next->next;
+    n1.next->next->next=new RandomListNode(4);
+    n1.next->random=n1.next->next->next;
+    n1.next->next->random=&n1;
+    n1.next->next->next->random=n1.next;
+    //std::cout<<n1.random->label<<std::endl;
+    n1.next->next->next->random=n1.next;
+    auto x=Clone(&n1);
+    while(x){
+        std::cout<<x->label<<" ";
+        x=x->next;
     }
 }

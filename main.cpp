@@ -5,6 +5,7 @@
 #include <cmath>
 #include <list>
 #include <iomanip>
+#include <algorithm>
 using namespace std;
 //插入排序：算法复杂度为O(n^2)，稳定排序
 //对于前几项已有序的序列不会重排但不能保证每个位置是在自己的最终位置上因为在最后一次
@@ -261,18 +262,83 @@ vector<unsigned char> transfer_to_BSD(){
     return BCD;
 }
 
+//字符串的排列
+//思路：使用递归的方式先确定第一位的字符，再递归确定接下来的字符
+void Permutation(string str,int start,vector<char> &v,vector<string> &v1){
+    if(start<str.size()){
+    for(auto s:str){
+        if(count(v.begin(),v.end(),s)!=count(str.begin(),str.end(),s)) {
+            v[start]=s;
+            Permutation(str, start + 1, v, v1);
+            if (start == str.size() - 1) {
+                string ss;
+                for (auto x:v) {
+                    ss += string(1, x);
+                }
+                v1.push_back(ss);
+            }
+            v[start]='0';
+        }else{
+            continue;
+        }
+    }
+    } else{
+    }
+}
+vector<string> Permutation(string str) {
+    static vector<char> v(str.size(),'0');
+    vector<string> v1;
+    Permutation(str,0,v,v1);
+    return v1;
+}
+
+//字符串的组合，也可以使用递归求解，只不过要考虑一个数到n个数组合的情况
+//因此需要使用for循环
+
+vector<char> v;
+void Combination(string s,int start,int number){
+    if(start<s.size()){
+    if(number==0){
+        //string str;
+        for(auto xx:v)
+          cout<<xx<<" ";
+        cout<<endl;
+            //str+=xx;
+        //v1.push_back(str);
+    }
+    if(number<0){
+        return ;
+    }else {
+        v.push_back(s[start]);
+        Combination(s, start + 1, number - 1);
+        v.pop_back();
+        Combination(s, start + 1, number);
+    }}
+    else{
+        return ;
+    }
+}
+
+void Combination(string s){
+    if(!s.empty()){
+        //vector<char> v;
+        for(int i=1;i<=s.size();i++){
+            Combination(s,0,i);
+        }
+        //return v1;
+    }else{
+        std::cerr<<"empty string";
+    }
+    //return v1;
+}
+
+
     int main() {
-    vector<int> v{2,11,13,5,9,3,1,6,7,10,8,8,9,6,7};
-    /*swap_odd_even(v);
-    //heap_sort(v);
-    for(auto &x:v)
-        cout<<x<<" ";
-    cout<<endl;*/
-    auto x=transfer_to_BSD();
-    //cout.setf(ios::hex);
-    for(auto &xx:x)
-        printf("%02d ",xx);
-       // cout<<(xx>>4)<<" "<<(xx&0x0f)<<" ";
-    cout<<endl;
+   string str="aabc";
+Combination(str);
+//   for(auto xx:x){
+//       cout<<xx<<endl;
+//   }
+//    cout<<endl;
     return 0;
 }
