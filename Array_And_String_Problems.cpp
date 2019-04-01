@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <ctime>
 #include <set>
+#include <algorithm>
+#include <functional>
+#include <cmath>
 
 using namespace std;
 //找出数组中出现次数超过数组长度一半的数字
@@ -157,10 +160,142 @@ vector<int> GetLeastNumbers_Solution_with_multiset(vector<int> input, int k){
     return v;
 }
 
+//求数据流的中位数，数据个数为奇数就是中间数，偶数就是中间两个数取平均值
+//暴力解法：放入一个数组中，每次排序再取中位数
+static vector<int> v;
+void Insert_voilent(int num){
+    v.push_back(num);
+}
+
+double GetMedian_voilent(){
+    sort(v.begin(),v.end());
+    auto n=v.size();
+    if(n&1)
+        return v[n/2];
+    return (v[n/2]+v[n/2-1])/2.0;
+}
+
+//快排思路：使用快排思路找出中位数，平均时间为O(lgn)，最坏时间为O(n)
+// 实现代码上述已写，在此不再赘述
+// 利用堆的思路：将原数组分为两个相同个数或者数量相差为1的子数组
+// 前面为最大堆，后面为最小堆，构造完成后数组数量为奇数中位数就是其中某一个,向最小堆插入
+//为偶数的话就是二者相加取平均值，向最大堆插入，如果发现此时数比最小堆中的值大就将其插入最小堆，把原先最小堆的堆顶元素插入最大堆
+vector<int> min_heap;
+vector<int> max_heap;
+void Insert_heap(int num){
+    //cout<<min_heap.size()+max_heap.size()<<endl;
+    if(((min_heap.size()+max_heap.size())&1)==0){
+        //cout<<"here1";
+        if(!max_heap.empty()){
+            auto x=max_heap[0];
+            if(num<x){
+                min_heap.push_back(x);
+               // max_heap.erase(max_heap.begin());
+               pop_heap(max_heap.begin(),max_heap.end());
+               max_heap.pop_back();
+                max_heap.push_back(num);
+                push_heap(max_heap.begin(),max_heap.end());
+                push_heap(min_heap.begin(),min_heap.end(),greater<int>());
+            }else{
+                min_heap.push_back(num);
+                push_heap(min_heap.begin(),min_heap.end(),greater<int>());
+            }
+        } else{
+            //cout<<"here2";
+            min_heap.push_back(num);
+            push_heap(min_heap.begin(),min_heap.end(),greater<int>());
+        }
+    }else{
+            auto x = min_heap[0];
+            if (num > x) {
+                max_heap.push_back(x);
+                //min_heap.erase(min_heap.begin());
+                pop_heap(min_heap.begin(),min_heap.end(),greater<int>());
+                min_heap.pop_back();
+                min_heap.push_back(num);
+                push_heap(max_heap.begin(), max_heap.end());
+                push_heap(min_heap.begin(), min_heap.end(), greater<int>());
+            } else {
+                max_heap.push_back(num);
+                push_heap(max_heap.begin(), max_heap.end());
+            }
+    }
+}
+
+double GetMedian_heap(){
+    if(min_heap.size()+max_heap.size()==0)
+        return 0;
+    if((min_heap.size()+max_heap.size())&1){
+        //cout<<min_heap[0]<<endl;
+        return min_heap[0];
+    }else{
+        /*cout<<max_heap.size()<<" "<<min_heap.size()<<endl;
+        cout<<max_heap[0]<<" "<<min_heap[0]<<endl;*/
+        return (min_heap[0]+max_heap[0])/2.0;
+    }
+}
+
+//求和为s的连续正数序列
+//思路：使用一前一后双下标，当前范围内的值小于所给值的话，后面一个下标就+1
+//若大于则前面一个下标+1，当相等时就将其两个下标保存下来
+vector<vector<int> > FindContinuousSequence(int sum) {
+    int j=1,k=2;
+    vector<vector<int>> v;
+    for(j=1;k<=sum+1&&j<k;){
+        auto summ=0;
+        for(int i=j;i<k;i++){
+            summ+=i;
+        }
+        if(summ>sum)
+            j++;
+        if(summ<sum)
+            k++;
+        if(summ==sum){
+            if(j!=k-1){
+            vector<int> v1;
+            for(int z=j;z<k;z++){
+                v1.push_back(z);
+            }
+            v.push_back(v1);}
+            k++;
+        }
+    }
+    return v;
+}
+
+//计算从1到n整数中1出现的次数
+//思路：从最高位开始计算，然后次高位最后到个位,使用string会使得获取每一位的数更为方便
+int NumberOf1(string s,int n);
+int NumberOf1Between1AndN_Solution(int n)
+{
+    auto str=to_string(n);
+
+    //cout<<str<<endl;
+    return NumberOf1(str,n);
+}
+
+int NumberOf1(string s,int n){
+    auto x=s.size();
+    auto count=0;
+    if(s[0]>='2'){
+        count+=pow(10,x-1);
+    }else{
+        //cout<<"here";
+        count+=(stoi(s.substr(1,s.size()))+1);
+    }
+    cout<<count<<endl;
+    x=x-1;
+    while(s.size()>=2){
+        s=s.substr(1,s.size());
+        n=stoi(s);
+        //auto xx=(n%(int)pow(10,x));
+        count+=pow(10,s.size()-1);
+    }
+    return count;
+}
+
+
 int main(){
-    vector<int> v{4,5,1,6,2,7,3,8};
-    auto x=GetLeastNumbers_Solution_with_multiset(v,4);
-    for(auto xx:x)
-        cout<<xx<<endl;
+    cout<<NumberOf1Between1AndN_Solution(123);
     return 0;
 }

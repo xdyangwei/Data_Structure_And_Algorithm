@@ -295,7 +295,7 @@ vector<string> Permutation(string str) {
 //字符串的组合，也可以使用递归求解，只不过要考虑一个数到n个数组合的情况
 //因此需要使用for循环
 
-vector<char> v;
+static vector<char> v;
 void Combination(string s,int start,int number){
     if(start<s.size()){
     if(number==0){
