@@ -265,37 +265,41 @@ vector<vector<int> > FindContinuousSequence(int sum) {
 
 //计算从1到n整数中1出现的次数
 //思路：从最高位开始计算，然后次高位最后到个位,使用string会使得获取每一位的数更为方便
-int NumberOf1(string s,int n);
+//出现规律：如果第 i 位(自右向左，从1开始标号)上的数字是0，则第 i 位可能出现 1 的次数由更高位决定(若没有高位，则视高位为0)，等于更高位数乘以当前位数的权重(10^i-1)
+//如果第 i 位上的数字为 1，则第 i 位上出现 1 的次数不仅受更高位影响，还受低位影响(若没有低位，视低位为0)，等于更高位数乘以当前位数的权重 (10^i-1) + (低位数 + 1)
+//如果第 i 位上的数字大于 1，则第 i 位上可能出现 1 的次数仅由更高位决定(若没有高位，视高位为0)，等于(更高位数 + 1)乘以当前位数的权重 (10^i-1)
+int NumberOf1(string s);
 int NumberOf1Between1AndN_Solution(int n)
 {
     auto str=to_string(n);
-
-    //cout<<str<<endl;
-    return NumberOf1(str,n);
+    return NumberOf1(str);
 }
 
-int NumberOf1(string s,int n){
+int NumberOf1(string s){
     auto x=s.size();
-    auto count=0;
+    double count=0;
     if(s[0]>='2'){
         count+=pow(10,x-1);
     }else{
-        //cout<<"here";
         count+=(stoi(s.substr(1,s.size()))+1);
     }
-    cout<<count<<endl;
-    x=x-1;
-    while(s.size()>=2){
-        s=s.substr(1,s.size());
-        n=stoi(s);
-        //auto xx=(n%(int)pow(10,x));
-        count+=pow(10,s.size()-1);
+    int i=1;
+    while(i<(x-1)){
+        if(s[i]==0){
+            count+=(s[i-1]*pow(10,x-i-1));
+        }else if(s[i]==1){
+            count+=(s[i-1]*pow(10,x-i-1)+stoi(s.substr(i+1,x))+1);
+        } else{
+            count+=((s[i-1]+1)*pow(10,x-i-1));
+        }
     }
+    if(x>=2){
+    count+=(s[x-2]-'0'+1);}
     return count;
 }
 
-
 int main(){
-    cout<<NumberOf1Between1AndN_Solution(123);
+    cout<<NumberOf1Between1AndN_Solution(3);
+    //cout<<pow(10,2);
     return 0;
 }
