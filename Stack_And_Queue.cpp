@@ -5,6 +5,7 @@
 #include <stack>
 #include<queue>
 #include <cmath>
+#include <algorithm>
 using namespace std;
 
 template<typename T>
@@ -247,9 +248,89 @@ bool IsPopOrder(vector<int> pushV,vector<int> popV) {
     }
 }
 
+int min_coins(){
+    int n;
+    cin>>n;
+    auto tmp=n;
+    int x;
+    vector<int> monsters;
+    while(n--){
+        cin>>x;
+        monsters.push_back(x);
+    }
+    vector<int> coins;
+    while (tmp--){
+        cin>>x;
+        coins.push_back(x);
+    }
+    vector<pair<int,int>> min_coin(monsters.size(),make_pair(0,0));
+    min_coin[0].first=monsters[0];
+    min_coin[0].second=coins[0];
+    for(int i=1;i<=min_coin.size()-1;i++){
+        if(min_coin[i-1].first>=monsters[i]){
+            min_coin[i]=min_coin[i-1];
+        }else{
+            min_coin[i].first=monsters[i];
+            min_coin[i].second=min_coin[i-1].second+coins[i];
+        }
+    }
+    return min_coin[min_coin.size()-1].second;
+}
+
+int min_length(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    for(int i=0;i<n;){
+        if((s[i]=='0'&&s[i+1]=='1')||(s[i]=='1'&&s[i+1]=='0')){
+            s.erase(i,2);
+            i=i-1;
+        }else{
+            i++;
+        }
+    }
+    return s.size();
+}
+
+int least_coin(){
+    int m,n;
+    cin>>m>>n;
+    vector<int> v;
+    int x;
+    while(n--){
+        cin>>x;
+        v.push_back(x);
+    }
+    //cout<<"here"<<endl;
+    sort(v.begin(),v.end());
+    if(v[0]!=1)
+        return -1;
+    vector<int> v1(v.size()+1,0);
+    v1[1]=1;
+    for(int i=2;i<=m;i++){
+        //cout<<i<<endl;
+        auto it=find_if(v.begin(),v.end(),[i](int a){return (a>i)?true: false;});
+        //cout<<*it<<endl;
+        auto y=*(it-1);
+        //cout<<y<<endl;
+        auto addi=i%y;
+        v1[i]+=(i/y);
+        //cout<<v1[i]<<endl;
+        while(addi!=0){
+            auto it1=find_if(v.begin(),v.end(),[addi](int a){return (a>addi)?true: false;});
+            auto z=*(it1-1);
+            v1[i]+=(addi/z);
+            addi=addi%z;
+        }
+    }
+    int MAX=0;
+    for(auto xx:v1)
+        MAX=max(MAX,xx);
+    return MAX;
+}
 int main() {
-    vector<vector<int>> v{{1,2,3},{4,5,6},{7,8,9},{10,11,12},{13,14,15}};
-    vector<int> v1{1,2,3,4,5};vector<int> v2{4,3,5,1,2};
-    cout<<IsPopOrder(v1,v2);
+    cout<<least_coin();
+    return 0;
 
 }
