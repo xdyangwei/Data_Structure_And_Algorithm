@@ -369,20 +369,29 @@ ListNode<T>* FindFirstCommonNode(ListNode<T>* h1,ListNode<T>* h2){
     }
 }
 
+template <typename T>
+ListNode<T>* swapPairs(ListNode<T>* head){
+    if(head== nullptr||head->next== nullptr)
+        return head;
+    auto y=head->next->next;
+    auto x=head;
+    auto z=head->next;
+    head=head->next;
+    head->next=x;
+    x->next=swapPairs(y);
+    return z;
+}
+
+
+
 int main(){
-    RandomListNode n1(1);
-    n1.next=new RandomListNode(2);
-    n1.next->next=new RandomListNode(3);
-    n1.random=n1.next->next;
-    n1.next->next->next=new RandomListNode(4);
-    n1.next->random=n1.next->next->next;
-    n1.next->next->random=&n1;
-    n1.next->next->next->random=n1.next;
-    //std::cout<<n1.random->label<<std::endl;
-    n1.next->next->next->random=n1.next;
-    auto x=Clone(&n1);
+    ListNode<int> n1(1);
+    n1.next=new ListNode<int>(2);
+    n1.next->next=new ListNode<int>(3);
+    n1.next->next->next=new ListNode<int>(4);
+    auto x=swapPairs(&n1);
     while(x){
-        std::cout<<x->label<<" ";
+        std::cout<<x->data<<" ";
         x=x->next;
     }
 }
