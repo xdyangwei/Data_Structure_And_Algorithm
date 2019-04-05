@@ -332,6 +332,43 @@ RandomListNode* Clone(RandomListNode* pHead)
     }
 }
 
+//求两个链表的第一个公共结点
+//思路：求出两个链表的长度，然后长的链表先走它俩的长度差然后它俩同时走，相同的节点值和next值就为第一个公共结点
+template <typename T>
+ListNode<T>* FindFirstCommonNode(ListNode<T>* h1,ListNode<T>* h2){
+    int size1=0,size2=0;
+    auto x=h1,y=h2;
+    while(h1!= nullptr){
+        size1++;h1=h1->next;
+    }
+    while (h2!= nullptr){
+        size2++;h2=h2->next;
+    }
+    if(size1>=size2){
+        auto distance=size1-size2;
+        while(distance--){
+            x=x->next;
+        }
+        while(size2--){
+            if(x->data==y->data&&x->next==y->next)
+                break;
+            x=x->next;y=y->next;
+        }
+        return x;
+    } else{
+        auto distance=size2-size1;
+        while(distance--){
+            y=y->next;
+        }
+        while(size1--){
+            if(x->data==y->data&&x->next==y->next)
+                break;
+            x=x->next;y=y->next;
+        }
+        return x;
+    }
+}
+
 int main(){
     RandomListNode n1(1);
     n1.next=new RandomListNode(2);
