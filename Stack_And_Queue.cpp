@@ -248,6 +248,9 @@ bool IsPopOrder(vector<int> pushV,vector<int> popV) {
     }
 }
 
+//打怪雇佣问题，穿越山谷时依次遇见n只怪兽，如果当前怪兽武力值大于其雇佣的怪兽武力值和
+//则小Q需要贿赂这只怪兽才能保证其不被攻击
+//思路：多重背包问题
 int min_coins(){
     int n;
     cin>>n;
@@ -270,6 +273,8 @@ int min_coins(){
         if(min_coin[i-1].first>=monsters[i]){
             min_coin[i]=min_coin[i-1];
         }else{
+            auto y=monsters[i]-min_coin[i-1].first;
+            if(find_if(monsters.begin(),monsters.begin()+i,[y](int a){return a>=y?true: false;})==monsters.begin()+i)
             min_coin[i].first=monsters[i];
             min_coin[i].second=min_coin[i-1].second+coins[i];
         }
