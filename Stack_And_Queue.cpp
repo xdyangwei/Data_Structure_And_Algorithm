@@ -6,6 +6,9 @@
 #include<queue>
 #include <cmath>
 #include <algorithm>
+#include "dist/json/json.h"
+#include "dist/jsoncpp.cpp"
+#include <memory>
 using namespace std;
 
 template<typename T>
@@ -334,8 +337,28 @@ int least_coin(){
         MAX=max(MAX,xx);
     return MAX;
 }
+
+void add_jsoncpp_test(){
+    using namespace Json;
+    Value root;
+    root["name"]=Value("yangwei");
+    root["age"]=11;
+    StreamWriterBuilder builder;
+    Value x;
+    StreamWriter *sw(builder.newStreamWriter());
+    sw->write(root,&cout);
+    cout<<endl;
+    for(auto xx:root.getMemberNames())
+        cout<<xx<<endl;
+    cout<<root<<endl;
+    //cout<<str<<endl;
+    //return value;
+}
+
 int main() {
-    cout<<least_coin();
+    add_jsoncpp_test();
+    /*cout<<x<<endl;
+    //cout<<least_coin();*/
     return 0;
 
 }
