@@ -4,6 +4,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <set>
 #include <map>
 #include <algorithm>
 #include <string>
@@ -415,6 +416,26 @@ Binary_Node<T>* Convert(Binary_Node<T>* node){
     while(last!= nullptr&&last->left_child!= nullptr)
         last=last->left_child;
     return last;
+}
+
+//二叉搜索树的第k小的结点
+//思路：由二叉搜索树性质，右孩子结点的值大于父结点的值大于左孩子节点的值可知使用
+//中序遍历此二叉树即可，遍历的第k个结点就是其中第k小的结点
+template <typename T>
+Binary_Node<T>* KthNode(Binary_Node<T>* pRoot,int k){
+    set<Binary_Node<T>*> v;
+    KthNodeCore(pRoot,k,v);
+    return *(v.rbegin());
+}
+template <typename T>
+void KthNodeCore(Binary_Node<T>* pRoot,int k,set<Binary_Node<T>*>& v){
+    if(pRoot->left_child!= nullptr)
+        KthNodeCore(pRoot,k,v);
+    v.insert(pRoot);
+    if(v.size()==k)
+        return ;
+    if(pRoot->right_child!= nullptr)
+        KthNodeCore(pRoot,k,v);
 }
 
 int main(){

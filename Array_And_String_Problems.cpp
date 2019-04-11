@@ -298,8 +298,84 @@ int NumberOf1(string s){
     return count;
 }
 
+//请实现一个函数用来找出字符流中第一个只出现一次的字符。
+// 例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
+// 当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+//思路：使用一个顺序容器保存每个字符，然后关联容器保存字符及其出现的个数，然后找到第一个字符出现数为1的字符
+static vector<char> v1;
+static map<char,int> m1;
+void Insert(char ch)
+{
+    v1.push_back(ch);
+    if(m1[ch]==0){
+        m1[ch]=1;
+    }else{
+        m1[ch]+=1;
+    }
+}
+
+char FirstAppearingOnce()
+{
+    char a='#';
+    for(auto xx:v1){
+        if(m1[xx]==1)
+        {a= xx;break;}
+    }
+    return a;
+}
+
+//0~n-1排序数组中缺失的数字
+//排序好的数组使用二分查找法，首先判断中间数组下标与自身值是否一致，若一致说明缺失数字在右边，继续在右边查找
+//若不一致且左边一个数值也是不一致的，说明在左边，否则说明缺少的就是该数字前一个数字
+int missing_number(vector<int> v){
+    auto n=v.size();
+    int start=0;
+    int end=n-1;
+    int flag=-1;
+    while(start<=end){
+        int middle=(start+end)/2;
+        if(v[middle]==middle)
+            start=middle+1;
+        else{
+            if(v[middle-2]==(middle-2))
+            {flag=middle-1;break;}
+            else{
+                end=middle-1;
+            }
+        }
+    }
+    return flag;
+}
+
+//单调递增数组中下标和数值相等的元素
+//由单调递增可知使用二分查找，当所查找元素数值与下标相等时符合要求
+//当数值比下标大时由单调递增可知此数值右边所有数值均大于下标，查找左边
+//当数值比下标小时由单调递增可知此数值左边所有数值均小于下标，查找右边
+int equal_number(vector<int> v){
+    auto n=v.size();
+    int start=0;
+    int end=n-1;
+    int x=-1;
+    while(start<=end){
+        int middle=(start+end)/2;
+        if(middle==v[middle])
+        {x=middle;break;}
+        else if(middle<v[middle])
+            end=middle-1;
+        else{
+            start=middle+1;
+        }
+    }
+    return x;
+}
+
+//数组中除了两个数字外其余数字都出现了两次，请找出这两个只出现一次的数字
+//思路：
+void FindNumsAppearOnce(vector<int> data,int* num1,int *num2)
+
 int main(){
-    cout<<NumberOf1Between1AndN_Solution(3);
+    vector<int> v{-3,-1,1,3,5};
     //cout<<pow(10,2);
+    cout<<equal_number(v)<<endl;
     return 0;
 }
