@@ -13,6 +13,7 @@
 #include <memory>
 #include <bits/shared_ptr.h>
 #include <bitset>
+#include <stack>
 
 using namespace std;
 //找出数组中出现次数超过数组长度一半的数字
@@ -445,10 +446,73 @@ void FindNumsAppearOnce_Of_Three(vector<int> data,shared_ptr<int> num){
     *num=z;
 }
 
+//翻转单词顺序列,将“student. a am I”翻转为“I am a student.”
+//思路：使用一个栈，栈里面存的是顺序容器，顺序容器中存的是每个单词，当每个单词读完再加上空格
+string ReverseSentence(string str) {
+    int start=0;
+    auto it=str.find(' ');
+    //cout<<it<<endl;
+    stack<string> s1;
+while(it!=str.npos){
+    string s(str.begin()+start,str.begin()+it);
+    start=it+1;
+    it=str.find(' ',it+1);
+    s1.push(s);
+}
+auto it1=str.rfind(' ');
+s1.push(string(str.begin()+it1+1,str.end()));
+string temp="";
+while(s1.size()>1){
+    auto x=s1.top();
+    s1.pop();
+    temp+=x;
+    temp+=" ";
+}
+auto x=s1.top();
+temp+=x;
+return temp;
+}
+
+//给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值
+//思路：记录下当前滑动窗口最大值和次大值的下标，然后删除的数不是当前最大值就将最大值与新添加的数进行比较
+//如果删除的是最大值，就与次大值进行比较，若比次大值大则下一个滑动窗口最大值就是新加的数，否则最大值是之前的次大值
+vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+{
+    vector<int> v;
+    vector<int> v1;
+    if(size==0||num.size()==0||size>num.size())
+        return v1;
+    int max_1=0;
+    for(int i=0;i<size;i++)
+        max_1=(max(num[max_1],num[i])==num[i])?i:max_1;
+    v.push_back(max_1);
+    v1.push_back(num[max_1]);
+    for(int i=1;i<num.size()-size+1;i++){
+        if(v[i-1]!=(i-1)){
+            if(num[v[i-1]]<num[i+size-1]){
+            v.push_back(i+size-1);
+            v1.push_back(num[i+size-1]);
+            }
+            else{
+                v.push_back(v[i-1]);
+                v1.push_back(num[v[i-1]]);
+            }
+        }else {
+            int max=i;
+            for (int j = i; j < (i + size); j++) {
+              max=(num[j]>=num[max])?j:max;
+            }
+            v.push_back(max);
+            v1.push_back(num[max]);
+        }
+    }
+    return v1;
+}
+
 int main(){
-    vector<int> v{-1,-1,-1,5,5,6,5,6,6,8};
-    shared_ptr<int> p(new int);
-    FindNumsAppearOnce_Of_Three(v,p);
-    cout<<*p<<endl;
+    vector<int> v{2,3,4,2,6,2,5,1};
+    auto v1=maxInWindows(v,3);
+    for(auto xx:v1)
+        cout<<xx<<endl;
     return 0;
 }
