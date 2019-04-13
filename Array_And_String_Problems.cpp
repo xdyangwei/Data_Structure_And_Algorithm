@@ -10,6 +10,9 @@
 #include <algorithm>
 #include <functional>
 #include <cmath>
+#include <memory>
+#include <bits/shared_ptr.h>
+#include <bitset>
 
 using namespace std;
 //找出数组中出现次数超过数组长度一半的数字
@@ -369,13 +372,83 @@ int equal_number(vector<int> v){
     return x;
 }
 
+//数组中除了1个数字外其余数字都出现了两次，请找出这两个只出现一次的数字
+//思路：两个相同的数异或结果肯定为0，因为只有一个数字出现一次，其余都出现两次
+//因此所有的数异或结果就是我们所需要找出的数字
+void FindNumsAppearOnce_One(vector<int> data,shared_ptr<int> num){
+    int temp=data[0];
+    vector<int> data2(data.begin()+1,data.end());
+    for(auto x:data2){
+        temp^=x;
+    }
+    *num=temp;
+}
+
 //数组中除了两个数字外其余数字都出现了两次，请找出这两个只出现一次的数字
-//思路：
-void FindNumsAppearOnce(vector<int> data,int* num1,int *num2)
+//思路：从上一题可知有两个数字出现一次，其余都出现两个因此所有数字异或完之后是这两个数字的结果
+//由于这两个数字不相同，所以异或出的结果中二进制必定有一位是1，根据这一位是1或0将数组中的数分为两个子数组
+//这两个不同的数肯定出现在不同子数组，而其余相同的数也将会两两出现在同一数组然后对两个子数组分别进行异或就能得到我们想要的两个数字
+void FindNumsAppearOnce(vector<int> data,int* num1,int *num2){
+    int temp=data[0];
+    for(auto it=data.begin()+1;it!=data.end();it++){
+        temp^=(*it);
+    }
+    bitset<32> b(temp);
+    //cout<<b.test(0)<<endl;
+    int count=0;
+    while(count<32){
+        //cout<<count<<endl;
+        if(b[count]==1){
+            break;
+        }
+        count++;
+    }
+    //cout<<count<<endl;
+    vector<int> v1,v2;
+    for(auto x:data){
+        bitset<32> b1(x);
+        if(b1[count]==1)
+            v1.push_back(x);
+        else
+            v2.push_back(x);
+    }
+    int temp1=v1[0];
+    for(auto it=v1.begin()+1;it!=v1.end();it++)
+        temp1^=(*it);
+    //cout<<temp1<<endl;
+    (*num1)=temp1;
+    int temp2=v2[0];
+    for(auto it=v2.begin()+1;it!=v2.end();it++)
+        temp2^=(*it);
+    (*num2)=temp2;
+}
+
+//数组中除了1个数字外其余数字都出现了三次，请找出这个只出现一次的数字
+//思路：由于其他数字出现了三次因此不能使用异或，而由于其余数字出现三次因此当出现一次的数字某二进制位为0时
+//其余数字的二进制位相加肯定是能被3整除的，而出现一次的数字某二进制位为1时无法被3整除，所以我们可以确定
+//只出现一次的数字哪些二进制位为1，哪些二进制为0，同时也就确定了这个数字
+void FindNumsAppearOnce_Of_Three(vector<int> data,shared_ptr<int> num){
+    vector<int> v(32,0);
+    for(auto x:data){
+        bitset<32> b(x);
+        for(int i=0;i<32;i++){
+            if(b[i]==1)
+                v[i]+=1;
+        }
+    }
+    bitset<32> b1;
+    for(int i=0;i<32;i++){
+        if(v[i]%3==1)
+            b1.set(i);
+    }
+    auto z=b1.to_ulong();
+    *num=z;
+}
 
 int main(){
-    vector<int> v{-3,-1,1,3,5};
-    //cout<<pow(10,2);
-    cout<<equal_number(v)<<endl;
+    vector<int> v{-1,-1,-1,5,5,6,5,6,6,8};
+    shared_ptr<int> p(new int);
+    FindNumsAppearOnce_Of_Three(v,p);
+    cout<<*p<<endl;
     return 0;
 }
