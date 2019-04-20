@@ -509,10 +509,46 @@ vector<int> maxInWindows(const vector<int>& num, unsigned int size)
     return v1;
 }
 
+//给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
+int lengthOfLongestSubstring(string s) {
+    auto n=s.size();
+    if(n==0)
+        return 0;
+    if(n==1)
+        return 1;
+    vector<int> v(n+1,0);
+    v[1]=1;v[2]=(s[0]==s[1])?1:2;
+    for(int i=2;i<n;i++){
+        auto x=v[i];
+        auto it=s.substr(i-x,x).find(s[i]);
+        auto it1=i-x+it;
+        if(it1==string::npos)
+            v[i+1]=v[i]+1;
+        else{
+            v[i+1]=i-it1;
+        }
+    }
+    int MAX=0;
+    for(auto xx:v)
+        MAX=max(xx,MAX);
+    return MAX;
+}
+
+//Z字变换，将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
+string convert(string s, int numRows) {
+auto n=s.size();
+auto m=ceil(n/(double)numRows);
+vector<string> v(numRows,string(m,' '));
+for(int i=0;i<=n-1;i+=(2*numRows-2)){
+    int j=i;
+    while(j<numRows){
+        
+    }
+}
+}
+
 int main(){
-    vector<int> v{2,3,4,2,6,2,5,1};
-    auto v1=maxInWindows(v,3);
-    for(auto xx:v1)
-        cout<<xx<<endl;
+    string s="abcabcbb";
+    cout<<ceil(41/4.0);
     return 0;
 }

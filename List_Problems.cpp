@@ -4,6 +4,8 @@
 #include <iostream>
 #include <memory>
 #include<stack>
+#include <vector>
+
 template <typename T>
 class ListNode {
 public:
@@ -382,16 +384,73 @@ ListNode<T>* swapPairs(ListNode<T>* head){
     return z;
 }
 
-
+template <typename T>
+ListNode<T>* addTwoNumbers(ListNode<T>* l1, ListNode<T>* l2){
+    std::vector<T> v1;std::vector<T> v2;
+    while(l1!= nullptr){
+        v1.push_back(l1->data);l1=l1->next;
+    }
+    while(l2!= nullptr){
+        v2.push_back(l2->data);l2=l2->next;
+    }
+    auto m=v1.size();auto n=v2.size();
+    std::vector<T> v(std::max(m,n)+1,0);
+    //auto z=v.size()-1;
+    int i=0,j=0,k=0;
+    for(;i<=m-1&&j<=n-1;i++,j++,k++){
+        auto x=v1[i]+v2[j]+v[k];
+        if(x>=10){
+            v[k+1]+=1;
+            v[k]=(x-10);
+        }else{
+            v[k]=x;
+        }
+    }
+    if(i<=m-1){
+        while(i!=m) {
+            v[k]+=v1[i];
+            if(v[k]>=10){
+                v[k+1]+=1;
+                v[k]-=10;
+            }
+            k++;i++;
+        }
+    }
+    if(j<=n-1){
+        while(j!=n){
+            v[k]+=v2[j];
+            if(v[k]>=10){
+                v[k+1]+=1;
+                v[k]-=10;
+            }
+            k++;j++;
+        }
+    }
+    int zz=0;
+    ListNode<T>* p=new ListNode<T>(v[zz]);
+    auto pp=p;
+    int y=v.size()-1;
+    if(v[v.size()-1]==0)
+        y-=1;
+    while(zz<y){
+        p->next=new ListNode<T>(v[zz+1]);
+        p=p->next;
+        zz++;
+    }
+    p->next= nullptr;
+    return pp;
+}
 
 int main(){
-    ListNode<int> n1(1);
-    n1.next=new ListNode<int>(2);
-    n1.next->next=new ListNode<int>(3);
-    n1.next->next->next=new ListNode<int>(4);
-    auto x=swapPairs(&n1);
-    while(x){
-        std::cout<<x->data<<" ";
+    ListNode<int> n1(0);
+    //n1.next=new ListNode<int>(3);
+    //n1.next->next=new ListNode<int>(3);
+    ListNode<int> n2(7);
+    n2.next=new ListNode<int>(3);
+    /*n2.next->next=new ListNode<int>(4);*/
+    auto x=addTwoNumbers(&n1,&n2);
+    while(x!= nullptr){
+        std::cout<<(*x).data<<std::endl;
         x=x->next;
     }
 }
