@@ -14,7 +14,7 @@
 #include <bits/shared_ptr.h>
 #include <bitset>
 #include <stack>
-
+#include <sstream>
 using namespace std;
 //找出数组中出现次数超过数组长度一半的数字
 //然后输出，如果没有就输出0
@@ -537,6 +537,8 @@ int lengthOfLongestSubstring(string s) {
 //Z字变换，将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 string convert(string s, int numRows) {
 auto n=s.size();
+if(n==0)
+    return "";
 vector<string> v(numRows,string(n,' '));
 for(int i=0,j=0;i<=n-1;){
     int k=0;
@@ -550,16 +552,21 @@ for(int i=0,j=0;i<=n-1;){
         v[x][++j]=s[i];
         i++;
     }
+    j++;
     //cout<<i<<endl;
 }
+string ss="";
 for(auto xx:v){
-    cout<<xx<<endl;
+    ss+=xx;
 }
-return "";
+string str;
+stringstream f(ss);
+f<<str;
+return str;
 }
 
 int main(){
     string s="LEETCODEISHIRING";
-    cout<<convert(s,3);
+    cout<<convert(s,4);
     return 0;
 }
