@@ -537,18 +537,29 @@ int lengthOfLongestSubstring(string s) {
 //Z字变换，将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 string convert(string s, int numRows) {
 auto n=s.size();
-auto m=ceil(n/(double)numRows);
-vector<string> v(numRows,string(m,' '));
-for(int i=0;i<=n-1;i+=(2*numRows-2)){
-    int j=i;
-    while(j<numRows){
-
+vector<string> v(numRows,string(n,' '));
+for(int i=0,j=0;i<=n-1;){
+    int k=0;
+    while(k<numRows&&i<=n-1){
+        v[k][j]=s[i];
+        i++;k++;
     }
+    //cout<<i<<endl;
+    auto x=numRows-1;
+    while(--x>0&&i<=n-1){
+        v[x][++j]=s[i];
+        i++;
+    }
+    //cout<<i<<endl;
 }
+for(auto xx:v){
+    cout<<xx<<endl;
+}
+return "";
 }
 
 int main(){
-    string s="abcabcbb";
-    cout<<ceil(41/4.0);
+    string s="LEETCODEISHIRING";
+    cout<<convert(s,3);
     return 0;
 }
