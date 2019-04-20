@@ -542,7 +542,7 @@ vector<string> v(numRows,string(m,' '));
 for(int i=0;i<=n-1;i+=(2*numRows-2)){
     int j=i;
     while(j<numRows){
-        
+
     }
 }
 }
