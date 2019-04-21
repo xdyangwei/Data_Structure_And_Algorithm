@@ -15,6 +15,8 @@
 #include <bitset>
 #include <stack>
 #include <sstream>
+#include <queue>
+
 using namespace std;
 //找出数组中出现次数超过数组长度一半的数字
 //然后输出，如果没有就输出0
@@ -537,7 +539,7 @@ int lengthOfLongestSubstring(string s) {
 //Z字变换，将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 string convert(string s, int numRows) {
 auto n=s.size();
-if(n==0)
+if(n==0||numRows==0)
     return "";
 vector<string> v(numRows,string(n,' '));
 for(int i=0,j=0;i<=n-1;){
@@ -559,14 +561,120 @@ string ss="";
 for(auto xx:v){
     ss+=xx;
 }
-string str;
+string str="";
 stringstream f(ss);
-f<<str;
+string sss;
+while(f>>sss)
+    str+=sss;
 return str;
 }
 
+int reverse(int x){
+    string s=to_string(x);
+    if(s[0]>'9'||s[0]<'0')
+        reverse(s.begin()+1,s.end());
+    else
+        reverse(s.begin(),s.end());
+    int start=0;
+    if(s[0]>'9'||s[0]<'0')
+        start=1;
+    auto it=s.find_first_not_of("0",start);
+    if(it!=string::npos)
+    s.erase(start,it-start);
+    auto y=stol(s);
+    if(y>INT32_MAX||y<INT32_MIN){
+        cout<<"yes"<<endl;
+        return 0;}
+    return y;
+}
+
+//请你来实现一个 atoi 函数，使其能将字符串转换成整数
+//首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
+//当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；
+//假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。
+//该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。
+//注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。
+//在任何情况下，若函数不能进行有效的转换时，请返回 0。
+int myAtoi(string str) {
+    if(str.empty())
+        return 0;
+    auto start=str.find_first_not_of(" ");
+    if(start==string::npos)
+        return 0;
+    auto i=start;
+    if(str[i]=='+'||str[i]=='-')
+        i=start+1;
+    while(str[i]>='0'&&str[i]<='9')
+        i++;
+    auto s=str.substr(start,i-start);
+    if(s.empty())
+        return 0;
+    if(s[0]=='+'||s[0]=='-'){
+        auto x=s.find_first_not_of("0",1);
+        if(x!=string::npos){
+        auto ss=s.substr(x);
+        s=s[0]+ss;} else{
+            return 0;
+        }
+    } else{
+        auto x=s.find_first_not_of("0");
+        if(x!=string::npos) {
+            auto ss = s.substr(x);
+            s = ss;
+        }else{
+            return 0;
+        }
+    }
+    if(s[0]!='+'&&s[0]!='-'&&(s[0]>'9'||s[0]<'0'))
+        return 0;
+    if(s[0]=='+'||s[0]=='-'){
+        if(s.size()==1||(s[1]>'9'||s[1]<'0'))
+            return 0;
+    }
+    if(s.size()>11){
+        if(s[0]=='-')
+            return INT32_MIN;
+        else{
+            return INT32_MAX;
+        }
+    }
+    auto z=s.find_first_not_of(" ");
+    if(z==string::npos)
+        return 0;
+    auto y=stol(s);
+    if(y>INT32_MAX)
+        return INT32_MAX;
+    if(y<INT32_MIN)
+        return INT32_MIN;
+    return y;
+}
+
+//判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+//不将整数转换为字符串来解决这个问题
+bool isPalindrome(int x) {
+    if(x<0)
+        return false;
+    stack<int> s;
+    queue<int> q;
+    while(x>0){
+        auto y=x%10;
+        s.push(y);
+        q.push(y);
+        x=(x-y)/10;
+    }
+    bool flag=true;
+    while(!s.empty()){
+        auto i=s.top();
+        auto j=q.front();
+        if(i!=j){
+            flag= false;
+            break;}
+        s.pop();q.pop();
+    }
+    return flag;
+}
+
 int main(){
-    string s="LEETCODEISHIRING";
-    cout<<convert(s,4);
+    cout<<isPalindrome(12321);
     return 0;
 }
