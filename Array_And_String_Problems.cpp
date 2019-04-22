@@ -776,6 +776,8 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     return s1;
 }
 
+//使用双指针的方法，先对整个进行排序，接着将自身排除产生一个新的数组，
+// 然后前指针指向第一个数，后指针指向最后一个数，三者之和要是小于我们的之和则前指针向后推，大于则后指针向前推
 vector<vector<int>> threeSum_1(vector<int>& nums) {
 
 }
