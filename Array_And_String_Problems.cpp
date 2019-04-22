@@ -674,7 +674,120 @@ bool isPalindrome(int x) {
     return flag;
 }
 
+//罗马数字转整数
+int romanToInt(string s) {
+    int num=0;
+    vector<string> v1{"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    vector<int> v{1000,900,500,400,100,90,50,40,10,9,5,4,1};
+    map<string,int> m;
+    for(int i=0;i<v.size();i++){
+        m.insert(pair<string,int>(v1[i],v[i]));
+    }
+    if(s.size()==1)
+        return m[string(1,s[0])];
+    for(int i=0;i<s.length();){
+        if(s[i]!='I'&&s[i]!='X'&&s[i]!='C'){
+            num+=m[string(1,s[i])];i++;
+        } else{
+            if(s[i+1]=='X'||s[i+1]=='C'||s[i+1]=='M'||s[i+1]=='V'||s[i+1]=='L'||s[i+1]=='D') {
+                string s1(1,s[i]);string s2(1,s[i+1]);
+                s1+=s2;
+                if(m[s1]==0){
+                    num+=m[string(1,s[i])];i++;
+                    m.erase(s1);
+                } else{
+                num += m[s1];i+=2;}
+            }else{
+                num+=m[string(1,s[i])];i++;
+            }
+        }
+    }
+    return num;
+}
+
+//编写一个函数来查找字符串数组中的最长公共前缀。
+//如果不存在公共前缀，返回空字符串 ""。
+string longestCommonPrefix(vector<string>& strs) {
+    if(strs.empty())
+        return "";
+    auto s=strs[0];int Min=s.size();
+    for(auto xx:strs){
+        Min=min((int)xx.size(),Min);
+    }
+    int Max=0;
+    for(int i=0;i<Min;i++){
+        bool flag=1;
+        for(int j=1;j<strs.size();j++){
+            if(s[i]!=strs[j][i]){
+                flag=0;break;
+            }
+        }
+        if(flag==1)
+            Max++;
+        else
+            break;
+    }
+    if(Max==0)
+        return "";
+    return s.substr(0,Max);
+}
+
+//三数之和：给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，
+// 使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+//下面的是暴力做法，无法通过100%的case
+vector<vector<int>>twoSum(vector<int>& nums,int num){
+    vector<vector<int>> v1;
+    for(int i=0;i<nums.size();i++){
+        auto x=nums;x.erase(x.begin()+i);
+        auto it=find(x.begin(),x.end(),num-nums[i]);
+        while(it!=x.end()){
+            vector<int> v;
+            v.push_back(nums[i]);v.push_back(*it);
+            v1.push_back(v);
+            it=find(it+1,x.end(),num-nums[i]);
+        }
+    }
+    return v1;
+}
+
+vector<vector<int>> threeSum(vector<int>& nums) {
+    auto n=nums.size();
+    if(n<3)
+        return vector<vector<int>>();
+    vector<vector<int>> s1;
+    for(auto i=nums.begin();i!=nums.end();i++){
+        auto nums1=nums;
+        nums1.erase(nums1.begin()+(i-nums.begin()));
+        auto v=twoSum(nums1,0-(*i));
+        for(auto xx:v){
+            xx.push_back(*i);
+            s1.push_back(xx);
+        }
+    }
+    set<vector<int>> s2;
+    for(auto &xx:s1){
+        sort(xx.begin(),xx.end());
+        s2.insert(xx);
+    }
+    s1.clear();
+    for(auto xx:s2){
+        s1.push_back(xx);
+    }
+    return s1;
+}
+
+vector<vector<int>> threeSum_1(vector<int>& nums) {
+
+}
+
+
 int main(){
-    cout<<isPalindrome(12321);
+    vector<int> v{-1, 0, 1, 2, -1, -4};
+    auto x=threeSum(v);
+    for(auto xx:x){
+        for(auto xxx:xx)
+            cout<<xxx<<" ";
+        cout<<endl;
+    }
     return 0;
 }
