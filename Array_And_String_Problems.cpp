@@ -778,18 +778,142 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 
 //使用双指针的方法，先对整个进行排序，接着将自身排除产生一个新的数组，
 // 然后前指针指向第一个数，后指针指向最后一个数，三者之和要是小于我们的之和则前指针向后推，大于则后指针向前推
-vector<vector<int>> threeSum_1(vector<int>& nums) {
+vector<vector<int>> twosum_1(vector<int>& nums,int num){
+    vector<vector<int>> v;
+    auto n=nums.size();
+    for(int i=0,j=n-1;i<j;){
+        if(nums[i]+nums[j]==num){
+            vector<int> v1;v1.push_back(nums[i]);v1.push_back(nums[j]);v.push_back(v1);
+            i++;j--;
+        } else if(nums[i]+nums[j]<num)
+            i++;
+        else
+            j--;
+    }
+    return v;
+}
 
+vector<vector<int>> threeSum_1(vector<int>& nums) {
+    auto n=nums.size();
+    if(n<3)
+        return vector<vector<int>>();
+    sort(nums.begin(),nums.end());
+    if(nums[0]>0||nums[n-1]<0)
+        return vector<vector<int>>();
+    if(find_if_not(nums.begin(),nums.end(),[](int a){return a==0?true:false;})==nums.end())
+        return vector<vector<int>>{{0,0,0}};
+    vector<vector<int>> s1;
+    map<int,int> m;
+    for(auto i=nums.begin();i!=nums.end();i++){
+        auto nums1=nums;
+        if(m[*i]==0)
+            m[*i]+=1;
+        else
+            continue;
+        nums1.erase(nums1.begin()+(i-nums.begin()));
+        auto v=twosum_1(nums1,0-(*i));
+        for(auto xx:v){
+            xx.push_back(*i);
+            s1.push_back(xx);
+        }
+    }
+    set<vector<int>> s2;
+    for(auto &xx:s1){
+        sort(xx.begin(),xx.end());
+        s2.insert(xx);
+    }
+    s1.clear();
+    for(auto xx:s2){
+        s1.push_back(xx);
+    }
+    return s1;
 }
 
 
-int main(){
-    vector<int> v{-1, 0, 1, 2, -1, -4};
-    auto x=threeSum(v);
-    for(auto xx:x){
-        for(auto xxx:xx)
-            cout<<xxx<<" ";
-        cout<<endl;
+//给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，
+// 使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+//思路：还是使用双指针，将排序后的数组一个指针指向第一个数，一个指针指向最后一个数，然后计算哪两个数之和与target与当前数之差最接近则输出这对组合
+struct res{
+    int difference;
+    int a;
+    int b;
+    int c;
+};
+res* twoSumClosest(vector<int>& nums, int target){
+    auto n=nums.size();
+    auto x=new res;
+    (*x).difference=INT32_MAX;(*x).a=INT32_MAX;(*x).b=INT32_MAX;
+    for(int i=0,j=n-1;i<j;){
+        if(abs(nums[i]+nums[j]-target)<(*x).difference){
+            (*x).difference=abs(nums[i]+nums[j]-target);
+            (*x).a=nums[i];(*x).b=nums[j];
+        }
+        if(nums[i]+nums[j]<target)
+            i++;
+        else
+            j--;
     }
+    return x;
+}
+
+int threeSumClosest(vector<int>& nums, int target) {
+    vector<res*> v;
+    sort(nums.begin(),nums.end());
+    for(int i=0;i<nums.size();i++){
+        auto nums1=nums;
+        nums1.erase(nums1.begin()+i);
+        auto x=twoSumClosest(nums1,target-nums[i]);
+        x->c=nums[i];
+        v.push_back(x);
+    }
+    sort(v.begin(),v.end(),[](res* a,res*b){
+        return abs(a->difference)<abs(b->difference)?true: false;
+    });
+    auto z=v[0]->a+v[0]->b+v[0]->c;
+    return z;
+}
+
+//给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+//思路：字母的全组合
+
+static map<int,string> m3;
+static vector<string> v3;
+void init_m3(){
+    vector<string> v2{"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+     vector<int> v3{2,3,4,5,6,7,8,9};
+    for(int i=0;i<v3.size();i++){
+        m3.insert(make_pair(v3[i],v2[i]));
+    }
+}
+void recuresive_number(string s,int i,int n,string& str1){
+    if(s.empty())
+        v3.push_back(str1);
+    auto x=m3[s[0]-'0'];
+    auto n1=x.size();
+    for(int j=0;j<n1;j++){
+        str1[i]=x[j];
+        recuresive_number(s.substr(1),i+1,n,str1);
+    }
+}
+
+vector<string> letterCombinations(string digits) {
+    auto n=digits.size();
+    if(n==0)
+        return vector<string>();
+    string str1(n,' ');
+    vector<string> v;
+    auto x=digits[0]-'0';
+    init_m3();
+    for(int i=0;i<m3[x].size();i++){
+        str1[0]=m3[x][i];
+        recuresive_number(digits.substr(1),1,n,str1);
+    }
+    return v3;
+}
+
+int main(){
+    auto x=letterCombinations("23");
+    for(auto xx:x)
+        cout<<xx<<endl;
     return 0;
 }
