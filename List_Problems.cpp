@@ -441,14 +441,37 @@ ListNode<T>* addTwoNumbers(ListNode<T>* l1, ListNode<T>* l2){
     return pp;
 }
 
+//给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+//使用双指针，一个指针指向头指针，另一个指针指向头结点后n-1个元素
+//然后两个指针一起移动当后面指针指向尾元素的时候则前一个指针就指向倒数第n个节点
+template <typename T>
+ListNode<T>* removeNthFromEnd(ListNode<T>* head, int n){
+    auto x=head;auto z=head;
+    while(n!=1&&head!= nullptr){
+        x=x->next;n--;
+    }
+    if(n>1)
+        return nullptr;
+    auto y=new ListNode<T>();
+    y->next=head;
+    //x=x->next;head=head->next;
+    while(x->next!= nullptr){
+        y=y->next;
+        head=head->next;x=x->next;
+    }
+    if(head==z)
+        return head->next;
+    y->next=head->next;delete head;
+    return z;
+}
+
 int main(){
-    ListNode<int> n1(0);
-    //n1.next=new ListNode<int>(3);
-    //n1.next->next=new ListNode<int>(3);
-    ListNode<int> n2(7);
-    n2.next=new ListNode<int>(3);
-    /*n2.next->next=new ListNode<int>(4);*/
-    auto x=addTwoNumbers(&n1,&n2);
+    ListNode<int> n1(1);
+    n1.next=new ListNode<int>(2);
+    n1.next->next=new ListNode<int>(3);
+    n1.next->next->next=new ListNode<int>(4);
+    n1.next->next->next->next=new ListNode<int>(5);
+    auto x=removeNthFromEnd(&n1,5);
     while(x!= nullptr){
         std::cout<<(*x).data<<std::endl;
         x=x->next;

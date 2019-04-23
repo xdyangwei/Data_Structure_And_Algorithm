@@ -875,7 +875,6 @@ int threeSumClosest(vector<int>& nums, int target) {
 
 //给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
 //思路：字母的全组合
-
 static map<int,string> m3;
 static vector<string> v3;
 void init_m3(){
@@ -886,8 +885,9 @@ void init_m3(){
     }
 }
 void recuresive_number(string s,int i,int n,string& str1){
-    if(s.empty())
+    if(s.empty()){
         v3.push_back(str1);
+    }
     auto x=m3[s[0]-'0'];
     auto n1=x.size();
     for(int j=0;j<n1;j++){
@@ -911,9 +911,79 @@ vector<string> letterCombinations(string digits) {
     return v3;
 }
 
+//给定一个包含 n 个整数的数组 nums 和一个目标值 target，
+// 判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？
+// 找出所有满足条件且不重复的四元组。
+//思路：固定双元素后使用双指针
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+    auto n=nums.size();
+    if(n<4)
+        return vector<vector<int>>();
+    sort(nums.begin(),nums.end());
+    vector<vector<int>> v;
+    for(int i=0;i<nums.size()-3;i++)
+        for(int j=i+1;j<nums.size()-2;j++){
+            auto t1=target-nums[i]-nums[j];
+            auto start=j+1;
+            auto end=nums.size()-1;
+            while(start<end){
+                if(nums[start]+nums[end]==t1){
+                    vector<int> v1;
+                    v1.push_back(nums[i]);v1.push_back(nums[j]);
+                    v1.push_back(nums[start]);v1.push_back(nums[end]);
+                    v.push_back(v1);
+                    start++;end--;}
+                else if(nums[start]+nums[end]<t1)
+                     start++;
+                else
+                    end--;
+            }
+        }
+    set<vector<int>> s2;
+    for(auto &xx:v){
+        sort(xx.begin(),xx.end());
+        s2.insert(xx);
+    }
+    v.clear();
+    for(auto xx:s2){
+        v.push_back(xx);
+    }
+    return v;
+}
+
+//给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+//有效字符串需满足：左括号必须用相同类型的右括号闭合。
+//左括号必须以正确的顺序闭合。注意空字符串可被认为是有效字符串
+//思路：使用栈，若当前输入字符与栈顶字符匹配，则将栈顶元素pop，如果最后栈为空则为true，否则为false
+bool isValid(string s) {
+    stack<char> s1;
+    if(s.empty())
+        return true;
+    s1.push(s[0]);
+    bool flag=true;
+    for(int i=1;i<s.size();i++){
+        if(s[i]=='('||s[i]=='{'||s[i]=='['){
+            s1.push(s[i]);
+            continue;
+        }else{
+            if((s[i]==')'||s[i]=='}'||s[i]==']')&&s1.empty()){
+                flag= false;break;
+            }
+            auto x=s1.top();
+        if((x=='('&&s[i]==')')||(x=='['&&s[i]==']')||(x=='{'&&s[i]=='}')){
+            s1.pop();
+        }
+        else
+            s1.push(s[i]);
+        }
+    }
+    if(s1.empty())
+        return flag;
+    return false;
+}
+
 int main(){
-    auto x=letterCombinations("23");
-    for(auto xx:x)
-        cout<<xx<<endl;
+    string s("[({(())}[()])]");
+    cout<<isValid(s)<<endl;
     return 0;
 }
