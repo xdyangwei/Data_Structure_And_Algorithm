@@ -5,6 +5,9 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <map>
+#include <set>
+
 using namespace std;
 int chocolate(int n){
     if(n>=1){
@@ -37,8 +40,52 @@ int water(){
     cout<<setprecision(6);
     cout<<(3*n*z)<<endl;
 }
+static vector<int> v;
+void dfs(multimap<int,int>& m,int x){
+    set<int> s;
+    for(auto xx:m){
+        s.insert(xx.first);
+        s.insert(xx.second);
+    }
+    for(auto xx:m){
+        if(xx.first==x||xx.second==x){
+            s.erase(xx.first);
+            s.erase(xx.second);
+        }
+    }
+    for(auto vv:v){
+        s.erase(vv);
+    }
+    for(auto ss:s){
+        v.push_back(ss);
+        dfs(m,ss);
+    }
+}
+
+int exercise_route(){
+    int N,M;
+    cin>>N>>M;
+    multimap<int,int> m1;
+    auto m=M;
+    int a,b;
+    while(m--){
+        cin>>a>>b;
+        m1.insert(make_pair(a,b));
+    }
+    set<int> s;
+    for(auto xx:m1){
+        s.insert(xx.first);
+        s.insert(xx.second);
+    }
+    int count=0;
+    for(auto ss:s){
+        dfs(m1,ss);
+        count+=(v.size());
+        v.clear();
+
+    }
+    cout<<count<<endl;
+    return 0;}
 int main(){
-    //cout<<zuhe(6,2)<<endl;
-    //cout<<pailie(0);
-    water();
+    exercise_route();
 }

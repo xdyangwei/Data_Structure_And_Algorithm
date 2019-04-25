@@ -982,8 +982,67 @@ bool isValid(string s) {
     return false;
 }
 
+//给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
+vector<string> generateParenthesis(int n) {
+    auto n1=n;
+    vector<char> v;
+    while(n1--){
+        v.push_back('(');
+        v.push_back(')');
+    }
+    sort(v.begin(),v.end());
+    string str(v.begin(),v.end());
+    vector<string> v1;
+    if(isValid(str)==true)
+        v1.push_back(str);
+    while(next_permutation(v.begin(),v.end())){
+        string str1(v.begin(),v.end());
+        if(isValid(str1)==true)
+            v1.push_back(str1);
+    }
+    return v1;
+}
+
+//给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
+//返回被除数 dividend 除以除数 divisor 得到的商。
+int divide(int dividend, int divisor) {
+    int i=31;bool flag=true;
+    if((dividend^divisor)<0)
+        flag= false;
+    dividend= static_cast<long>(dividend);
+    divisor= static_cast<long>(divisor);
+    dividend=(long long)abs(dividend);
+    divisor=(long long)abs(divisor);
+    if(dividend<divisor)
+        return 0;
+    while(i>=0){
+        if((dividend>>i)<divisor)
+            i--;
+        else{
+            break;
+        }
+    }
+    //auto x=i;
+   dividend-=(divisor<<i);
+   //cout<<(divisor<<i)<<endl;
+    auto z=pow(2,i);
+    while(dividend>=divisor){
+        dividend-=divisor;
+        z++;
+    }
+    if(!flag)
+        if(z>INT32_MAX||z<INT32_MIN)
+            return INT32_MAX;
+        else
+            return 0-z;
+    if(z>INT32_MAX||z<INT32_MIN)
+        return INT32_MAX;
+    else
+        return z;
+}
+
 int main(){
-    string s("[({(())}[()])]");
-    cout<<isValid(s)<<endl;
+    //cout<<(2147483647>>30)<<endl;
+    cout<<divide(-1010369383,-2147483648);
     return 0;
 }
