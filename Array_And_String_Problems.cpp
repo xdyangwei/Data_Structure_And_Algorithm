@@ -1009,29 +1009,27 @@ int divide(int dividend, int divisor) {
     int i=31;bool flag=true;
     if((dividend^divisor)<0)
         flag= false;
-    dividend= static_cast<long>(dividend);
-    divisor= static_cast<long>(divisor);
-    dividend=(long long)abs(dividend);
-    divisor=(long long)abs(divisor);
-    if(dividend<divisor)
+    long long x=abs(static_cast<long long>(dividend));
+    long long y=abs(static_cast<long long>(divisor));
+    if(x<y)
         return 0;
     while(i>=0){
-        if((dividend>>i)<divisor)
+        if((x>>i)<y)
             i--;
         else{
             break;
         }
     }
     //auto x=i;
-   dividend-=(divisor<<i);
+   x-=(y<<i);
    //cout<<(divisor<<i)<<endl;
     auto z=pow(2,i);
-    while(dividend>=divisor){
-        dividend-=divisor;
+    while(x>=y){
+        x-=y;
         z++;
     }
     if(!flag)
-        if(z>INT32_MAX||z<INT32_MIN)
+        if(z-1>(INT32_MAX)||z<INT32_MIN)
             return INT32_MAX;
         else
             return 0-z;
@@ -1041,8 +1039,87 @@ int divide(int dividend, int divisor) {
         return z;
 }
 
+//假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+//( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+//搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+//你可以假设数组中不存在重复的元素。
+//你的算法时间复杂度必须是 O(log n) 级别。
+//思路：使用二分查找，先找出翻转后原有序数组的第一个数的位置，然后以这个点为初始值进行二分查找，
+// 如果在其与数组最后一个值之间就在右边，反之在其之前一个数与第一个数之间就在左边寻找
+int find_start(vector<int>& nums){
+    auto end=nums.size()-1;
+    auto start=0;auto x=0;
+    while(start<=end){
+        auto middle=(start+end)/2;
+        if(nums[middle]>nums[middle+1])
+        {
+            x=middle+1;
+            break;
+        }else if(nums[middle]<nums[0]){
+            end=middle-1;
+        }else if(nums[middle]>nums[nums.size()-1])
+            start=middle+1;
+        else{
+            x=-1;
+            break;
+        }
+    }
+    return x;
+}
+
+int binary_search1(vector<int>& nums,int start,int end,int target);
+
+int search(vector<int>& nums, int target) {
+    if(nums.empty())
+        return -1;
+    if(nums.size()==1){
+        if(nums[0]==target)
+            return 0;
+        else{
+            return -1;
+        }
+    }
+    auto x=find_start(nums);
+    if(x==-1)
+        return binary_search1(nums,0,nums.size()-1,target);
+    if(nums[x]==target)
+        return x;
+    else{
+        if(nums[x]<target){
+            if(x==nums.size()-1)
+                return binary_search1(nums,0,x-1,target);
+            if(target<=nums[nums.size()-1])
+                return binary_search1(nums,x+1,nums.size()-1,target);
+            else if(target<=nums[x-1])
+                return binary_search1(nums,0,x-1,target);
+            else
+                return -1;
+        }
+        if(target<nums[x-1]){
+            return -1;
+        }
+    }
+}
+
+int binary_search1(vector<int>& nums,int start,int end,int target){
+    auto x=-1;
+    while(start<=end){
+        auto middle=(start+end)/2;
+        if(nums[middle]==target){
+            x=middle;break;
+        }
+        if(nums[middle]>target){
+            end=middle-1;
+        }
+        if(nums[middle]<target)
+            start=middle+1;
+    }
+    return x;
+}
+
 int main(){
     //cout<<(2147483647>>30)<<endl;
-    cout<<divide(-1010369383,-2147483648);
+    vector<int> v{5,1,3};
+    cout<<search(v,0);
     return 0;
 }
