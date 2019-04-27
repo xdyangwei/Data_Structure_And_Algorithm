@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 #include <algorithm>
 using namespace std;
 
@@ -225,27 +226,37 @@ string countAndSay(int n) {
 
 //No.39 medium 给定一个无重复元素的数组 candidates 和一个目标数 target ，
 //找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。
-//思路：使用带记忆的递归的思想，遍历原数组过程中将target减去当前的值，接着寻找此时有没有对应差值的组合
+//思路：使用递归的思想，遍历原数组过程中将target减去当前的值，接着寻找此时有没有对应差值的组合
 //有的话就直接进行插入，没的话就进行递归
 static vector<vector<int>> v1;
-void recursive_sum(vector<int>& v,vector<int>& candidates,int target){
+void recursive_sum(vector<int>& v,vector<int>& candidates,int target,int pos){
+    for(int i=pos; i<candidates.size(); i++)
+    {
+        if(target-candidates[i]==0){
+            v.push_back(candidates[i]);
+            v1.push_back(v);
+            v.pop_back();
+        }
+        if(target-candidates[i]>0){
+            v.push_back(candidates[i]);
+            recursive_sum(v,candidates, target-candidates[i],i);
+            v.pop_back();
+        }
+    }
+}
+
+void recursive_sum1(vector<int>& v,vector<int>& candidates,int target,int pos){
     if(target==0){
         v1.push_back(v);
-        v.clear();
     }
-    if(target<0){
-        v.clear();
-        //v.erase(v.end()-2,v.end());
-        return ;
-    }
-    for(int i=0;i<candidates.size();i++){
-        v.push_back(candidates[i]);
-        if(target<candidates[0]){
-            v.clear();
-            return ;
+    if(target>0){
+        for(int i=pos;i<candidates.size();i++){
+            v.push_back(candidates[i]);
+            recursive_sum1(v,candidates,target-candidates[i],i);
+            v.pop_back();
         }
-        recursive_sum(v,candidates,target-candidates[i]);
     }
+
 }
 
 vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
@@ -255,8 +266,13 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
     if(candidates[0]>target)
         return vector<vector<int>>();
     vector<int> v;
-    recursive_sum(v,candidates,target);
-    return v1;
+    recursive_sum1(v,candidates,target,0);
+    set<vector<int>> ss;
+    for(auto &xx:v1){
+        sort(xx.begin(),xx.end());
+        ss.insert(xx);
+    }
+    return vector<vector<int>>(ss.begin(),ss.end());
 }
 
 int main(){
