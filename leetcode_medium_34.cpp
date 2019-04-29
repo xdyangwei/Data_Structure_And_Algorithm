@@ -275,9 +275,41 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
     return vector<vector<int>>(ss.begin(),ss.end());
 }
 
+//No.40 medium 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+//candidates 中的每个数字在每个组合中只能使用一次。
+//思路：使用递归，遍历原数组过程中将target减去当前的值，接着寻找此时有没有对应差值的组合，与上一题区别在于不能包含重复的元素
+//这一点可以每次找自己身后的元素或者每次递归都将本元素从数组中删除
+static vector<vector<int>> v2;
+void recursive_sum2(vector<int>& v,vector<int>& candidates,int target,int pos){
+    if(target==0)
+        v2.push_back(v);
+    if(target>0){
+        for(int i=pos;i<candidates.size();i++){
+            v.push_back(candidates[i]);
+            recursive_sum2(v,candidates,target-candidates[i],i+1);
+            v.pop_back();
+        }
+    }
+}
+vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    if(candidates.empty())
+        return vector<vector<int>>();
+    sort(candidates.begin(),candidates.end());
+    if(candidates[0]>target)
+        return vector<vector<int>>();
+    vector<int> v;
+    recursive_sum2(v,candidates,target,0);
+    set<vector<int>> ss;
+    for(auto &xx:v2){
+        sort(xx.begin(),xx.end());
+        ss.insert(xx);
+    }
+    return vector<vector<int>>(ss.begin(),ss.end());
+}
+
 int main(){
-    vector<int> v{2,3,5};
-    auto x=combinationSum(v,8);
+    vector<int> v{10,1,2,7,6,1,5};
+    auto x=combinationSum2(v,8);
     for(auto xx:x){
         for(auto xxx:xx)
             cout<<xxx<<" ";
