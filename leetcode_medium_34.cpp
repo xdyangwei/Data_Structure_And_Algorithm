@@ -307,9 +307,122 @@ vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
     return vector<vector<int>>(ss.begin(),ss.end());
 }
 
+//No.43 medium 给定两个以字符串形式表示的非负整数 num1 和 num2，
+//返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
+//思路：使用每一位相乘的原则，然后再将结果相加
+string eachmultiply(string num1,char c){
+    auto n=num1.size();
+    string s(n+1,'0');
+    for(int i=n-1;i>=0;i--){
+        auto x=(c-'0')*(num1[i]-'0');
+        auto z=s[i+1]+x-'0';
+        s[i+1]=((z)%10+'0');
+        s[i]+=z/10;
+    }
+    auto x=find_if(begin(s),end(s),[](char a){
+       return  a!='0'? true: false;
+    });
+    return string(x,s.end());
+}
+
+string plusstring(string s1,string s2){
+    //s2.push_back('0');
+    auto m=s1.size();auto n=s2.size();
+    string s(max(m,n)+1,'0');
+    auto z=s.size()-1;
+    int i=m-1,j=n-1,k=z;
+    for(;i>=0&&j>=0;i--,j--,k--){
+        auto x=s1[i]-'0'+s2[j]-'0';
+        auto y=x+s[k]-'0';
+        s[k]=y%10+'0';
+        s[k-1]+=y/10;
+    }
+    if(i>=0){
+        for(;i>=0;i--,k--) {
+            auto x=s[k]-'0'+s1[i]-'0';
+            s[k] =(x%10)+'0';
+            s[k-1]+=x/10;
+        }
+    }
+    if(j>=0){
+        for(;j>=0;j--,k--){
+            auto x=s[k]-'0'+s2[j]-'0';
+            s[k] =(x%10)+'0';
+            s[k-1]+=x/10;
+        }
+    }
+    auto x=find_if(begin(s),end(s),[](char a){
+        return  a!='0'? true: false;
+    });
+    return string(x,s.end());
+}
+string multiply(string num1, string num2) {
+    if(num1.empty()||num2.empty())
+        return "";
+    if(num1[0]=='0'||num2[0]=='0')
+        return "0";
+    auto n=num2.size();
+    string s=eachmultiply(num1,num2[n-1]);
+    for(int i=n-2;i>=0;i--){
+        auto x=eachmultiply(num1,num2[i]);
+        auto y=n-1-i;
+        while(y--){
+        x.push_back('0');}
+        s=plusstring(s,x);
+    }
+    return s;
+}
+
+//No.46 medium 给定一个没有重复数字的序列，返回其所有可能的全排列。
+//思路：使用递归
+static vector<vector<int>> v3;
+void recursive_permute(vector<int>& v,vector<int>& nums,int pos){
+    if(pos==nums.size()){
+        v3.push_back(v);
+    }else {
+        for (int i = 0; i < nums.size(); i++) {
+            if(find(v.begin(),v.end(),nums[i])==v.end()){
+            v[pos]=nums[i];
+            recursive_permute(v,nums,pos+1);
+            }
+            v[pos]=INT32_MIN;
+        }
+    }
+}
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<int> v(nums.size(),INT32_MIN);
+    recursive_permute(v,nums,0);
+    return v3;
+}
+
+//No.47 medium 给定一个可包含重复数字的序列，返回所有不重复的全排列。
+//思路：使用递归，每次都去掉当前加入序列的元素进行下一次递归，然后再将其添加回来,然后使用set去重
+static vector<vector<int>> v4;
+void recursive_permuteUnique(vector<int>& v,vector<int>& nums,int pos,int n){
+    if(pos==n){
+        v4.push_back(v);
+    } else{
+        for(int i=0;i<nums.size();i++){
+            v[pos]=nums[i];
+            nums.erase(nums.begin()+i);
+            recursive_permuteUnique(v,nums,pos+1,n);
+            nums.insert(nums.begin()+i,v[pos]);
+        }
+    }
+}
+
+vector<vector<int>> permuteUnique(vector<int>& nums) {
+    vector<int> v(nums.size(),INT32_MIN);
+    recursive_permuteUnique(v,nums,0,nums.size());
+    set<vector<int>> s(v4.begin(),v4.end());
+    vector<vector<int>> v1(s.begin(),s.end());
+    return v1;
+}
+
+
 int main(){
-    vector<int> v{10,1,2,7,6,1,5};
-    auto x=combinationSum2(v,8);
+    vector<int> v{1,2,1};
+    auto x=permuteUnique(v);
     for(auto xx:x){
         for(auto xxx:xx)
             cout<<xxx<<" ";
