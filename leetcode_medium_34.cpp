@@ -2,10 +2,12 @@
 // Created by 杨炜 on 2019/4/27.
 //
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <map>
 #include <set>
 #include <algorithm>
+#include <unordered_map>
 using namespace std;
 
 //No.34 medium 给定一个按照升序排列的整数数组 nums，和一个目标值 target。
@@ -419,13 +421,64 @@ vector<vector<int>> permuteUnique(vector<int>& nums) {
     return v1;
 }
 
+//No.49 medium 给定一个字符串数组，将字母异位词组合在一起。
+// 字母异位词指字母相同，但排列不同的字符串。
+//思路：使用unordered_map去重
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    vector<vector<string>> result;
+    unordered_map<string, vector<string>> p;
+    string s;
+    for (auto it= strs.begin(); it !=strs.end(); it ++)
+    {
+        s= *it;
+        sort(s.begin(), s.end());
+        p[s].push_back(*it);
 
-int main(){
-    vector<int> v{1,2,1};
-    auto x=permuteUnique(v);
-    for(auto xx:x){
-        for(auto xxx:xx)
-            cout<<xxx<<" ";
-        cout<<endl;
     }
+    for (auto it: p)
+    {
+        result.push_back(it.second);
+    }
+    return result;
 }
+
+//No.50 medium 实现 pow(x, n) ，即计算 x 的 n 次幂函数。
+//思路：使用折半计算，每次将n除以2，然后x本身乘以x变为原来的平方在进行计算
+//奇数时需要将结果先乘以自身直至n为0
+double myPow(double x, int n) {
+    double res = 1.0;
+    for(int i = n; i != 0; i /= 2){
+        if(i % 2 != 0){
+            res *= x;
+        }
+        x *= x;
+    }
+    return  n < 0 ? 1 / res : res;
+}
+
+//递归解法
+double recursive_myPow(double x,int n,double res){
+    if(n==0)
+        return res;
+    if(n%2==0){
+        return recursive_myPow(x*x,n/2,res);}
+    if(n%2!=0){
+        res*=x;
+    return recursive_myPow(x*x,n/2,res);}
+}
+
+double myPow1(double x, int n){
+    double res=1.0;
+    if(n==0)
+        return 1;
+    if(x==1.0)
+        return 1.0;
+    if(n>0){
+        return recursive_myPow(x,n,res);}
+    if(n<0){
+        long y=abs((long)n);
+        return 1/recursive_myPow(x,y,res);
+    }
+    return 0;
+}
+
