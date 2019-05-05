@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <algorithm>
+
 using namespace std;
 
 //螺旋矩阵，给定一个包含 m x n 个元素的矩阵（m 行, n 列），
@@ -81,7 +83,38 @@ bool canJump(vector<int>& nums) {
     }
     return true;
 }
+
+//No.56 medium 给出一个区间的集合，请合并所有重叠的区间。
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> v;
+    sort(intervals.begin(),intervals.end(),[](vector<int> v1,vector<int> v2){
+        return v1[0]<v2[0];
+    });
+    for(auto it=intervals.begin();it!=intervals.end();){
+        auto x=(*it)[1];int Max=x;
+        auto it1=unique(it,intervals.end(),[&](vector<int> v,vector<int> v2){
+            Max=max(Max,v[1]);
+            return v2[0]>v[1];
+        });
+        vector<int> v1;
+        if(it1!=it+1){
+            v1.push_back((*it)[0]);v1.push_back(Max);
+            v.push_back(v1);
+            it=it1;
+        }else{
+            v.push_back(*it);
+            it++;
+        }
+
+    }
+    return v;
+}
 int main(){
-    vector<int> v{5,4,0,2,0,1,0,1,0};
-    cout<<canJump(v)<<endl;
+    vector<vector<int>> v{{1,3},{0,4}};
+    auto x=merge(v);
+    for(auto xx:x){
+        for(auto xxx:xx)
+            cout<<xxx<<" ";
+        cout<<endl;
+    }
 }
