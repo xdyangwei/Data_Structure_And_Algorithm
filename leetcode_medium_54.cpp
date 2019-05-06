@@ -5,6 +5,7 @@
 #include <vector>
 #include <deque>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -92,9 +93,12 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     });
     for(auto it=intervals.begin();it!=intervals.end();){
         auto x=(*it)[1];int Max=x;
-        auto it1=unique(it,intervals.end(),[&](vector<int> v,vector<int> v2){
-            Max=max(Max,v[1]);
-            return v2[0]>v[1];
+        auto it1=find_if(it,intervals.end(),[&](vector<int> v){
+            if(v[0]>Max)
+                return true;
+            else
+                Max=max(Max,v[1]);
+            return false;
         });
         vector<int> v1;
         if(it1!=it+1){
@@ -109,12 +113,146 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     }
     return v;
 }
+
+//No.58 easy 给定一个仅包含大小写字母和空格 ' ' 的字符串，
+// 返回其最后一个单词的长度。
+//思路：从字符串末尾开始遍历到第一个空格为止
+int lengthOfLastWord(string s) {
+    if(s.empty())
+        return 0;
+    auto n=s.size();
+    auto ss=s;
+    for(int i=n-1;i>=0;i--) {
+        if (s[i]==' ')
+            ss.pop_back();
+        else{
+            break;
+        }
+    }
+    auto x=ss.rfind(' ');
+    if(x==string::npos)
+        return ss.size();
+    else{
+        return ss.size()-x-1;
+    }
+}
+
+//No.59 medium 给定一个正整数 n，生成一个包含 1 到 n^2 所有元素，
+//且元素按顺时针顺序螺旋排列的正方形矩阵。
+vector<vector<int>> generateMatrix(int n) {
+    deque<int> v1;
+    vector<vector<int>> v(n,vector<int>(n,0));
+    for(int i=1;i<=pow(n,2);i++)
+        v1.push_back(i);
+    int i=0;
+    while(!v1.empty()){
+        for(int j=i;j<n-i;j++) {
+            v[i][j] = v1.front();
+            v1.pop_front();
+        }
+        for(int j=i+1;j<n-i;j++){
+            v[j][n-i-1]=v1.front();
+            v1.pop_front();
+        }
+        for(int j=n-i-2;j>=i;j--){
+            v[n-i-1][j]=v1.front();
+            v1.pop_front();
+        }
+        for(int j=n-i-2;j>=i+1;j--){
+            v[j][i]=v1.front();
+            v1.pop_front();
+        }
+        i++;
+    }
+    return v;
+}
+
+//No.60 medium 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
+//按大小顺序列出所有排列情况，并一一标记
+//给定 n 和 k，返回第 k 个排列
+//递归版本
+static vector<string> v1;
+void recursive_permutation(string& s,int n,vector<int>& v){
+    if(n==s.size())
+        return ;
+    auto m=v.size();
+    for(int i=0;i<m;i++){
+        s[n]=v[i]+'0';
+        auto x=v[i];
+        auto it=find(v.begin(),v.end(),v[i]);
+        v.erase(it);
+        if(n==s.size()-1)
+            v1.push_back(s);
+        recursive_permutation(s,n+1,v);
+        v.insert(it,x);
+    }
+}
+string getPermutation(int n, int k) {
+    string s(n,'0');
+    vector<int> v;
+    for(int i=1;i<=n;i++)
+        v.push_back(i);
+    recursive_permutation(s,0,v);
+    return v1[k-1];
+}
+
+//使用next_permautation版本
+string getPermutation_1(int n, int k){
+    vector<char> v;
+    for(int i=1;i<=n;i++)
+        v.push_back(i+'0');
+    while(k!=1){
+        next_permutation(v.begin(),v.end());
+        k--;
+    }
+    string s="";
+    for(auto xx:v)
+        s.push_back(xx);
+    return s;
+}
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    explicit ListNode(int x) : val(x), next(nullptr) {}
+};
+
+//No.61 medium 给定一个链表，旋转链表，
+//将链表每个节点向右移动 k 个位置，其中 k 是非负数。
+ListNode* rotateRight(ListNode* head, int k) {
+    if(head== nullptr)
+        return nullptr;
+    int i=1;
+    auto p=head,q=head,y=head;
+    while(head->next!= nullptr){
+        i++;
+        head=head->next;
+    }
+    if(k>=i){
+        k=k%i;
+    }
+    if(k==0)
+        return p;
+    auto x=k;
+    while(x--){
+        p=p->next;
+    }
+    while(p->next!= nullptr){
+        p=p->next;
+        q=q->next;
+    }
+    auto z=q->next;
+    q->next= nullptr;
+    p->next=y;
+    return z;
+}
 int main(){
-    vector<vector<int>> v{{1,3},{0,4}};
-    auto x=merge(v);
-    for(auto xx:x){
-        for(auto xxx:xx)
-            cout<<xxx<<" ";
-        cout<<endl;
+    ListNode* l1=new ListNode(1);
+    /*l1->next=new ListNode(2);
+    l1->next->next=new ListNode(3);*/
+    auto x=rotateRight(l1,0);
+    while(x!= nullptr){
+        cout<<(*x).val<<endl;
+        x=x->next;
     }
 }
