@@ -53,6 +53,126 @@ for(auto xx:m){
 return s;
 }
 
+int LCS_sequence(string s1,string s2){
+    auto m=s1.size();
+    auto n=s2.size();
+    if(!m||!n)
+        return 0;
+    vector<vector<int>> v(m+1,vector<int>(n+1,0));
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            if(s1[i-1]==s2[j-1])
+                v[i][j]=v[i-1][j-1]+1;
+            else
+                v[i][j]=max(v[i-1][j],v[i][j-1]);
+        }
+    }
+    return v[m][n];
+}
+
+int LCS_substring(string s1,string s2){
+    auto m=s1.size();
+    auto n=s2.size();
+    if(!m||!n)
+        return 0;
+    vector<vector<int>> v(m+1,vector<int>(n+1,0));
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            if(s1[i-1]==s2[j-1])
+                v[i][j]=v[i-1][j-1]+1;
+            else
+                v[i][j]=0;
+        }
+    }
+    int MAX=0;
+    for(auto x:v)
+        for(auto xx:x){
+            if(xx>MAX)
+                MAX=xx;
+        }
+    return MAX;
+}
+
+//最长回文子串
+int LongestPalindromicSubstring(const string& a){
+    auto n=a.size();
+    if(!n)
+        return 0;
+    vector<int> v(n,0);
+    v[0]=1;
+    for(int i=1;i<n;i++){
+        auto x=i-1;
+        auto y=i+1;
+        int count=1;
+        if(x>=0&&y<n) {
+            while(a[x]==a[i]){
+                count++;
+                x--;
+            }
+            while(a[y]==a[i]){
+                count++;
+                y++;
+            }
+            auto j=x;auto k=y;
+            while (j >= 0 && k < n) {
+                if (a[j] == a[k]) {
+                    count += 2;
+                    j--;k++;
+                } else {
+                    break;
+                }
+            }
+        }
+        v[i]=count;
+    }
+    int MAX=0;
+    for(auto xx:v){
+        if(xx>MAX)
+            MAX=xx;
+    }
+    return MAX;
+}
+
+string longestPalindrome(string a) {
+    auto n=a.size();
+    if(!n)
+        return 0;
+    map<int,pair<int,int>> m;
+    m[0]=make_pair(0,1);
+    for(int i=1;i<n;i++){
+        int x=i-1;int y=i+1;int count=1;
+        if(x>=0&&y<n){
+            while(a[x]==a[i]){
+                count++;
+                x--;
+            }
+            while(a[y]==a[i]){
+                count++;
+                y++;
+            }
+        }
+        while(x>=0&&y<n){
+            if(a[x]==a[y]){
+                count+=2;
+                x--;y++;
+            }else{
+                break;
+            }
+        }
+        m.insert(make_pair(i,make_pair(x+1,count)));
+    }
+    int start=0,MAX=0;
+    for(auto xx:m){
+        if(xx.first<0)
+            cout<<"hh"<<endl;
+        if(xx.second.second>MAX) {
+            start = xx.second.first;
+            MAX=xx.second.second;
+        }
+    }
+    return a.substr(start,MAX);
+}
+
 int main(){
-    cout<<intToRoman(3);
+    cout<<longestPalindrome("aaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggghhhhhhhhhhiiiiiiiiiijjjjjjjjjjkkkkkkkkkkllllllllllmmmmmmmmmmnnnnnnnnnnooooooooooppppppppppqqqqqqqqqqrrrrrrrrrrssssssssssttttttttttuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwxxxxxxxxxxyyyyyyyyyyzzzzzzzzzzyyyyyyyyyyxxxxxxxxxxwwwwwwwwwwvvvvvvvvvvuuuuuuuuuuttttttttttssssssssssrrrrrrrrrrqqqqqqqqqqppppppppppoooooooooonnnnnnnnnnmmmmmmmmmmllllllllllkkkkkkkkkkjjjjjjjjjjiiiiiiiiiihhhhhhhhhhggggggggggffffffffffeeeeeeeeeeddddddddddccccccccccbbbbbbbbbbaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggghhhhhhhhhhiiiiiiiiiijjjjjjjjjjkkkkkkkkkkllllllllllmmmmmmmmmmnnnnnnnnnnooooooooooppppppppppqqqqqqqqqqrrrrrrrrrrssssssssssttttttttttuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwxxxxxxxxxxyyyyyyyyyyzzzzzzzzzzyyyyyyyyyyxxxxxxxxxxwwwwwwwwwwvvvvvvvvvvuuuuuuuuuuttttttttttssssssssssrrrrrrrrrrqqqqqqqqqqppppppppppoooooooooonnnnnnnnnnmmmmmmmmmmllllllllllkkkkkkkkkkjjjjjjjjjjiiiiiiiiiihhhhhhhhhhggggggggggffffffffffeeeeeeeeeeddddddddddccccccccccbbbbbbbbbbaaaa");
 }
