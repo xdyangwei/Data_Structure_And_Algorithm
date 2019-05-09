@@ -246,13 +246,65 @@ ListNode* rotateRight(ListNode* head, int k) {
     p->next=y;
     return z;
 }
-int main(){
-    ListNode* l1=new ListNode(1);
-    /*l1->next=new ListNode(2);
-    l1->next->next=new ListNode(3);*/
-    auto x=rotateRight(l1,0);
-    while(x!= nullptr){
-        cout<<(*x).val<<endl;
-        x=x->next;
+
+//No.62 medium 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+//机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+//问总共有多少条不同的路径？
+int uniquePaths(int m, int n) {
+    vector<vector<int>> v(m+1,vector<int>(n+1,0));
+    for(int i=0;i<=m;i++){
+        v[i][n]=1;
     }
+    for(int i=0;i<=n;i++){
+        v[m][i]=1;
+    }
+    for(int i=m-1;i>=1;i--){
+        for(int j=n-1;j>=1;j--){
+            v[i][j]=v[i+1][j]+v[i][j+1];
+        }
+    }
+    return v[1][1];
+}
+
+//No.63 medium 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+//机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+//现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+    auto m=obstacleGrid.size();
+    if(!m)
+        return 0;
+    auto n=obstacleGrid[0].size();
+    vector<vector<int>> v(m,vector<int>(n,0));
+    int flag=0;
+    for(int i=m-1;i>=0;i--){
+        if(obstacleGrid[i][n-1]==1){
+            flag=i+1;break;
+        }
+    }
+    for(int i=flag;i<m;i++)
+        v[i][n-1]=1;
+    flag=0;
+    for(int i=n-1;i>=0;i--){
+        if(obstacleGrid[m-1][i]==1){
+            flag=i+1;break;
+        }
+    }
+    for(int i=flag;i<n;i++)
+        v[m-1][i]=1;
+    for(int i=m-2;i>=0;i--){
+        for(int j=n-2;j>=0;j--){
+            if(obstacleGrid[i][j]==1)
+                v[i][j]=0;
+            else{
+                v[i][j]=v[i+1][j]+v[i][j+1];
+            }
+        }
+    }
+    return v[0][0];
+}
+
+
+int main(){
+    vector<vector<int>> v{{0,0,0},{0,1,1},{0,0,1}};
+    cout<<uniquePathsWithObstacles(v);
 }
