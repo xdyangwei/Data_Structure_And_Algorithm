@@ -303,8 +303,81 @@ int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
     return v[0][0];
 }
 
+//No.66 easy 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+//最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
+vector<int> plusOne(vector<int>& digits) {
+    auto n=digits.size();
+    if(!n)
+        return vector<int>();
+    auto x=find_if(digits.rbegin(),digits.rend(),[](int a){
+        return a!=9;
+    });
+    if(x==digits.rend()){
+        digits.clear();
+        digits.push_back(1);
+        while(n--)
+            digits.push_back(0);
+    }else if(x==digits.rbegin()){
+     digits[n-1]+=1;
+    }else{
+        (*x)+=1;
+        for(auto it=digits.rbegin();it!=x;it++)
+            (*it)=0;
+    }
+    return digits;
+}
 
+//No.67 easy 给定两个二进制字符串，返回他们的和（用二进制表示）。
+//输入为非空字符串且只包含数字 1 和 0。
+string addBinary(string a, string b) {
+    auto m=a.size();
+    auto n=b.size();
+    auto x=max(m,n)+1;
+    string s(x,'0');
+    int i,j,k;
+    for(i=m-1,j=n-1,k=x-1;i>=0&&j>=0;i--,j--,k--){
+        if(a[i]=='0'||b[j]=='0'){
+            if(s[k]=='1'){
+                if(a[i]=='1'&&b[j]=='1')
+                    s[k-1]+=1;
+                else{
+                    s[k]='0';s[k-1]+=1;
+                }
+            }else{
+            s[k]+=(a[i]-'0'+b[j]-'0');
+            }
+        }
+        else{
+            if(s[k]=='1')
+                s[k-1]+=1;
+            else {
+                s[k - 1] += 1;
+                s[k]='0';
+            }
+        }
+    }
+    if(i>=0){
+        while(i>=0){
+            if(s[k]=='1'&&a[i]=='1'){
+                s[k]='0';
+                s[k-1]+=1;
+            }
+            s[k]+=(a[i]-'0');
+            i--;k--;
+        }
+    }
+    if(j>=0){
+        while(j>=0){
+            if(s[k]=='1'&&b[j]=='1') {
+                s[k] = '0';
+                s[k]+=1;
+            }
+            s[k]+=(b[j]-'0');
+            j--;k--;
+        }
+    }
+    return s;
+}
 int main(){
-    vector<vector<int>> v{{0,0,0},{0,1,1},{0,0,1}};
-    cout<<uniquePathsWithObstacles(v);
+    cout<<addBinary("1010","1011");
 }
