@@ -338,10 +338,11 @@ string addBinary(string a, string b) {
     for(i=m-1,j=n-1,k=x-1;i>=0&&j>=0;i--,j--,k--){
         if(a[i]=='0'||b[j]=='0'){
             if(s[k]=='1'){
-                if(a[i]=='1'&&b[j]=='1')
-                    s[k-1]+=1;
+                if(a[i]=='0'&&b[j]=='0')
+                    s[k]='1';
                 else{
-                    s[k]='0';s[k-1]+=1;
+                    s[k]='0';
+                    s[k-1]+=1;
                 }
             }else{
             s[k]+=(a[i]-'0'+b[j]-'0');
@@ -361,8 +362,8 @@ string addBinary(string a, string b) {
             if(s[k]=='1'&&a[i]=='1'){
                 s[k]='0';
                 s[k-1]+=1;
-            }
-            s[k]+=(a[i]-'0');
+            }else{
+            s[k]+=(a[i]-'0');}
             i--;k--;
         }
     }
@@ -370,14 +371,55 @@ string addBinary(string a, string b) {
         while(j>=0){
             if(s[k]=='1'&&b[j]=='1') {
                 s[k] = '0';
-                s[k]+=1;
-            }
-            s[k]+=(b[j]-'0');
+                s[k-1]+=1;
+            } else{
+            s[k]+=(b[j]-'0');}
             j--;k--;
         }
     }
+    if(s[0]=='0')
+        return s.substr(1);
     return s;
 }
+
+//No.69 easy 实现 int sqrt(int x) 函数。
+//计算并返回 x 的平方根，其中 x 是非负整数。
+//由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+int mySqrt(int x) {
+    if(x==0)
+        return 0;
+    long y=1;
+    long answer=0;
+    long start=0,end=0;
+    for(long i=0;i<=31;i++){
+        long z=y<<i;
+        if(z*z==x){
+            answer=z;
+            break;
+        }else if(z*z<x){
+            auto zz=z<<1;
+            if(zz*zz>x){
+                start=z;
+                end=zz;
+                break;
+            }else{
+                continue;
+            }
+        }
+    }
+    if(answer!=0)
+        return answer;
+    for(auto i=start;i<=end;i++){
+        if(i*i<x&&(i+1)*(i+1)>x){
+            answer=i;
+            break;
+        }
+    }
+    return answer;
+}
+
 int main(){
-    cout<<addBinary("1010","1011");
+    long y=1;
+    long x=y<<(long)31;
+    cout<<(x);
 }
