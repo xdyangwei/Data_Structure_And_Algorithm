@@ -418,8 +418,18 @@ int mySqrt(int x) {
     return answer;
 }
 
+//No.70 easy 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+//每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+//思路：动态规划
+int climbStairs(int n) {
+    vector<int> v(n+1,0);
+    v[0]=1;
+    v[1]=1;
+    for(int i=2;i<=n;i++){
+        v[i]=v[i-1]+v[i-2];
+    }
+    return v[n];
+}
 int main(){
-    long y=1;
-    long x=y<<(long)31;
-    cout<<(x);
+    cout<<climbStairs(5);
 }
