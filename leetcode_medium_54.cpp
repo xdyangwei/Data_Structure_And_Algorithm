@@ -6,6 +6,7 @@
 #include <deque>
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 
 using namespace std;
 
@@ -430,6 +431,76 @@ int climbStairs(int n) {
     }
     return v[n];
 }
+
+//No.71 medium 简化路径 以 Unix 风格给出一个文件的绝对路径，你需要简化它。或者换句话说，将其转换为规范路径。
+//在 Unix 风格的文件系统中，一个点（.）表示当前目录本身；此外，两个点 （..）
+//表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。
+string simplifyPath(string path) {
+    vector<string> vec;
+    int idx = 0;
+    if (path[idx] == '/')
+    {
+        vec.push_back("/");
+        idx++;
+    }
+    int start = 0;
+    while (idx < path.size())
+    {
+        while (idx < path.size() && path[idx] == '/')
+            idx++;
+        start = idx++;
+        while (idx < path.size() && path[idx] != '/')
+            idx++;
+        string str = path.substr(start, idx - start);
+        if (str.size() > 0)
+        {
+            if (str == "..")
+            {
+                if (vec.size() > 1)
+                    vec.pop_back();
+            }
+            else if (str != "." && str != "/")
+                vec.push_back(str);
+        }
+    }
+    string ret;
+    for (int i = 0; i < vec.size(); i++)
+    {
+        if (i > 1)
+            ret.push_back('/');
+        ret.append(vec[i]);
+    }
+    return ret;
+}
+
+//No.73 medium 给定一个 m x n 的矩阵，如果一个元素为 0，
+//则将其所在行和列的所有元素都设为 0。请使用原地算法。
+void setZeroes(vector<vector<int>>& matrix) {
+    vector<pair<int,int>> v;
+    if(matrix.empty()||matrix[0].empty())
+        return ;
+    for(int i=0;i<=matrix.size()-1;i++){
+        for(int j=0;j<=matrix[0].size()-1;j++){
+            if(matrix[i][j]==0)
+                v.push_back(make_pair(i,j));
+        }
+    }
+    for(auto vv:v){
+        auto x=vv.first;
+        auto y=vv.second;
+        for(int i=0;i<matrix[0].size();i++)
+            matrix[x][i]=0;
+        for(int i=0;i<matrix.size();i++)
+            matrix[i][y]=0;
+    }
+}
+
 int main(){
-    cout<<climbStairs(5);
+    vector<vector<int>> v{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+    setZeroes(v);
+    for(auto x:v){
+        for(auto xx:x)
+            cout<<xx<<" ";
+        cout<<endl;
+    }
 }
