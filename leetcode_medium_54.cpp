@@ -558,9 +558,32 @@ void sortColors(vector<int>& nums) {
     }
 }
 
+//No.83 easy 给定一个排序链表，删除所有重复的元素，
+//使得每个元素只出现一次。
+ListNode* deleteDuplicates(ListNode* head) {
+    if(head== nullptr||head->next== nullptr)
+        return head;
+    auto x=head;
+    while(head->next!= nullptr){
+        auto p=head->next;
+        while(p!= nullptr&&p->val==head->val)
+            p=p->next;
+        head->next=p;
+        if(p!=nullptr)
+            head=head->next;
+    }
+    return x;
+}
+
 int main(){
-    vector<int> v{0,0,2,2,1,1};
-    sortColors(v);
-    for(auto x:v)
-    cout<<x<<endl;
+    ListNode* a=new ListNode(1);
+    a->next=new ListNode(1);
+    a->next->next=new ListNode(2);
+    a->next->next->next=new ListNode(3);
+    a->next->next->next->next=new ListNode(3);
+    deleteDuplicates(a);
+    while(a!= nullptr){
+        cout<<a->val<<endl;
+        a=a->next;
+    }
 }
