@@ -495,12 +495,72 @@ void setZeroes(vector<vector<int>>& matrix) {
     }
 }
 
-int main(){
-    vector<vector<int>> v{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
-    setZeroes(v);
-    for(auto x:v){
-        for(auto xx:x)
-            cout<<xx<<" ";
-        cout<<endl;
+//No.74 medium 编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。
+//该矩阵具有如下特性：
+//每行中的整数从左到右按升序排列。
+//每行的第一个整数大于前一行的最后一个整数。
+//思路：每次和左下角或者右上角的数进行比较
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    if(matrix.empty()||matrix[0].empty())
+        return false;
+    auto m=matrix.size();
+    auto n=matrix[0].size();
+    bool flag= false;
+    for(int i=m-1;i>=0;i--){
+        if(target==matrix[i][0]){
+            flag=true;
+            break;
+        }else if(target<matrix[i][0]){
+            continue;
+        }else{
+            int j=1;
+            for(;j<n;j++){
+                if(matrix[i][j]==target){
+                    flag=true;
+                    break;
+                }
+            }
+            if(flag==true||j==n)
+                break;
+        }
     }
+    return flag;
+}
+
+//No.75 medium 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，
+//使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+//此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+//思路：先算出三种颜色的数量，然后使用三指针法
+void sortColors(vector<int>& nums) {
+    int ptr0 = 0;                 //left of ptr is all 0
+    int ptr1 = 0;                 //btw ptr0, ptr1 is 1
+    int ptr2 = nums.size() - 1;   //right of ptr are all 2
+    //undefined(unsorted) nums are btween ptr1 and ptr2
+    while(ptr1 <= ptr2){// still have undefined numbers
+        if(nums[ptr1] == 0){
+            int temp = nums[ptr1];
+            nums[ptr1] = nums[ptr0];
+            nums[ptr0] = temp;
+            //after swap, increment both
+            ptr0 ++;
+            ptr1 ++;
+        }
+        else if(nums[ptr1] == 1){
+            ptr1 ++;
+        }
+        else{
+            int temp = nums[ptr1];
+            nums[ptr1] = nums[ptr2];
+            nums[ptr2] = temp;
+            ptr2 --;
+        }
+
+    }
+}
+
+int main(){
+    vector<int> v{0,0,2,2,1,1};
+    sortColors(v);
+    for(auto x:v)
+    cout<<x<<endl;
 }
