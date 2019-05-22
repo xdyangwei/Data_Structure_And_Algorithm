@@ -558,6 +558,84 @@ void sortColors(vector<int>& nums) {
     }
 }
 
+//No.77 medium 给定两个整数 n 和 k，
+//返回 1 ... n 中所有可能的 k 个数的组合。
+static vector<vector<int>> v2;
+void recursive_combine(int n,int k,vector<int>& v){
+    if(k==0) {
+        v2.push_back(v);
+    }
+    else {
+        for (int i = n; i >= 1; i--) {
+            v.push_back(i);
+            recursive_combine(i-1,k-1,v);
+            v.pop_back();
+        }
+    }
+}
+vector<vector<int>> combine(int n, int k) {
+    vector<int> v;
+    recursive_combine(n,k,v);
+    return v2;
+}
+
+//No.78 medium 给定一组不含重复元素的整数数组 nums，
+//返回该数组所有可能的子集（幂集）
+vector<vector<int>> subsets(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> result = {{}};
+    for(int i = 0 ; i < n ; i++){
+        int count = result.size();
+        vector<vector<int>> temp(result);
+        result.insert(result.end(),temp.begin(),temp.end());
+        for(int j = 0 ; j < count ; j++){
+            result[j].push_back(nums[i]);
+        }
+    }
+    return result;
+}
+
+//No.82 medium 给定一个排序链表，删除所有含有重复数字的节点，
+//只保留原始链表中 没有重复出现的数字。
+ListNode* deleteDuplicates_head(ListNode* head){
+    if(head== nullptr||head->next== nullptr)
+        return head;
+    else{
+        auto p=head->next;
+        if(p->val==head->val) {
+            while (p!= nullptr&&p->val == head->val)
+                p = p->next;
+            head=p;
+            deleteDuplicates_head(head);
+        }else
+            return head;
+    }
+}
+
+ListNode* deleteDuplicates_noecxept(ListNode* head) {
+    auto p=deleteDuplicates_head(head);
+    if(p->next== nullptr||p== nullptr)
+    return p;
+    else{
+        auto z=p;
+        auto x=z->next;
+        while(x!= nullptr&&x->next!= nullptr){
+            auto y=x->next;
+            if(y->val==x->val) {
+                while (y != nullptr && y->val == x->val) {
+                    y = y->next;
+                }
+                z->next = y;
+                x = y;
+            }else{
+                x=x->next;
+                z=z->next;
+            }
+        }
+    }
+    return p;
+}
+
 //No.83 easy 给定一个排序链表，删除所有重复的元素，
 //使得每个元素只出现一次。
 ListNode* deleteDuplicates(ListNode* head) {
@@ -576,14 +654,11 @@ ListNode* deleteDuplicates(ListNode* head) {
 }
 
 int main(){
-    ListNode* a=new ListNode(1);
-    a->next=new ListNode(1);
-    a->next->next=new ListNode(2);
-    a->next->next->next=new ListNode(3);
-    a->next->next->next->next=new ListNode(3);
-    deleteDuplicates(a);
-    while(a!= nullptr){
-        cout<<a->val<<endl;
-        a=a->next;
+    vector<int> x{1,2,3};
+    auto v=subsets(x);
+    for(auto vv:v){
+        for(auto xx:vv)
+            cout<<xx<<" ";
+        cout<<endl;
     }
 }
