@@ -7,7 +7,11 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
-
+#include <map>
+#define UP 1
+#define RIGHT 2
+#define DOWN 3
+#define LEFT 4
 using namespace std;
 
 //螺旋矩阵，给定一个包含 m x n 个元素的矩阵（m 行, n 列），
@@ -651,6 +655,66 @@ ListNode* deleteDuplicates(ListNode* head) {
             head=head->next;
     }
     return x;
+}
+
+//No.79 medium 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+//单词必须按照字母顺序，通过相邻的单元格内的字母构成，
+//其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+//思路：使用回朔法和递归
+static vector<pair<int,int>> index;
+bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag,int f);
+bool exist(vector<vector<char>>& board, string word) {
+    if(word.empty()||board.empty()||board[0].empty())
+        return false;
+    auto m=board.size();
+    auto n=board[0].size();
+    vector<vector<int>> flag(m,vector<int>(n,0));
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(board[i][j]==word[0]){
+                index.push_back(make_pair(i,j));
+            }
+        }
+    }
+    for(auto xx:index){
+        if(recursive_backtracking(0,xx.first,xx.second,board,word,flag,UP)){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag,int f){
+    if(n==word.size())
+        return true;
+    else{
+        if(flag[i][j]==0) {
+            flag[i][j] = 1;//visited
+            if(f==UP){
+                if(i-1<0||board[i-1][j]!=word[n+1])
+                    return recursive_backtracking(n,i,j,board,word,flag,RIGHT);
+                else
+                    return recursive_backtracking(n+1,i-1,j,board,word,flag,UP);
+            }else if(f==RIGHT){
+                if(j+1>=board[0].size()||board[i][j+1]!=word[n+1])
+                    return recursive_backtracking(n,i,j,board,word,flag,DOWN);
+                else
+                    return recursive_backtracking(n+1,i,j+1,board,word,flag,UP);
+            }else if(f==DOWN){
+                if(i+1>=board.size()||board[i+1][j]!=word[n+1])
+                    return recursive_backtracking(n,i,j,board,word,flag,LEFT);
+                else
+                    return recursive_backtracking(n+1,i+1,j,board,word,flag,UP);
+            }else{
+                if(j-1<0||board[i][j-1]!=word[n+1])
+                    return false;
+                else
+                    return recursive_backtracking(n+1,i,j-1,board,word,flag,UP);
+            }
+        }else{
+
+        }
+    }
 }
 
 int main(){
