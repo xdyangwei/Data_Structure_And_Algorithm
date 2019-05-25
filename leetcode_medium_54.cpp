@@ -727,8 +727,23 @@ bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, strin
     }
 }
 
+//No.80 medium 给定一个排序数组，你需要在原地删除重复出现的元素，
+//使得每个元素最多出现两次，返回移除后数组的新长度。
+int removeDuplicates(vector<int>& nums) {
+    if(nums.size()<=2)
+        return nums.size();
+    //auto n=nums.size();
+    for(int i=2;i<nums.size();){
+        if(nums[i]==nums[i-2]){
+            auto y=i-2;
+            nums.erase(nums.begin()+i);
+        }else
+            i++;
+    }
+    return nums.size();
+}
 int main(){
-    vector<vector<char>> v{{'A','B','C','E'},{'S','F','E','S'},{'A','D','E','E'}};
-    cout<<exist(v,"ABCE");
+    vector<int> v{1,1,1,1};
+    cout<<removeDuplicates(v);
 
 }
