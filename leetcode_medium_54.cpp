@@ -742,8 +742,128 @@ int removeDuplicates(vector<int>& nums) {
     }
     return nums.size();
 }
+
+//Huawei 实习笔试1
+vector<int> str_split(string ip1){
+    vector<int> v;
+    auto it=ip1.find('.');
+    auto first_1=stoi(ip1.substr(0,it));
+    auto it2=ip1.find('.',it+1);
+    auto first_2=stoi(ip1.substr(it+1,it2-it-1));
+    auto it3=ip1.find('.',it2+1);
+    auto first_3=stoi(ip1.substr(it2+1,it3-it2-1));
+    auto first_4=stoi(ip1.substr(it3+1));
+    v.push_back(first_1);v.push_back(first_2);
+    v.push_back(first_3);v.push_back(first_4);
+    return v;
+}
+
+string ip_and_mask(vector<int>& v1,vector<int>& v2){
+    auto n=v1.size();
+    string s="";
+    for(int i=0;i<n;i++){
+        s+=to_string(v1[i]&v2[i]);
+        s+='.';
+    }
+    auto nn=s.size();
+    return s.substr(0,nn-1);
+}
+
+void judge_ip(){
+    string ip1,ip2,mask;
+    cin>>ip1>>ip2>>mask;
+    auto v1=str_split(ip1);
+    auto v2=str_split(ip2);
+    auto v3=str_split(mask);
+    auto s1=ip_and_mask(v1,v3);
+    auto s2=ip_and_mask(v2,v3);
+    cout<<(s1==s2?1:0)<<" ";
+    cout<<s1;
+}
+
+//Huawei 实习笔试2 leetcode 221
+int maximalSquare(vector<vector<char>>& matrix) {
+    if (matrix.empty())
+        return 0;
+    auto n = matrix.size();
+    auto m = matrix[0].size();
+    vector<vector<int>> v(n,vector<int>(m,0));
+    for (int i = 0; i < n; i++)
+        v[i][0] = matrix[i][0] - '0';
+    for (int i = 0; i < m; i++)
+        v[0][i] = matrix[0][i] - '0';
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j < m; j++) {
+            if (matrix[i][j] == '1') {
+                if (v[i - 1][j - 1]!=0) {
+                    auto x = sqrt(v[i - 1][j - 1]);
+                    auto y = x;
+                    int flag = 1;
+                    while (x) {
+                        if (matrix[i - x][j] == '0' || matrix[i][j - x] == '0')
+                            flag = 0;
+                        x -= 1;
+                    }
+                    if (flag == 1) {
+                        v[i][j] = pow(sqrt(v[i - 1][j - 1]) + 1, 2);
+                    }
+                    else
+                    {
+                        int z = 1;
+                        while (z != y) {
+                            if (matrix[i - z][j] == '1'&&matrix[i][j - z] == '1')
+                                z++;
+                            else {
+                                break;
+                            }
+                        }
+                        v[i][j] = pow(z, 2);
+                    }
+                }
+                else {
+                    v[i][j] = 1;
+                }
+            }
+        }
+    }
+    int max_size = 0;
+    for (auto x : v)
+        for (auto xx : x)
+            max_size = max(max_size, xx);
+    return max_size;
+}
+
+//Huawei 实习笔试3
+int job_timelen(){
+    int m,n;
+    cin>>m>>n;
+    vector<int> v;
+    auto x=n;
+    int y;
+    while(x--){
+        cin>>y;
+        v.push_back(y);
+    }
+    sort(v.begin(),v.end());
+    vector<int> vm(v.begin(),v.begin()+m);
+    v.erase(v.begin(),v.begin()+m);
+    int Max=0;
+    while(!v.empty()) {
+        for (auto &xx:vm) {
+            xx -= 1;
+            if (xx == 0) {
+                xx = v[0];
+                v.erase(v.begin());
+            }
+        }
+        Max+=1;
+    }
+    sort(vm.begin(),vm.end());
+    auto z=vm.size();
+    return Max+vm[z-1];
+}
+
 int main(){
-    vector<int> v{1,1,1,1};
-    cout<<removeDuplicates(v);
+   
 
 }
