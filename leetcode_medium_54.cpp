@@ -8,6 +8,7 @@
 #include <cmath>
 #include <cstring>
 #include <map>
+#include <stack>
 #define UP 1
 #define RIGHT 2
 #define DOWN 3
@@ -662,7 +663,8 @@ ListNode* deleteDuplicates(ListNode* head) {
 //其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
 //思路：使用回朔法和递归
 static vector<pair<int,int>> index;
-bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag,int f);
+static stack<pair<int,int>> s1;
+bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag);
 bool exist(vector<vector<char>>& board, string word) {
     if(word.empty()||board.empty()||board[0].empty())
         return false;
@@ -677,52 +679,56 @@ bool exist(vector<vector<char>>& board, string word) {
         }
     }
     for(auto xx:index){
-        if(recursive_backtracking(0,xx.first,xx.second,board,word,flag,UP)){
+        flag[xx.first][xx.second]=1;
+        s1.push(make_pair(xx.first,xx.second));
+        if(recursive_backtracking(0,xx.first,xx.second,board,word,flag)){
             return true;
         }
+        flag[xx.first][xx.second]=0;
+        while(!s1.empty())
+            s1.pop();
     }
     return false;
 }
 
-bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag,int f){
-    if(n==word.size())
+
+bool recursive_backtracking(int n,int i,int j,vector<vector<char>>& board, string word,vector<vector<int>>& flag){
+    if(n==word.size()-1)
         return true;
     else{
-        if(flag[i][j]==0) {
-            flag[i][j] = 1;//visited
-            if(f==UP){
-                if(i-1<0||board[i-1][j]!=word[n+1])
-                    return recursive_backtracking(n,i,j,board,word,flag,RIGHT);
-                else
-                    return recursive_backtracking(n+1,i-1,j,board,word,flag,UP);
-            }else if(f==RIGHT){
-                if(j+1>=board[0].size()||board[i][j+1]!=word[n+1])
-                    return recursive_backtracking(n,i,j,board,word,flag,DOWN);
-                else
-                    return recursive_backtracking(n+1,i,j+1,board,word,flag,UP);
-            }else if(f==DOWN){
-                if(i+1>=board.size()||board[i+1][j]!=word[n+1])
-                    return recursive_backtracking(n,i,j,board,word,flag,LEFT);
-                else
-                    return recursive_backtracking(n+1,i+1,j,board,word,flag,UP);
-            }else{
-                if(j-1<0||board[i][j-1]!=word[n+1])
-                    return false;
-                else
-                    return recursive_backtracking(n+1,i,j-1,board,word,flag,UP);
-            }
+        if(i-1>=0&&board[i-1][j]==word[n+1]&&flag[i-1][j]==0) {
+            flag[i-1][j]=1;s1.push(make_pair(i-1,j));
+            return recursive_backtracking(n + 1, i - 1, j, board,word,flag);
+        }else if(j+1<board[0].size()&&board[i][j+1]==word[n+1]&&flag[i][j+1]==0){
+            flag[i][j+1]=1;s1.push(make_pair(i,j+1));
+            return recursive_backtracking(n+1,i,j+1,board,word,flag);
+        }else if(i+1<board.size()&&board[i+1][j]==word[n+1]&&flag[i+1][j]==0){
+            flag[i+1][j]=1;s1.push(make_pair(i+1,j));
+            return recursive_backtracking(n+1,i+1,j,board,word,flag);
+        }else if(j-1>=0&&board[i][j-1]==word[n+1]&&flag[i][j-1]==0){
+            flag[i][j-1]=1;s1.push(make_pair(i,j-1));
+            return recursive_backtracking(n+1,i,j-1,board,word,flag);
         }else{
-
+            if(s1.size()==1)
+                return false;
+            s1.pop();
+            auto x=s1.top().first;
+            auto y=s1.top().second;
+            if(i-1>=0&&flag[i-1][j]==1&&i-1!=x&&j!=y)
+                flag[i-1][j]=0;
+            if(j+1<board[0].size()&&flag[i][j+1]==1&&i!=x&&j+1!=y)
+                flag[i][j+1]=0;
+            if(i+1<board.size()&&flag[i+1][j]==1&&i+11!=x&&j!=y)
+                flag[i+1][j]=0;
+            if(j-1>=0&&flag[i][j-1]==1&&i!=x&&j-1!=y)
+                flag[i][j-1]=0;
+            return recursive_backtracking(n-1,x,y,board,word,flag);
         }
     }
 }
 
 int main(){
-    vector<int> x{1,2,3};
-    auto v=subsets(x);
-    for(auto vv:v){
-        for(auto xx:vv)
-            cout<<xx<<" ";
-        cout<<endl;
-    }
+    vector<vector<char>> v{{'A','B','C','E'},{'S','F','E','S'},{'A','D','E','E'}};
+    cout<<exist(v,"ABCE");
+
 }
