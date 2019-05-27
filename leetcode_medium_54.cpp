@@ -9,6 +9,7 @@
 #include <cstring>
 #include <map>
 #include <stack>
+#include <set>
 #define UP 1
 #define RIGHT 2
 #define DOWN 3
@@ -920,9 +921,20 @@ ListNode* partition(ListNode* head, int x) {
     return v[0];
 }
 
+//No.89 medium 格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。
+//给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。格雷编码序列必须以 0 开头。
+//关键是搞清楚格雷编码的生成过程, G(i) = i ^ (i/2);
+vector<int> grayCode(int n) {
+    int size = 1<<n;
+    vector<int> res(size);
+    int last = 0;
+    for (int i = 0; i < size; i++) {
+        last = res[i] = last ^ (((i ^ (i - 1)) + 1) >> 1);
+    }
+    return res;
+}
 
 int main(){
-    ListNode*
-cout<<search(v,1);
+
 
 }
