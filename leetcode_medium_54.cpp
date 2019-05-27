@@ -863,7 +863,66 @@ int job_timelen(){
     return Max+vm[z-1];
 }
 
+//No.81 medium 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+//( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。
+//编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。
+//思路：使用二分查找
+bool binary_search(vector<int>& nums, int target){
+    int n=nums.size();
+    int start=0,end=n-1;
+    bool flag= false;
+    while(start<=end){
+        int mid=(start+end)/2;
+        if(nums[mid]==target){
+            flag= true;
+            break;
+        }else if(nums[mid]<target) {
+
+            start = mid + 1;
+        }
+        else {
+            end = mid - 1;
+        }
+    }
+    return flag;
+}
+
+bool search(vector<int>& nums, int target) {
+    sort(nums.begin(),nums.end());
+    return binary_search(nums,target);
+}
+
+//No.86 medium 给定一个链表和一个特定值 x，对链表进行分隔，
+//使得所有小于 x 的节点都在大于或等于 x 的节点之前。
+//你应当保留两个分区中每个节点的初始相对位置。
+ListNode* partition(ListNode* head, int x) {
+    vector<ListNode*> s1,s2;
+    while(head!= nullptr){
+    if(head->val<x)
+        s1.push_back(head);
+    else
+        s2.push_back(head);
+    head=head->next;
+}
+    vector<ListNode*> v;
+    while(!s1.empty()){
+        v.push_back(s1[0]);
+        s1.erase(s1.begin());
+    }
+    while(!s2.empty()){
+        v.push_back(s2[0]);
+        s2.erase(s2.begin());
+    }
+    for(int i=0;i<v.size()-1;i++){
+        v[i]->next=v[i+1];
+    }
+    v[v.size()-1]->next= nullptr;
+    return v[0];
+}
+
+
 int main(){
-   
+    ListNode*
+cout<<search(v,1);
 
 }
