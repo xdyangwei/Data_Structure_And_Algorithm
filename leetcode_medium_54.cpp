@@ -949,8 +949,26 @@ bool isSameTree(TreeNode* p, TreeNode* q) {
 }
 
 //No.90 medium 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
-vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+void dfs(vector<int>& nums,int idx,vector<vector<int>>&res,vector<int>path){
+    set <int>repeat;
+    if(idx>=nums.size()) return;
 
+    repeat.insert(nums[idx]);
+    path.push_back(nums[idx]);
+    res.push_back(path);
+
+    dfs(nums,idx+1,res,path);
+    path.pop_back();
+
+    while(idx<nums.size()-1&&repeat.find(nums[idx+1])!=repeat.end()) idx++;
+    dfs(nums,idx+1,res,path);
+}
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    vector<vector<int>> RES={{}};
+    vector<int> path;
+    sort(nums.begin(),nums.end());
+    dfs(nums,0,RES,path);
+    return RES;
 }
 
 
