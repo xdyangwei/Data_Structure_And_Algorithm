@@ -971,8 +971,72 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
     return RES;
 }
 
+//No.93 medium 给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
+//暴力求解
+static vector<string> v3;
+void all_address(string& str,int n,int i){
+    if(n==4){
+        v3.push_back(str);
+        return ;}
+    else if(n==1){
+        auto size=str.size();
+        for(int j=1;j<size-2;j++){
+            str.insert(str.begin()+j,'.');
+            all_address(str,n+1,j);
+            str.erase(str.begin()+j);
+        }
+    }else{
+        auto size=str.size();
+        for(int j=i+2;j<size-3+n;j++){
+            str.insert(str.begin()+j,'.');
+            all_address(str,n+1,j);
+            str.erase(str.begin()+j);
+        }
+    }
+}
+
+vector<string> str_split(string str,char ch){
+    vector<string> v;
+    auto i=0;
+    while((str.find(ch,i))!=string::npos){
+        auto x=str.find(ch,i);
+        v.push_back(str.substr(i,x-i));
+        i=x+1;
+    }
+    auto x=str.rfind('.');
+    v.push_back(str.substr(x+1));
+    return v;
+}
+
+bool judge_ip(string str){
+    if(str.size()>3||stoi(str)>255||(str.size()>1&&str[0]=='0'))
+        return false;
+    return true;
+}
+
+vector<string> restoreIpAddresses(string s) {
+    if(s.size()<4||s.size()>12)
+        return vector<string>();
+    all_address(s,1,0);
+    vector<string> v1;
+    for(auto x:v3) {
+        bool flag=true;
+        auto v = str_split(x,'.');
+        for(auto xx:v){
+            if(judge_ip(xx)== false) {
+                flag= false;
+                break;
+            }
+        }
+        if(flag==true)
+            v1.push_back(x);
+    }
+    return v1;
+}
 
 int main(){
-
-
+    string s="25525511135";
+    auto x=restoreIpAddresses(s);
+    for(auto xx:x)
+        cout<<xx<<endl;
 }
