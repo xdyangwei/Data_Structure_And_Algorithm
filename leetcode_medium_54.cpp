@@ -1072,16 +1072,29 @@ ListNode* reverseBetween(ListNode* head, int m, int n) {
     return yy->next;
 }
 
+//vivo秋招提前批，找出数组A中存在而B中不存在的数
+//思路：使用set去重然后在插入，如果set的size增加则说明这个数满足题意
+vector<int> single(vector<int>& v1,vector<int>& v2){
+    set<int> s1(v1.begin(),v1.end());
+    set<int> s2(v2.begin(),v2.end());
+    vector<int> v;
+    for(auto xx:s1){
+        auto size1=s2.size();
+        s2.insert(xx);
+        if(size1==(s2.size()-1))
+            v.push_back(xx);
+        else
+            continue;
+    }
+    return v;
+}
+
 //test
 int main(){
-    auto x=new ListNode(1);
-    x->next=new ListNode(2);
-    /*x->next->next=new ListNode(3);
-    x->next->next->next=new ListNode(4);
-    x->next->next->next->next=new ListNode(5);*/
-    auto y=reverseBetween(x,1,2);
-    while(y!= nullptr){
-        cout<<y->val<<endl;
-        y=y->next;
+    vector<int> v1{1,2,3,5};
+    vector<int> v2{2,3,4};
+    auto x=single(v1,v2);
+    for(auto xx:x){
+        cout<<xx<<endl;
     }
 }
