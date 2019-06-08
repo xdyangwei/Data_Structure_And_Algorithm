@@ -1034,9 +1034,53 @@ vector<string> restoreIpAddresses(string s) {
     return v1;
 }
 
+//No.92 medium 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+//使用栈完成
+ListNode* reverseBetween(ListNode* head, int m, int n) {
+    if(head->next== nullptr)
+        return head;
+    if(m==n)
+        return head;
+    auto dis=n-m;
+    auto p=head;
+    while(dis--)
+        p=p->next;
+    auto pre=new ListNode(0);
+    auto yy=pre;
+    pre->next=head;
+    auto x=m;
+    while(x--!=1){
+        pre=pre->next;
+        head=head->next;
+        p=p->next;
+    }
+    auto z=p->next;
+    stack<ListNode*> s1;
+    while(head!=p){
+        s1.push(head);
+        head=head->next;
+    }
+    s1.push(p);
+    pre->next=s1.top();
+    while(s1.size()!=1&&!s1.empty()){
+        auto x=s1.top();
+        s1.pop();
+        auto y=s1.top();
+        x->next=y;
+    }
+    s1.top()->next=z;
+    return yy->next;
+}
+
 int main(){
-    string s="25525511135";
-    auto x=restoreIpAddresses(s);
-    for(auto xx:x)
-        cout<<xx<<endl;
+    auto x=new ListNode(1);
+    x->next=new ListNode(2);
+    /*x->next->next=new ListNode(3);
+    x->next->next->next=new ListNode(4);
+    x->next->next->next->next=new ListNode(5);*/
+    auto y=reverseBetween(x,1,2);
+    while(y!= nullptr){
+        cout<<y->val<<endl;
+        y=y->next;
+    }
 }
