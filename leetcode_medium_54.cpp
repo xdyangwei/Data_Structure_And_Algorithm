@@ -1089,6 +1089,19 @@ vector<int> single(vector<int>& v1,vector<int>& v2){
     return v;
 }
 
+//No.98 medium 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+//中序遍历为升序就是符合条件的二叉搜索树
+int *last=nullptr;
+bool isValidBST(TreeNode* root) {
+    if (root){
+        if(!isValidBST(root->left)) return false;
+        if (last && *last>=root->val) return false;
+        last = &root->val;
+        if(!isValidBST(root->right)) return false;
+        return true;
+    }else return true;
+}
+
 //test
 int main(){
     vector<int> v1{1,2,3,5};
