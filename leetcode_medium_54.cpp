@@ -1102,6 +1102,21 @@ bool isValidBST(TreeNode* root) {
     }else return true;
 }
 
+//No.101 easy 给定一个二叉树，检查它是否是镜像对称的。
+//使用递归判断
+bool recursive_isSymmetric(TreeNode* p,TreeNode* q){
+    if(p== nullptr&&q== nullptr)
+        return true;
+    if((p== nullptr&&q!= nullptr)||(p!= nullptr&&q== nullptr))
+        return false;
+    if(p->val!=q->val)
+        return false;
+    return recursive_isSymmetric(p->left,q->right)&&recursive_isSymmetric(q->left,p->right);
+}
+
+bool isSymmetric(TreeNode* root) {
+    return recursive_isSymmetric(root,root);
+}
 //test
 int main(){
     vector<int> v1{1,2,3,5};
