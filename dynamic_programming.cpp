@@ -6,6 +6,7 @@
 #include <functional>
 #include <map>
 #include <set>
+#include <cmath>
 using namespace std;
 
 //给定n个非负整数a1，a2，...，an，每个数代表坐标中的一个点(i, ai)。
@@ -194,7 +195,21 @@ int nthUglyNumber(int n) {
     return uglyNums[n-1];
 }
 
+int nthuglynumber(int n){
+    set<long> s{1,2,3};
+    while(s.size()<=pow(n,2)){
+        auto s1=s;
+        for(auto xx:s) {
+            s1.insert(2 * xx);
+            s1.insert(3*xx);
+            s1.insert(5*xx);
+        }
+        s=s1;
+    }
+    vector<long> v1(s.begin(),s.end());
+    return v1[n-1];
+}
 
 int main(){
-    cout<<nthUglyNumber(1352);
+    cout<<nthuglynumber(27);
 }
