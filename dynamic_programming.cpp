@@ -5,6 +5,7 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <set>
 using namespace std;
 
 //给定n个非负整数a1，a2，...，an，每个数代表坐标中的一个点(i, ai)。
@@ -173,6 +174,27 @@ string longestPalindrome(string a) {
     return a.substr(start,MAX);
 }
 
+//No.264 medium 编写一个程序，找出第 n 个丑数。
+//丑数就是只包含质因数 2, 3, 5 的正整数。
+int nthUglyNumber(int n) {
+    vector<int> uglyNums {1};
+    int curUgly = 1;
+    int u2_idx = 0, u3_idx = 0, u5_idx = 0;
+    int u2_num = 0, u3_num = 0, u5_num = 0;
+    while (uglyNums.size() < n) {
+        u2_num = uglyNums[u2_idx] * 2;
+        u3_num = uglyNums[u3_idx] * 3;
+        u5_num = uglyNums[u5_idx] * 5;
+        curUgly = min(min(u2_num, u3_num), u5_num);
+        if (curUgly == u2_num) u2_idx++;
+        if (curUgly == u3_num) u3_idx++;
+        if (curUgly == u5_num) u5_idx++;
+        uglyNums.push_back(curUgly);
+    }
+    return uglyNums[n-1];
+}
+
+
 int main(){
-    cout<<longestPalindrome("aaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggghhhhhhhhhhiiiiiiiiiijjjjjjjjjjkkkkkkkkkkllllllllllmmmmmmmmmmnnnnnnnnnnooooooooooppppppppppqqqqqqqqqqrrrrrrrrrrssssssssssttttttttttuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwxxxxxxxxxxyyyyyyyyyyzzzzzzzzzzyyyyyyyyyyxxxxxxxxxxwwwwwwwwwwvvvvvvvvvvuuuuuuuuuuttttttttttssssssssssrrrrrrrrrrqqqqqqqqqqppppppppppoooooooooonnnnnnnnnnmmmmmmmmmmllllllllllkkkkkkkkkkjjjjjjjjjjiiiiiiiiiihhhhhhhhhhggggggggggffffffffffeeeeeeeeeeddddddddddccccccccccbbbbbbbbbbaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggghhhhhhhhhhiiiiiiiiiijjjjjjjjjjkkkkkkkkkkllllllllllmmmmmmmmmmnnnnnnnnnnooooooooooppppppppppqqqqqqqqqqrrrrrrrrrrssssssssssttttttttttuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwxxxxxxxxxxyyyyyyyyyyzzzzzzzzzzyyyyyyyyyyxxxxxxxxxxwwwwwwwwwwvvvvvvvvvvuuuuuuuuuuttttttttttssssssssssrrrrrrrrrrqqqqqqqqqqppppppppppoooooooooonnnnnnnnnnmmmmmmmmmmllllllllllkkkkkkkkkkjjjjjjjjjjiiiiiiiiiihhhhhhhhhhggggggggggffffffffffeeeeeeeeeeddddddddddccccccccccbbbbbbbbbbaaaa");
+    cout<<nthUglyNumber(1352);
 }
