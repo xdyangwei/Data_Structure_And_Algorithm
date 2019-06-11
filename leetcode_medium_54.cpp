@@ -1117,6 +1117,31 @@ bool recursive_isSymmetric(TreeNode* p,TreeNode* q){
 bool isSymmetric(TreeNode* root) {
     return recursive_isSymmetric(root,root);
 }
+
+//No.94 medium 给定一个二叉树，返回它的中序遍历。
+//非递归版本的中序遍历使用栈来存储已遍历结点
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> v1;
+    if(root!= nullptr){
+        std::stack<TreeNode*> s;
+        while(root!= nullptr||!s.empty()){
+            while(root!= nullptr){
+                s.push(root);
+                root=root->left;
+            }
+            if(!s.empty()){
+                auto x=s.top();s.pop();
+                v1.push_back(x->val);
+                root=x->right;
+            }
+        }
+        return v1;
+    }else{
+        return v1;
+    }
+}
+
+
 //test
 int main(){
     vector<int> v1{1,2,3,5};
