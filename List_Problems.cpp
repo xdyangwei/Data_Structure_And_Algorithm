@@ -465,6 +465,62 @@ ListNode<T>* removeNthFromEnd(ListNode<T>* head, int n){
     return z;
 }
 
+//输入一个链表，输出该链表中倒数第k个结点。
+//方法1：可以利用栈这个数据结构
+template <typename T>
+ListNode<T>* FindKthToTail(ListNode<T>* pListHead, unsigned int k) {
+    std::stack<ListNode<T>*> s1;
+    while(pListHead!= nullptr){
+        s1.push(pListHead);
+        pListHead=pListHead->next;
+    }
+    if(s1.size()<k)
+        return nullptr;
+    else{
+        auto x=pListHead;
+        while(k--){
+            x=s1.top();
+            s1.pop();
+        }
+        return x;
+    }
+}
+
+//输入一个链表，输出该链表中倒数第k个结点。
+//方法2：利用快慢指针遍历
+template <typename T>
+ListNode<T>* FindKthToTail_pt(ListNode<T>* pListHead, unsigned int k) {
+    auto fast=pListHead;
+    while(k--&&fast!= nullptr){
+        fast=fast->next;
+    }
+    if(k!=-1)
+        return nullptr;
+    while(fast!= nullptr){
+        pListHead=pListHead->next;
+        fast=fast->next;
+    }
+    return pListHead;
+}
+
+//输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+//思路：使用栈数据结构
+template <typename T>
+std::vector<int> printListFromTailToHead(ListNode<T>* head) {
+    std::stack<ListNode<T>*> s1;
+    while(head!= nullptr){
+        s1.push(head);
+        head=head->next;
+    }
+    std::vector<int> v;
+    while(!s1.empty()){
+        auto x=s1.top();
+        v.push_back(x->data);
+        s1.pop();
+    }
+    return v;
+}
+
 int main(){
     ListNode<int> n1(1);
     n1.next=new ListNode<int>(2);
