@@ -540,6 +540,42 @@ std::vector<int> printListFromTailToHead_recursive(ListNode<T>* head){
     return v;
 }
 
+//合并两个有序链表
+//输入两个单调递增的链表，输出两个链表合成后的链表，
+//当然我们需要合成后的链表满足单调不减规则。
+//思路：对两个链表中节点的值进行比较然后使用辅助内存
+template <typename T>
+ListNode<T>* Merge(ListNode<T>* pHead1, ListNode<T>* pHead2)
+{
+    if(!pHead1)
+        return pHead2;
+    if(!pHead2)
+        return pHead1;
+    std::deque<ListNode<T>*> v;
+    while(pHead1&&pHead2){
+        if(pHead1->data<=pHead2->data){
+            v.push_back(pHead1);
+            pHead1=pHead1->next;
+        }else{
+            v.push_back(pHead2);
+            pHead2=pHead2->next;
+        }
+    }
+    while(pHead1){
+        v.push_back(pHead1);
+        pHead1=pHead1->next;
+    }
+    while(pHead2){
+        v.push_back(pHead2);
+        pHead2=pHead2->next;
+    }
+    auto p=v[0];
+    for(int i=0;i<v.size()-1;i++){
+        v[i]->next=v[i+1];
+    }
+    v[v.size()-1]->next=nullptr;
+    return p;
+}
 
 
 int main(){

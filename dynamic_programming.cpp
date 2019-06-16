@@ -216,7 +216,17 @@ int jumpFloor(int number) {
 //请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
 //思路：使用DP
 int rectCover(int number) {
-
+    if(number==1){
+        return 1;
+    }
+    if(number==2)
+        return 2;
+    vector<int> v(number+1,0);
+    v[1]=1;v[2]=2;
+    for(int i=3;i<=number;i++){
+        v[i]=v[i-1]+v[i-2];
+    }
+    return v[number];
 }
 
 int main(){
