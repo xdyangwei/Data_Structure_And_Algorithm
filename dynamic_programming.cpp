@@ -195,21 +195,30 @@ int nthUglyNumber(int n) {
     return uglyNums[n-1];
 }
 
-int nthuglynumber(int n){
-    set<long> s{1,2,3};
-    while(s.size()<=pow(n,2)){
-        auto s1=s;
-        for(auto xx:s) {
-            s1.insert(2 * xx);
-            s1.insert(3*xx);
-            s1.insert(5*xx);
-        }
-        s=s1;
+//跳台阶：一只青蛙一次可以跳上1级台阶，也可以跳上2级。
+//求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。
+//思路：使用DP
+int jumpFloor(int number) {
+    if(number==1){
+        return 1;
     }
-    vector<long> v1(s.begin(),s.end());
-    return v1[n-1];
+    if(number==2)
+        return 2;
+    vector<int> v(number+1,0);
+    v[1]=1;v[2]=2;
+    for(int i=3;i<=number;i++){
+        v[i]=v[i-1]+v[i-2];
+    }
+    return v[number];
+}
+
+//矩形覆盖：我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。
+//请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
+//思路：使用DP
+int rectCover(int number) {
+
 }
 
 int main(){
-    cout<<nthuglynumber(27);
+    cout<<jumpFloor(4);
 }

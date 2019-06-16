@@ -504,7 +504,7 @@ ListNode<T>* FindKthToTail_pt(ListNode<T>* pListHead, unsigned int k) {
 }
 
 //输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
-//思路：使用栈数据结构
+//思路1：使用栈数据结构
 template <typename T>
 std::vector<int> printListFromTailToHead(ListNode<T>* head) {
     std::stack<ListNode<T>*> s1;
@@ -520,6 +520,27 @@ std::vector<int> printListFromTailToHead(ListNode<T>* head) {
     }
     return v;
 }
+
+//输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+//思路2：使用递归
+template <typename T>
+void recursive_add_from_tail_head(std::vector<int>& v,ListNode<T>* head){
+    if(head== nullptr)
+        return ;
+    else {
+        recursive_add_from_tail_head(v, head->next);
+        v.push_back(head->data);
+    }
+}
+
+template <typename T>
+std::vector<int> printListFromTailToHead_recursive(ListNode<T>* head){
+    std::vector<int> v;
+    recursive_add_from_tail_head(v,head);
+    return v;
+}
+
+
 
 int main(){
     ListNode<int> n1(1);
