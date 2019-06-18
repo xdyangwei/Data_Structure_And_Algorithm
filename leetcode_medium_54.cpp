@@ -934,7 +934,7 @@ vector<int> grayCode(int n) {
     return res;
 }
 
-struct TreeNode {
+static struct TreeNode {
          int val;
          TreeNode *left;
          TreeNode *right;

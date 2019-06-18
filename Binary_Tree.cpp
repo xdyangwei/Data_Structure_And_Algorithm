@@ -438,6 +438,34 @@ void KthNodeCore(Binary_Node<T>* pRoot,int k,set<Binary_Node<T>*>& v){
         KthNodeCore(pRoot,k,v);
 }
 
+//输入两棵二叉树A，B，判断B是不是A的子结构
+//我们约定空树不是任意一个树的子结构
+//思路：先找到与B中根节点值一样的结点再进行后续判断，使用递归
+template <typename T>
+bool judge_has_subtree(Binary_Node<T>* pRoot1, Binary_Node<T>* pRoot2){
+    if(!pRoot2)
+        return true;
+    if(!pRoot1)
+        return false;
+    if(pRoot1->data!=pRoot2->data)
+        return false;
+    else
+        return judge_has_subtree(pRoot1->left_child,pRoot2->left_child)&&judge_has_subtree(pRoot1->right_child,pRoot2->right_child);
+}
+template <typename T>
+bool HasSubtree(Binary_Node<T>* pRoot1, Binary_Node<T>* pRoot2)
+{
+    bool flag= false;
+    if(pRoot1&&pRoot2){
+        if(pRoot1->data==pRoot2->data)
+            flag=judge_has_subtree(pRoot1,pRoot2);
+        if(!flag)
+            flag=HasSubtree(pRoot1->left_child,pRoot2);
+        if(!flag)
+            flag=HasSubtree(pRoot1->right_child,pRoot2);
+    }
+    return flag;
+}
 int main(){
     Binary_Node<int> n1(1);Binary_Node<int> n2(2);Binary_Node<int> n3(3);
     Binary_Node<int> n4(4);Binary_Node<int> n5(5);Binary_Node<int> n6(6);Binary_Node<int> n7(7);

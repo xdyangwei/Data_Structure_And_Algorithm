@@ -1140,6 +1140,7 @@ void reOrderArray_2(vector<int> &array){
     }
     array.insert(array.end(),v.begin(),v.end());
 }
+
 int main(){
     //cout<<(2147483647>>30)<<endl;
     vector<int> v{2,4,5,1,3,6};
