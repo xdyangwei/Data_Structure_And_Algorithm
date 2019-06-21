@@ -5,6 +5,10 @@
 #include <bitset>
 #include <cmath>
 #include <string>
+#include <algorithm>
+#include <set>
+#include <vector>
+
 using namespace std;
 
 //输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
@@ -51,10 +55,57 @@ int length_of_last_str(string str){
     return str.size()-x-1;
 }
 
+//写出一个程序，接受一个由字母和数字组成的字符串，
+//和一个字符，然后输出输入字符串中含有该字符的个数。不区分大小写。
+//思路：使用STL中的count的方法
+int numbers_of_char(string str,char c){
+    return count_if(str.begin(),str.end(),[=](char a){
+        return tolower(c)==tolower(a);
+    });
+}
+
+//去重加排序
+//思路：考虑使用set
+void deduplication_and_sort(){
+    int n;
+    while(cin>>n) {
+        set<int> s;
+        while (n--) {
+            int x;
+            cin >> x;
+            s.insert(x);
+        }
+        for (auto ss:s) {
+            cout << ss << endl;
+        }
+    }
+}
+
+//连续输入字符串，请按长度为8拆分每个字符串后输出到新的字符串数组；
+//•长度不是8整数倍的字符串请在后面补数字0，空字符串不处理。
+//思路：使用string的substr方法
+void str_split(string str){
+    if(str.size()<=8){
+        str.insert(str.size(),8-str.size(),'0');
+        cout<<str<<endl;
+        return ;
+    }
+    vector<string> v;
+    for(int i=0;i<str.size();i+=8){
+        v.push_back(str.substr(i,8));
+    }
+    auto n=v.size();
+    if(v[n-1].size()<=8){
+        v[n-1].insert(v[n-1].size(),8-v[n-1].size(),'0');
+    }
+    for(auto xx:v){
+        cout<<xx<<endl;
+    }
+}
 
 int main(){
-    string s;
-    getline(cin,s);
-    cout<<length_of_last_str(s);
+    /*string s;
+    getline(cin,s);*/
+    str_split("12");
     return 0;
 }
