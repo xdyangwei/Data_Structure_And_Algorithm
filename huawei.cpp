@@ -9,7 +9,7 @@
 #include <set>
 #include <vector>
 #include <map>
-
+#include <sstream>
 using namespace std;
 
 //输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
@@ -170,7 +170,71 @@ void sum_of_value(){
     }
 }
 
+//输入一个int型整数，按照从右向左的阅读顺序，
+//返回一个不含重复数字的新的整数。
+//思路：使用辅助数组即可
+void de_duplicate(){
+    int x;
+    cin>>x;
+    auto s=to_string(x);
+    auto n=s.size();
+    vector<int> v(10,-1);
+    string str="";
+    for(int i=n-1;i>=0;i--){
+        if(v[s[i]-'0']==-1) {
+            str += to_string(s[i]-'0');
+            v[s[i]-'0']=0;
+        }
+    }
+    cout<<str;
+}
+
+//编写一个函数，计算字符串中含有的不同字符的个数。
+//字符在ACSII码范围内(0~127)。不在范围内的不作统计。
+//思路：使用辅助数组
+void different_number(){
+    string s;
+    cin>>s;
+    vector<int> v(128,-1);
+    auto n=s.size();
+    int count=0;
+    for(int i=0;i<n;i++){
+        if(v[s[i]]==-1){
+            count++;
+            v[s[i]]=0;
+        }
+    }
+    cout<<count<<endl;
+}
+
+//写出一个程序，接受一个字符串，然后输出该字符串反转后的字符串。
+//使用栈或者STL中的reverse方法
+void str_reverse(){
+    string s;cin>>s;
+    reverse(s.begin(),s.end());
+    cout<<s<<endl;
+}
+
+//将一个英文语句以单词为单位逆序排放。例如“I am a boy”，逆序排放后为“boy a am I”
+//所有单词之间用一个空格隔开，语句中除了英文字母外，不再包含其他字符
+//思路：使用getline和STL中的reverse
+void str_reverse_without_word(){
+    string s;
+    getline(cin,s);
+    reverse(s.begin(),s.end());
+    stringstream s1(s);
+    string ss;
+    string str="";
+    while(s1>>ss){
+        reverse(ss.begin(),ss.end());
+        str+=(" "+ss);
+    }
+    str.erase(str.begin());
+    cout<<str;
+}
+
+
 int main(){
-    sum_of_value();
+   str_reverse_without_word();
     return 0;
 }
