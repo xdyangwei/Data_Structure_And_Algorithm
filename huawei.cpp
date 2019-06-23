@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <set>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -103,9 +104,73 @@ void str_split(string str){
     }
 }
 
+//写出一个程序，接受一个十六进制的数值字符串，
+//输出该数值的十进制字符串。（多组同时输入 ）
+//思路：使用stoi函数的非默认参数版本
+void hex_to_dec(){
+    string s;
+    while(cin>>s){
+      //cin>>s;
+        cout<<stoi(s, nullptr,16)<<endl;
+    }
+}
+
+//功能:输入一个正整数，按照从小到大的顺序输出它的所有质数的因子（如180的质数因子为2 2 3 3 5 ）
+//最后一个数后面也要有空格
+//思路：从2开始看能否被输入的数整除，无需判断此数是否为质数，因为不是质数的话肯定能被2或者3整除不会循环到的
+void getResult(long input){
+    while (input!=1){
+        for(int i=2;i<=input;i++){
+            if(input%i==0){
+                cout<<i<<" ";
+                input/=i;
+                break;
+            }
+        }
+    }
+}
+
+//写出一个程序，接受一个正浮点数值，输出该数值的近似整数值。
+//如果小数点后数值大于等于5,向上取整；小于5，则向下取整。
+//思路：使用to_string()方法
+void double_to_int(){
+    double x;
+    cin>>x;
+    auto s=to_string(x);
+    auto it=s.find(".");
+    if(it==string::npos)
+        cout<<x;
+    else{
+        auto y=s[it+1];
+        if(y>='5')
+            cout<<(int)x+1;
+        else
+            cout<<(int)x;
+    }
+}
+
+//数据表记录包含表索引和数值，请对表索引相同的记录进行合并，
+//即将相同索引的数值进行求和运算，输出按照key值升序进行输出。
+//思路：使用map即可
+void sum_of_value(){
+    int n;
+    cin>>n;
+    map<int,int> m;
+    while(n--){
+        int index,value;
+        cin>>index>>value;
+        if(m.find(index)==m.end()){
+            m[index]=value;
+        }else{
+            m[index]+=value;
+        }
+    }
+    for(auto xx:m){
+        cout<<xx.first<<" "<<xx.second<<endl;
+    }
+}
+
 int main(){
-    /*string s;
-    getline(cin,s);*/
-    str_split("12");
+    sum_of_value();
     return 0;
 }
