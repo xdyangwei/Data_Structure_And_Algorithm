@@ -10,6 +10,7 @@
 #include <vector>
 #include <map>
 #include <sstream>
+#include <tuple>
 using namespace std;
 
 //输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
@@ -233,8 +234,74 @@ void str_reverse_without_word(){
     cout<<str;
 }
 
+//给定n个字符串，请对n个字符串按照字典序排列。
+//思路：使用sort函数即可
+void str_sort(){
+    int n;cin>>n;
+    vector<string> v;
+    while(n--){
+        string s;
+        cin>>s;
+        v.push_back(s);
+    }
+    sort(v.begin(),v.end());
+    for(auto xx:v){
+        cout<<xx<<endl;
+    }
+}
+
+//开发一个简单错误记录功能小模块，能够记录出错的代码所在的文件名称和行号。
+//处理：
+//1、 记录最多8条错误记录，循环记录，对相同的错误记录（净文件名称和行号完全匹配）只记录一条，错误计数增加；
+//2、 超过16个字符的文件名称，只记录文件的最后有效16个字符；
+//3、 输入的文件可能带路径，记录文件名称不能带路径。
+//思路：使用string的各种操作以及STL里的find_if算法
+string get_filename(string str){
+    auto x=str.rfind("\\");
+    if(x==string::npos)
+        return str;
+    else
+        return str.substr(x+1);
+}
+void mistake_log(){
+    vector<tuple<string,int,int>> log;
+    string s;
+    while(getline(cin,s)){
+        auto it=s.find(" ");
+        auto filename=s.substr(0,it);
+        auto number=stoi(s.substr(it+1));
+        auto x=find_if(log.begin(),log.end(),[filename,number](tuple<string,int,int> t1){
+            return get_filename(get<0>(t1))==get_filename(filename)&&get<1>(t1)==number;
+        });
+        if(x==log.end()){
+            log.push_back(make_tuple(filename,number,1));
+        }else{
+            get<2>(*x)+=1;
+        }
+    }
+    int j=0;
+    if(log.size()>8)
+        j=log.size()-8;
+    for(int i=j;i<log.size();i++){
+        auto ss=get<0>(log[i]);
+        auto it1=ss.rfind("\\");
+        if(it1==string::npos){
+            if(ss.size()<=16)
+                cout<<ss<<" ";
+            else
+                cout<<ss.substr(ss.size()-16)<<" ";
+        }else{
+            auto sss=ss.substr(it1+1);
+            if(sss.size()<=16)
+                cout<<sss<<" ";
+            else
+                cout<<sss.substr(sss.size()-16)<<" ";
+        }
+        cout<<get<1>(log[i])<<" "<<get<2>(log[i])<<endl;
+    }
+}
 
 int main(){
-   str_reverse_without_word();
+   mistake_log();
     return 0;
 }
