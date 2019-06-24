@@ -301,7 +301,60 @@ void mistake_log(){
     }
 }
 
+//密码要求:
+//1.长度超过8位
+//2.包括大小写字母.数字.其它符号,以上四种至少三种
+//3.不能有相同长度超2的子串重复
+void passwd_verify(){
+    string s;
+    while(cin>>s){
+        if(s.size()<=8)
+            cout<<"NG"<<endl;
+        else{
+            int count=0;
+            auto it=find_if(s.begin(),s.end(),[](char c){
+                return c>='0'&&c<='9';
+            });
+            if(it!=s.end())
+                count++;
+            auto it1=find_if(s.begin(),s.end(),[](char c){
+                return c>='a'&&c<='z';
+            });
+            if(it1!=s.end())
+                count++;
+            auto it2=find_if(s.begin(),s.end(),[](char c){
+                return c>='A'&&c<='Z';
+            });
+            if(it2!=s.end())
+                count++;
+            auto it3=find_if(s.begin(),s.end(),[](char c){
+                return (c<'0'||c>'9')&&(c<'a'||c>'z')&&(c<'A'||c>'Z');
+            });
+            if(it3!=s.end())
+                count++;
+            if(count<3)
+                cout<<"NG"<<endl;
+            else{
+                map<string,int> ss;bool flag=true;
+                for(int i=0;i<s.size()-2;i++){
+                    auto str=s.substr(i,3);
+                    if(ss.find(str)!=ss.end()&&ss[str]!=i-2&&ss[str]!=i-1){
+                        flag= false;
+                        break;
+                    }else{
+                        ss.insert(make_pair(str,i));
+                    }
+                }
+                if(flag==true)
+                    cout<<"OK"<<endl;
+                else
+                    cout<<"NG"<<endl;
+            }
+        }
+    }
+}
+
 int main(){
-   mistake_log();
+   passwd_verify();
     return 0;
 }
