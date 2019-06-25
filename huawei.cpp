@@ -354,7 +354,110 @@ void passwd_verify(){
     }
 }
 
+//开发一个坐标计算工具， A表示向左移动，D表示向右移动，W表示向上移动，S表示向下移动。
+//从（0,0）点开始移动，从输入字符串里面读取一些坐标，并将最终输入结果输出到输出文件里面。
+//输入：
+//合法坐标为A(或者D或者W或者S) + 数字（两位以内）
+//思路：进行坐标正确性判断
+pair<int,int> move_one_step(string s,pair<int,int> p){
+    //cout<<s[0]<<endl;
+    if(s.size()<=1||s.size()>3||(s[0]!='A'&&s[0]!='S'&&s[0]!='W'&&s[0]!='D'))
+        return p;
+    else{
+        bool flag=true;
+        for(int i=1;i<s.size();i++){
+            if(s[i]<'0'||s[i]>'9'){
+                flag= false;break;
+            }
+        }
+        //cout<<flag<<endl;
+        if(!flag)
+            return p;
+        auto x=stoi(s.substr(1));
+        if(s[0]=='A'){
+            auto pp=p;pp.first-=x;
+            return pp;
+        }else if(s[0]=='W'){
+            auto pp=p;pp.second+=x;
+            return pp;
+        }else if(s[0]=='S'){
+            auto pp=p;pp.second-=x;
+            //cout<<pp.first<<" "<<pp.second<<endl;
+            return pp;
+        }else{
+            auto pp=p;pp.first+=x;
+            return pp;
+        }
+    }
+}
+
+void move(){
+    string s;
+    cin>>s;
+    auto start=0;
+    auto it=s.find(";");
+    pair<int,int> p(0,0);
+    while(it!=string::npos){
+        auto ss=s.substr(start,it-start);
+        p=move_one_step(ss,p);
+        //cout<<p.first<<" "<<p.second<<endl;
+        start=it+1;
+        it=s.find(";",it+1);
+    }
+    cout<<p.first<<","<<p.second<<endl;
+}
+
+
+//请解析IP地址和对应的掩码，进行分类识别。要求按照A/B/C/D/E类地址归类，不合法的地址和掩码单独归类。
+//子网掩码为前面是连续的1，然后全是0。（例如：255.255.255.32就是一个非法的掩码）
+//本题暂时默认以0开头的IP地址是合法的，比如0.1.1.2，是合法地址
+bool mask_judge(string s){
+    auto it=find(s.begin(),s.end(),'0');
+    if(find(it,s.end(),'1')!=s.end())
+        return false;
+    return true;
+}
+
+int ip_address_judge(string s){
+    auto it=s.find("~");
+    auto ip=s.substr(0,it);
+    auto mask=s.substr(it+1);
+    if(ip>="1.0.0.0"&&ip<="126.255.255.255"&&ip.substr(0,2)!="10"&&mask_judge(mask)){
+        return 0;
+    }else if(ip>="128.0.0.0"&&ip<="191.255.255.255"&&(ip<"172.16.0.0"||ip>"172.31.255.255")&&mask_judge(mask)){
+        return 1;
+    }else if(ip>="192.0.0.0"&&ip<="223.255.255.255"&&(ip<"192.168.0.0"||ip>"192.168.255.255")&&mask_judge(mask)){
+        return 2;
+    }else if(ip>="224.0.0.0"&&ip<="239.255.255.255"&&mask_judge(mask)){
+        return 3;
+    }else if(ip>="240.0.0.0"&&ip<="255.255.255.255"&&mask_judge(mask)){
+        return 4;
+    }else if((ip>="10.0.0.0"&&ip<="10.255.255.255")||(ip>="172.16.0.0"&&ip<="172.31.255.255")||(ip>="192.168.0.0"&&ip<="192.168.255.255")&&mask_judge(mask)){
+        return 6;
+    }else if(ip>="0.0.0.0"&&ip<="0.255.255.255"&&mask_judge(mask)){
+        return 10;
+    }else{
+        return 5;
+    }
+}
+
+void ip_address_classify(){
+    string s;
+    vector<int> v(6,0);
+    int i=0;
+    while(i++<4){
+        cin>>s;
+        if(ip_address_judge(s)<=v.size()-1)
+            v[ip_address_judge(s)]+=1;
+    }
+    for(auto xx:v){
+        cout<<xx<<" ";
+    }
+}
+
+
+
 int main(){
-   passwd_verify();
+    cout<<ip_address_judge("19..0.~255.255.255.0");
     return 0;
 }
