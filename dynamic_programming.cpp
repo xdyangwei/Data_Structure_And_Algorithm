@@ -249,15 +249,17 @@ int maxProfit(vector<int>& prices) {
 
 //给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。
 //你需要让组成和的完全平方数的个数最少。
-//思路：动态规划
+//思路：动态规划,递归方程为f(n)=1+min(f(n-1^2),f(n-2^2)...,f(n-k^2)),其中k^2<=n，进行求解
 int numSquares(int n) {
-    vector<int> v;
-    while(n){
-        int x=sqrt(n);
-        n-=pow(x,2);
-        v.push_back(x);
+    vector<int> v(n+1,0);
+    for(int i=1;i<=n;i++){
+        int Min=n;
+        for(int j=1;j*j<=i;j++){
+            Min=min(Min,v[i-j*j]);
+        }
+        v[i]=1+Min;
     }
-    return v.size();
+    return v[n];
 }
 
 int main(){
