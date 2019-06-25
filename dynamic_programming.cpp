@@ -7,6 +7,8 @@
 #include <map>
 #include <set>
 #include <cmath>
+#include <algorithm>
+
 using namespace std;
 
 //给定n个非负整数a1，a2，...，an，每个数代表坐标中的一个点(i, ai)。
@@ -229,6 +231,35 @@ int rectCover(int number) {
     return v[number];
 }
 
+//给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+//如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
+//注意你不能在买入股票前卖出股票。
+//思路：使用动态规划
+int maxProfit(vector<int>& prices) {
+    int now=0;
+    int maxmoney=0;
+    for(int i=1;i<prices.size();++i)
+    {
+        now+=(prices[i]-prices[i-1]);
+        maxmoney=max(now,maxmoney);
+        now=max(0,now);
+    }
+    return maxmoney;
+}
+
+//给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。
+//你需要让组成和的完全平方数的个数最少。
+//思路：动态规划
+int numSquares(int n) {
+    vector<int> v;
+    while(n){
+        int x=sqrt(n);
+        n-=pow(x,2);
+        v.push_back(x);
+    }
+    return v.size();
+}
+
 int main(){
-    cout<<jumpFloor(4);
+    cout<<numSquares(13);
 }
