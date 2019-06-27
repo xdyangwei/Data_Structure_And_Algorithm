@@ -283,8 +283,78 @@ int lengthOfLIS(vector<int>& nums) {
     return Max;
 }
 
+//给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j)
+//范围内元素的总和，包含 i,  j 两点。
+//使用动态规划
+vector<int> sums;
+vector<int> num;
+void NumArray(vector<int>& nums) {
+    auto n=nums.size();
+    if(n<=0)
+        return ;
+    sums.resize(n);
+    num=nums;
+    sums[0]=nums[0];
+    for(int i=1;i<sums.size();i++){
+        sums[i]=sums[i-1]+nums[i];
+    }
+}
+
+int sumRange(int i, int j) {
+    return sums[j]-sums[i]+num[i];
+}
+
+//给定一个二维矩阵，计算其子矩形范围内元素的总和，
+//该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2)。
+vector<vector<int>> sums_of_matrix;
+vector<vector<int>> mat;
+void NumMatrix(vector<vector<int>>& matrix) {
+    if(matrix.empty()||matrix[0].empty())
+        return ;
+    auto m=matrix.size();
+    auto n=matrix[0].size();
+    sums_of_matrix.resize(m);
+    for(int i=0;i<m;i++)
+    sums_of_matrix[i].resize(n);
+    mat=matrix;
+    sums_of_matrix[0][0]=matrix[0][0];
+    for(int i=1;i<m;i++){
+        sums_of_matrix[i][0]=sums_of_matrix[i-1][0]+matrix[i][0];
+    }
+    for(int i=1;i<n;i++){
+        sums_of_matrix[0][i]=sums_of_matrix[0][i-1]+matrix[0][i];
+    }
+    for(int i=1;i<m;i++){
+        for(int j=1;j<n;j++){
+            int count1=0;
+            for(int k=j-1;k>=0;k--){
+                count1+=matrix[i][k];
+            }
+            for(int k=i-1;k>=0;k--){
+                count1+=matrix[k][j];
+            }
+            sums_of_matrix[i][j]=sums_of_matrix[i-1][j-1]+count1+matrix[i][j];
+        }
+    }
+}
+
+int sumRegion(int row1, int col1, int row2, int col2) {
+    if(sums_of_matrix.empty()||sums_of_matrix[0].empty())
+        return 0;
+    if(row1==row2&&col1==col2)
+        return mat[row1][col1];
+    if(row1>=1&&row2>=1&&col2>=1&&col1>=1)
+    return sums_of_matrix[row2][col2]-sums_of_matrix[row1-1][col2]-sums_of_matrix[row2][col1-1]+sums_of_matrix[row1-1][col1-1];
+    else if(row1==0&&col1>=1)
+        return sums_of_matrix[row2][col2]-sums_of_matrix[row2-1][col1-1];
+    else if(col1==0&&row1>=1)
+        return sums_of_matrix[row2][col2]-sums_of_matrix[row1-1][col2-1];
+    else
+        return sums_of_matrix[row2][col2];
+}
 
 int main(){
-    vector<int> v{-2,-1};
-    cout<<lengthOfLIS(v);
+    vector<vector<int>> v{{-4,-5}};
+    NumMatrix(v);
+    cout<<sumRegion(0,1,0,1);
 }
