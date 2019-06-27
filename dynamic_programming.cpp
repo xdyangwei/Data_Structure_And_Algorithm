@@ -262,6 +262,29 @@ int numSquares(int n) {
     return v[n];
 }
 
+//给定一个无序的整数数组，找到其中最长上升子序列的长度。
+//思路：利用辅助数组记录以这个下标为结束的最长上升子序列的长度，使用动态规划
+int lengthOfLIS(vector<int>& nums) {
+    auto n=nums.size();
+    if(n<=0)
+        return 0;
+    vector<int> v(n,1);
+    v[0]=1;
+    for(int i=1;i<n;i++){
+        for(int j=i-1;j>=0;j--){
+            if(nums[j]<nums[i])
+                v[i]=max(v[j]+1,v[i]);
+        }
+    }
+    int Max=0;
+    for(auto xx:v){
+        Max=max(xx,Max);
+    }
+    return Max;
+}
+
+
 int main(){
-    cout<<numSquares(13);
+    vector<int> v{-2,-1};
+    cout<<lengthOfLIS(v);
 }
