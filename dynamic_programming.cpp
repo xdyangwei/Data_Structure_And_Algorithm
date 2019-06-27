@@ -306,51 +306,28 @@ int sumRange(int i, int j) {
 
 //给定一个二维矩阵，计算其子矩形范围内元素的总和，
 //该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2)。
-vector<vector<int>> sums_of_matrix;
-vector<vector<int>> mat;
+vector<vector<int>> dp;
 void NumMatrix(vector<vector<int>>& matrix) {
-    if(matrix.empty()||matrix[0].empty())
-        return ;
-    auto m=matrix.size();
-    auto n=matrix[0].size();
-    sums_of_matrix.resize(m);
-    for(int i=0;i<m;i++)
-    sums_of_matrix[i].resize(n);
-    mat=matrix;
-    sums_of_matrix[0][0]=matrix[0][0];
-    for(int i=1;i<m;i++){
-        sums_of_matrix[i][0]=sums_of_matrix[i-1][0]+matrix[i][0];
-    }
-    for(int i=1;i<n;i++){
-        sums_of_matrix[0][i]=sums_of_matrix[0][i-1]+matrix[0][i];
-    }
-    for(int i=1;i<m;i++){
-        for(int j=1;j<n;j++){
-            int count1=0;
-            for(int k=j-1;k>=0;k--){
-                count1+=matrix[i][k];
-            }
-            for(int k=i-1;k>=0;k--){
-                count1+=matrix[k][j];
-            }
-            sums_of_matrix[i][j]=sums_of_matrix[i-1][j-1]+count1+matrix[i][j];
+    int M = matrix.size();
+    int N;
+    if(M==0)  N = 0;
+    else  N = matrix[0].size();
+
+    dp = vector<vector<int>>(M+1, vector<int>(N+1,0));
+    // dp[i][j] 表示 前i行前j列的矩形的和
+    for(int i=1; i<=M; i++){
+        for(int j=1; j<=N; j++){
+            dp[i][j] = matrix[i-1][j-1]+dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1];
         }
     }
 }
 
 int sumRegion(int row1, int col1, int row2, int col2) {
-    if(sums_of_matrix.empty()||sums_of_matrix[0].empty())
-        return 0;
-    if(row1==row2&&col1==col2)
-        return mat[row1][col1];
-    if(row1>=1&&row2>=1&&col2>=1&&col1>=1)
-    return sums_of_matrix[row2][col2]-sums_of_matrix[row1-1][col2]-sums_of_matrix[row2][col1-1]+sums_of_matrix[row1-1][col1-1];
-    else if(row1==0&&col1>=1)
-        return sums_of_matrix[row2][col2]-sums_of_matrix[row2-1][col1-1];
-    else if(col1==0&&row1>=1)
-        return sums_of_matrix[row2][col2]-sums_of_matrix[row1-1][col2-1];
-    else
-        return sums_of_matrix[row2][col2];
+    int ans = dp[row2+1][col2+1];
+    ans -= dp[row1][col2+1];
+    ans -= dp[row2+1][col1];
+    ans += dp[row1][col1];
+    return ans;
 }
 
 int main(){
