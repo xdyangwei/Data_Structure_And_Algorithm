@@ -330,8 +330,50 @@ int sumRegion(int row1, int col1, int row2, int col2) {
     return ans;
 }
 
+//给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​
+//设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+//你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+//卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+//思路：DP 时间复杂度(O(n^2))
+int maxProfit_1(vector<int>& prices) {
+    if(prices.empty()||prices.size()==1)
+        return 0;
+    int n=prices.size();
+    vector<int> v(n+2,0);
+    for(int i=n-2;i>=0;i--){
+        for(int j=i+1;j<n;j++){
+            for(int k=j+2;k<n+2;k++)
+            v[i]=max(v[i],prices[j]-prices[i]+v[k]);
+        }
+    }
+    int Max=0;
+    for(auto xx:v)
+        Max=max(xx,Max);
+    return Max;
+}
+
+//优化后的DP,将每一天的状态分为三种，分别为(除冷冻期外的)未持有状态、持有股票中和处于冷冻期
+//使用二维数组表示当天分别处于这三种状态下的收益
+int maxProfit_2(vector<int>& prices){
+    if(prices.empty()||prices.size()==1)
+        return 0;
+    int n=prices.size();
+    vector<vector<int>> v(n,vector<int>(3,0));
+    v[0][0]=0;v[0][1]=-prices[0];v[0][2]=0;
+    for(int i=1;i<n;i++){
+        v[i][0]=max(v[i-1][0],v[i-1][2]);
+        v[i][1]=max(v[i-1][1],v[i-1][0]-prices[i]);
+        v[i][2]=v[i-1][1]+prices[i];
+    }
+    int Max=0;
+    for(auto xx:v){
+        Max=max(xx[0],Max);
+        Max=max(xx[2],Max);
+    }
+    return Max;
+}
+
 int main(){
-    vector<vector<int>> v{{-4,-5}};
-    NumMatrix(v);
-    cout<<sumRegion(0,1,0,1);
+    vector<int> v{6,1,6,4,3,0,2};
+    cout<<maxProfit_2(v);
 }
