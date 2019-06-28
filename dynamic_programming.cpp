@@ -373,7 +373,53 @@ int maxProfit_2(vector<int>& prices){
     return Max;
 }
 
+//给定不同面额的硬币 coins 和一个总金额 amount。
+//编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
+//如果没有任何一种硬币组合能组成总金额，返回 -1。
+//可以当成是01背包来解决，使用DP
+int coinChange(vector<int>& coins, int amount) {
+    if(coins.empty()||amount<0)
+        return -1;
+    if(amount==0)
+        return 0;
+    auto n=coins.size();
+    vector<int> v(amount+1,1000000);
+    v[0]=0;
+    for(int i=1;i<=amount;i++){
+        for(auto coin:coins){
+            if(i-coin>=0)
+                v[i]=min(v[i],v[i-coin]+1);
+        }
+    }
+    if(v[amount]==1000000)
+        return -1;
+    return v[amount];
+}
+
+//递归版本,时间复杂度太高
+static bool flag1= false;
+int coinChange_1(vector<int>& coins, int amount) {
+    if(amount==0) {
+        flag1=true;
+        return 0;
+    }
+    else if(amount<0){
+        return -1;
+    }
+    else{
+        int Min=10000000;
+        for(auto xx:coins) {
+            if(coinChange_1(coins,amount-xx)==-1)
+                continue;
+            Min = min(Min, 1 + coinChange_1(coins, amount - xx));
+        }
+        if(flag1)
+        return Min;
+        else
+            return -1;
+    }
+}
 int main(){
-    vector<int> v{6,1,6,4,3,0,2};
-    cout<<maxProfit_2(v);
+    vector<int> v{1,2,5};
+    cout<<coinChange(v,20);
 }
