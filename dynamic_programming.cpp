@@ -419,7 +419,28 @@ int coinChange_1(vector<int>& coins, int amount) {
             return -1;
     }
 }
+
+//01背包问题再练习
+//当每个商品可取数量为1时，可以使用二维数组进行限制
+//当每个商品数量无限时，可以使用一维数组
+int max_profit(vector<int> &cost,vector<int> &profit,int capital){
+    vector<vector<int>> v(cost.size()+1,vector<int>(capital+1,0));
+    for(int i=1;i<=cost.size();i++){
+        for(int j=1;j<=capital;j++){
+            if(j-cost[i-1]>=0){
+                v[i][j]=max(v[i][j],v[i-1][j-cost[i-1]]+profit[i-1]);
+            }
+        }
+    }
+    int Max=0;
+    //for(auto x:v)
+        for(auto xx:v[cost.size()])
+            Max=max(xx,Max);
+    return Max;
+}
+
 int main(){
-    vector<int> v{1,2,5};
-    cout<<coinChange(v,20);
+    vector<int> v1{15,10,12,8};
+    vector<int> v2{12,8,9,5};
+    cout<<max_profit(v1,v2,30);
 }
