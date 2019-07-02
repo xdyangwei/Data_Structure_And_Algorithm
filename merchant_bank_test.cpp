@@ -86,6 +86,78 @@ int exercise_route(){
     }
     cout<<count<<endl;
     return 0;}
+
+
+//quick_sort快速排序练习
+void quick_sort(vector<int> &v,int start,int end){
+    if(v.empty()||start==end)
+        return ;
+    int z=start;
+    auto x=v[z];
+    for(int i=z+1;i<end;i++){
+        if(v[i]<=x){
+            auto y=v[i];
+            v.erase(v.begin()+i);
+            v.insert(v.begin(),y);
+            z++;
+        }
+    }
+    quick_sort(v,0,z);
+    quick_sort(v,z+1,end);
+}
+
+//冒泡排序bubble_sort
+void bubble_sort(vector<int> &v){
+    if(v.size()<=1)
+        return ;
+    for(int i=0;i<v.size();i++){
+        for(int j=i+1;j<v.size();j++){
+            if(v[j]<v[i]){
+                auto x=v[j];
+                v[j]=v[i];
+                v[i]=x;
+            }
+        }
+    }
+}
+
+//插入排序,每次都是局部排序，每次结束不能找到最小或最大项
+void insert_sort(vector<int> &v){
+    if(v.size()<=1)
+        return ;
+    for(int i=1;i<v.size();i++){
+        for(int j=i-1;j>=0;j--){
+            if(v[j]>v[i]){
+                auto x=v[j];
+                v[j]=v[i];
+                v[i]=x;
+            }
+        }
+    }
+}
+
+//选择排序，每次迭代找出最大或最小项，然后与之交换
+void select_sort(vector<int>& v){
+    if(v.size()<=1)
+        return ;
+    for(int i=0;i<v.size();i++){
+        int tem=v[i];
+        int pos=i;
+        for(int j=i;j<v.size();j++){
+            if(v[j]<tem) {
+                tem =v[j];
+                pos = j;
+            }
+        }
+        auto x=v[i];
+        v[i]=tem;
+        v[pos]=x;
+    }
+}
+
 int main(){
-    exercise_route();
+    vector<int> v{2,1,4,3,2,5,6,8,7};
+    select_sort(v);
+    for(auto xx:v)
+        cout<<xx<<endl;
 }
