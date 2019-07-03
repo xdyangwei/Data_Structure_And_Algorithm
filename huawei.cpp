@@ -485,8 +485,36 @@ void simple_password(){
     }
 }
 
+//实现删除字符串中出现次数最少的字符，
+//若多个字符出现次数一样，则都删除。输出删除这些单词后的字符串，
+//字符串中其它字符保持原来的顺序。
+//思路：遍历字符串
+void delete_least_char(){
+    string s;
+    while(cin>>s){
+        map<char,int> m;
+        for(auto ss:s){
+            if(m.find(ss)!=m.end())
+                m[ss]+=1;
+            else
+                m[ss]=1;
+        }
+        set<char> v;
+        int count=s.size();
+        for(auto mm:m){
+            if(mm.second<count){
+                v.clear();
+                v.insert(mm.first);
+            }else if(mm.second==count)
+                v.insert(mm.first);
+        }
+        for(auto i=0;i<s.size();i++){
+            if(v.find(s[i])==v.end()){
 
-
+            }
+        }
+    }
+}
 int main(){
     simple_password();
     return 0;
