@@ -455,9 +455,39 @@ void ip_address_classify(){
     }
 }
 
+//简单密码
+//简单的字符替换即可
+void simple_password(){
+    string s;
+    while(cin>>s){
+        string s1="";
+        for(auto xx:s){
+            if(xx>=65&&xx<=90){
+                if(xx==90)
+                    s1+='a';
+                else
+                    s1+=(xx+33);
+            }else if(xx>=97&&xx<=122){
+                char c;
+                if(xx=='s')
+                    c=7;
+                else if(xx<='r')
+                    c=(xx-97)/3+2;
+                else if(xx!='z')
+                    c=(xx-116)/3+8;
+                else
+                    c=9;
+                s1+=to_string(c);
+            } else
+                s1+=xx;
+        }
+        cout<<s1<<endl;
+    }
+}
+
 
 
 int main(){
-    cout<<ip_address_judge("19..0.~255.255.255.0");
+    simple_password();
     return 0;
 }
