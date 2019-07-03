@@ -505,17 +505,20 @@ void delete_least_char(){
             if(mm.second<count){
                 v.clear();
                 v.insert(mm.first);
+                count=mm.second;
             }else if(mm.second==count)
                 v.insert(mm.first);
         }
         for(auto i=0;i<s.size();i++){
-            if(v.find(s[i])==v.end()){
-
+            if(v.find(s[i])!=v.end()){
+                s.erase(s.begin()+i);
+                i--;
             }
         }
+        cout<<s<<endl;
     }
 }
 int main(){
-    simple_password();
+    delete_least_char();
     return 0;
 }
