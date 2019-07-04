@@ -518,7 +518,52 @@ void delete_least_char(){
         cout<<s<<endl;
     }
 }
+
+//兑换汽水瓶
+void transfer_bottle(){
+    int n;
+    while(cin>>n){
+        int Count=0;
+        while(n>=3){
+            auto x=n/3;
+            auto y=n%3;
+            Count+=x;
+            n-=(3*x);
+            n+=x;
+        }
+        if(n==2)
+            Count+=1;
+        cout<<Count<<endl;
+    }
+}
+
+//合唱队
+void sing_and_song(){
+    int n;
+    while(cin>>n){
+        vector<int> v;
+        while(n--){
+            int x;cin>>x;
+            v.push_back(x);
+        }
+        int Count=v.size();
+        for(int i=0;i<v.size();i++){
+            int count=0;
+            for(int j=0;j<i;j++){
+                if(v[j]>=v[j+1])
+                    count++;
+            }
+            for(int j=i+1;j<v.size();j++){
+                if(v[j]<=v[j-1])
+                    count++;
+            }
+                Count=min(count,Count);
+        }
+        cout<<Count<<endl;
+    }
+}
+
 int main(){
-    delete_least_char();
+    sing_and_song();
     return 0;
 }
