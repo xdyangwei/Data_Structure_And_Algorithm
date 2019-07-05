@@ -155,9 +155,44 @@ void select_sort(vector<int>& v){
     }
 }
 
+//归并排序,使用分治法把问题分解为子问题，最后在合并起来
+void merge(vector<int> &v,int m,int n){
+    vector<int> v1;
+    auto middle=(m+n)/2;
+    int i,j;
+    for(i=m,j=middle+1;i<=middle&&j<=n;){
+        if(v[i]<=v[j]){
+            v1.push_back(v[i]);i++;
+        }else{
+            v1.push_back(v[j]);j++;
+        }
+    }
+    while(i<=middle){
+        v1.push_back(v[i]);
+        i++;
+    }
+    while(j<=n){
+        v1.push_back(v[j]);
+        j++;
+    }
+    for(int k=m,l=0;k<=n&&l<v1.size();k++,l++)
+        v[k]=v1[l];
+}
+
+void merge_sort(vector<int> &v,int m,int n){
+    if(n>m){
+        auto middle=(m+n)/2;
+        merge_sort(v,m,middle);
+        merge_sort(v,middle+1,n);
+    }
+    merge(v,m,n);
+}
+
+
+
 int main(){
-    vector<int> v{2,1,4,3,2,5,6,8,7};
-    select_sort(v);
+    vector<int> v{9,8,7,6,5,4,3,2,1};
+    merge_sort(v,0,v.size()-1);
     for(auto xx:v)
         cout<<xx<<endl;
 }
