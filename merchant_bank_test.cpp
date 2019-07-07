@@ -188,11 +188,20 @@ void merge_sort(vector<int> &v,int m,int n){
     merge(v,m,n);
 }
 
-
+//统计每个月兔子的总数
+int getTotalCount(int month){
+    int count;
+    if (month < 3)
+        count = 1;
+    else
+        count = getTotalCount(month - 1) + getTotalCount(month - 2);
+    return count;
+}
 
 int main(){
-    vector<int> v{9,8,7,6,5,4,3,2,1};
-    merge_sort(v,0,v.size()-1);
-    for(auto xx:v)
-        cout<<xx<<endl;
+    int x;
+    while(cin>>x){
+        cout<<getTotalCount(x)<<endl;
+    }
+
 }
