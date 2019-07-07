@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <map>
 #include <set>
-
+#include <algorithm>
 using namespace std;
 int chocolate(int n){
     if(n>=1){
@@ -197,6 +197,32 @@ int getTotalCount(int month){
         count = getTotalCount(month - 1) + getTotalCount(month - 2);
     return count;
 }
+
+//参数解析
+void parse_arguments(){
+    string str;
+    while(getline(cin,str)){
+        bool flag = false;
+        vector<string> vec;
+        string row;
+        for (int i = 0; i < str.size(); i++) {
+            if (flag) {//在括号内
+                if (str[i] != '\"') row += str[i];
+                else flag = false;
+            } else {
+                if (str[i] == ' ') {
+                    vec.push_back(row);
+                    row = "";
+                } else if (str[i] == '\"') flag = true;
+                else row += str[i];
+            }
+        }
+        vec.push_back(row);
+        cout << vec.size() << endl;
+        for (auto i : vec) cout << i << endl;
+    }
+}
+
 
 int main(){
     int x;
