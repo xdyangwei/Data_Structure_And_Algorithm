@@ -223,11 +223,19 @@ void parse_arguments(){
     }
 }
 
+//字符逆序
+//将一个字符串str的内容颠倒过来，并输出。
+//str的长度不超过100个字符。 如：输入“I am a student”，输出“tneduts a ma I”。
+void reverse_str(){
+    string str;
+    while(getline(cin,str)){
+        reverse(str.begin(),str.end());
+        cout<<str<<endl;
+    }
+}
+
 
 int main(){
-    int x;
-    while(cin>>x){
-        cout<<getTotalCount(x)<<endl;
-    }
+    reverse_str();
 
 }
