@@ -593,7 +593,31 @@ void apple(){
     }
 }
 
+//杨辉三角的变形
+//以上三角形的数阵，第一行只有一个数1，以下每行的每个数，是恰好是它上面的数，左上角数到右上角的数，3个数之和（如果不存在某个数，认为该数就是0）。
+//求第n行第一个偶数出现的位置。如果没有偶数，则输出-1。例如输入3,则输出2，输入4则输出3。
+void triangle_sum(){
+    int n;
+    while(cin>>n){
+        vector<vector<int>> v(n+1,vector<int>());
+        v[1].push_back(1);
+        for(int i=2;i<=n;i++){
+            for(int j=0;j<v[i-1].size()+2;j++){
+                int x=v[i-1].size();
+                auto y=(j-2>=0?v[i-1][j-2]:0)+(j-1>=0&&j-1<x?v[i-1][j-1]:0)+(j<x?v[i-1][j]:0);
+                v[i].push_back(y);
+            }
+        }
+        for(int i=1;i<v[n].size();i++){
+            if((v[n][i]&0x1)==0) {
+                cout << i+1 << endl;
+                break;
+            }
+        }
+    }
+}
+
 int main(){
-    apple();
+    triangle_sum();
     return 0;
 }
