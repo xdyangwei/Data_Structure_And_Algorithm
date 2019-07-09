@@ -563,7 +563,37 @@ void sing_and_song(){
     }
 }
 
+//放苹果
+//把M个同样的苹果放在N个同样的盘子里，允许有的盘子空着不放，
+//问共有多少种不同的分法？（用K表示）5，1，1和1，5，1 是同一种分法。
+static set<vector<int>> distribution;
+void apple_count(int m,int n,vector<int>& v){
+    if(m==0&&n<=v.size()){
+        auto x=v;
+        sort(x.begin(),x.end());
+        distribution.insert(x);
+    }else if(m>0&&n==v.size()){
+      return ;
+    }else{
+        for(int i=0;i<=m;i++){
+            v[n]=i;
+            apple_count(m-i,n+1,v);
+            v[n]=0;
+        }
+    }
+}
+
+void apple(){
+    int m,n;
+    while(cin>>m>>n){
+        vector<int> v(n,0);
+        apple_count(m,0,v);
+        cout<<distribution.size()<<endl;
+        distribution.clear();
+    }
+}
+
 int main(){
-    sing_and_song();
+    apple();
     return 0;
 }
