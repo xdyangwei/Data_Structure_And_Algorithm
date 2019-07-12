@@ -617,6 +617,21 @@ void triangle_sum(){
     }
 }
 
+//计算整数二进制中1的个数
+//使用biteset
+void number_of_one_binary(){
+    int num;
+    while(cin>>num){
+        bitset<32> b(num);
+        int Count=0;
+        for(int i=0;i<32;i++){
+            if(b[i]==1)
+                Count++;
+        }
+        cout<<Count<<endl;
+    }
+}
+
 int main(){
     triangle_sum();
     return 0;
