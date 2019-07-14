@@ -351,17 +351,40 @@ private:
 class CSingleton1
 {
 private:
-    CSingleton()
+    CSingleton1()
     {
     }
 public:
-    static CSingleton * GetInstance()
+    static CSingleton1 * GetInstance()
     {
-        static CSingleton instance;
+        static CSingleton1 instance;
         return &instance;
     }
 };
 
+//单例模式：多线程下的懒汉模式，创建时加锁
+class Singleton2
+{
+private:
+    static Singleton2* m_instance;
+    Singleton2(){}
+public:
+    static Singleton2* getInstance();
+};
+
+Singleton2* Singleton2::getInstance()
+{
+    if(NULL == m_instance)
+    {
+        //Lock();//借用其它类来实现，如boost
+        if(NULL == m_instance)
+        {
+            m_instance = new Singleton2;
+        }
+        //UnLock();
+    }
+    return m_instance;
+}
 
 
     int main() {
