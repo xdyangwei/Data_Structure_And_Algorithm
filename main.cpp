@@ -332,6 +332,37 @@ void Combination(string s){
     //return v1;
 }
 
+//单例模式：单线程下的懒汉，当实例用到时再创建
+class CSingleton
+{
+public:
+    static CSingleton* GetInstance()
+    {
+        if ( m_pInstance == NULL )
+            m_pInstance = new CSingleton();
+        return m_pInstance;
+    }
+private:
+    CSingleton(){};
+    static CSingleton * m_pInstance;
+};
+
+//单例模式：单线程下的饿汉，一开始就创建实例
+class CSingleton1
+{
+private:
+    CSingleton()
+    {
+    }
+public:
+    static CSingleton * GetInstance()
+    {
+        static CSingleton instance;
+        return &instance;
+    }
+};
+
+
 
     int main() {
    string str="aabc";
