@@ -658,7 +658,77 @@ void str_intercept(){
     }
 }
 
+//字符串合并处理，将输入的两个字符串合并。
+//对合并后的字符串进行排序，要求为：下标为奇数的字符和下标为偶数的字符分别从小到大排序。
+void SortString(string &s){
+    string s1="";
+    string s2="";
+    for(int i=0;i<s.size();i++){
+        if(i&0x1){
+            s1+=s[i];
+        }else{
+            s2+=s[i];
+        }
+    }
+    sort(s1.begin(),s1.end());sort(s2.begin(),s2.end());
+    for(int i=0,j=0,k=0;i<s.size();i++){
+        if(i&0x1){
+            s[i]=s1[j];j++;
+        }else{
+            s[i]=s2[k];k++;
+        }
+    }
+}
+
+char TransferChar(char a,char b){
+    int x;
+    if(b=='0')
+        x=a-'0';
+    else if(b=='a')
+        x=a-'a'+10;
+    else
+        x=a-'A'+10;
+    bitset<4> b1(x);
+    int i=0,j=3;
+    while(i<j){
+        int y=b1[i];
+        b1[i]=b1[j];
+        b1[j]=y;
+        i++;j--;
+    }
+    if(b=='0'&&b1.to_ulong()<10)
+        return b1.to_ulong()+'0';
+    else if(b1.to_ulong()<10)
+        return b1.to_ulong()+'0';
+    else{
+        return b1.to_ulong()-10+'A';
+    }
+}
+
+void TransferString(string &s){
+    for(int i=0;i<s.size();i++){
+        if(s[i]>='0'&&s[i]<='9'){
+            s[i]=TransferChar(s[i],'0');
+        }else if(s[i]>='A'&&s[i]<='F')
+            s[i]=TransferChar(s[i],'A');
+        else if(s[i]>='a'&&s[i]<='f')
+            s[i]=TransferChar(s[i],'a');
+        else{
+            continue;
+        }
+    }
+}
+
+void ProcessString(string s1,string s2){
+    auto s=s1+s2;
+    SortString(s);
+    TransferString(s);
+    cout<<s<<endl;
+}
+
 int main(){
-    triangle_sum();
+    string s1="dec",s2="fab";
+    //ProcessString(s1,s2);
+    cout<<TransferChar('3','0');
     return 0;
 }
