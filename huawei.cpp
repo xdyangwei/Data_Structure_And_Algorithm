@@ -726,9 +726,49 @@ void ProcessString(string s1,string s2){
     cout<<s<<endl;
 }
 
+//密码截取，最长对称子串
+void max_symmetrical_substring(string s){
+    vector<int> v;
+    for(int i=0;i<s.size();i++){
+        int j=i,k=i+1,tmp=0;
+        if(j>=0&&k<s.size()&&s[j]!=s[k])
+            tmp=1;
+        else if(j<0||k>=s.size()){
+            tmp=1;
+        }else {
+            while (j>=0&&k<s.size()){
+                if(s[j]==s[k]){
+                j--;k++;}
+                else
+                    break;
+            }
+            tmp=max(tmp,k-j-1);
+        }
+        j=i-1,k=i+1;int tmp1=0;
+        if(j>=0&&k<s.size()&&s[j]!=s[k])
+            tmp1=1;
+        else if(j<0||k>=s.size()){
+            tmp1=1;
+        }else {
+            while (j>=0&&k<s.size()){
+                if(s[j]==s[k]){
+                    j--;k++;}
+                else
+                    break;
+            }
+            tmp1=max(tmp1,k-j-1);
+        }
+        v.push_back(max(tmp,tmp1));
+    }
+    int Max=0;
+    for(auto xx:v)
+        Max=max(xx,Max);
+    cout<<Max<<endl;
+}
+
 int main(){
-    string s1="dec",s2="fab";
-    //ProcessString(s1,s2);
-    cout<<TransferChar('3','0');
+    string s1;
+    while(cin>>s1)
+    max_symmetrical_substring(s1);
     return 0;
 }
