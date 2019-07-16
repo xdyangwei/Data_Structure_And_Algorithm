@@ -789,8 +789,60 @@ void Reverse_String(){
     }
 }
 
+//整数与IP地址间转换
+
+vector<string> str_split1(string s){
+    vector<string> v;
+    auto start=s.begin();
+    while(find(start,s.end(),'.')!=s.end()){
+        auto it=find(start,s.end(),'.');
+        string s1(start,it);
+        v.push_back(s1);
+        start=it+1;
+    }
+    v.push_back(string(start,s.end()));
+    return v;
+}
+
+string int_to_ip(string s){
+    string ss;
+    auto s1=s.substr(0,8);
+    bitset<8> b1(s1);
+    ss+=to_string(b1.to_ulong());
+    ss+=".";
+    auto s2=s.substr(8,8);
+    bitset<8> b2(s2);
+    ss+=to_string(b2.to_ulong());
+    ss+=".";
+    auto s3=s.substr(16,8);
+    bitset<8> b3(s3);
+    ss+=to_string(b3.to_ulong());
+    ss+=".";
+    auto s4=s.substr(24,8);
+    bitset<8> b4(s4);
+    ss+=to_string(b4.to_ulong());
+    return ss;
+}
+
+void int_transfer_ip(){
+    string ip_str,ip_int;
+    while(cin>>ip_str>>ip_int){
+        auto v=str_split1(ip_str);
+        string s1;
+        for(auto xx:v){
+            bitset<8> b(stoi(xx));
+            s1+=b.to_string();
+        }
+        bitset<32> b1(s1);
+        cout<<b1.to_ulong()<<endl;
+        bitset<32> b2(stoi(ip_int));
+        cout<<int_to_ip(b2.to_string())<<endl;
+    }
+}
+
 
 int main(){
-    Reverse_String();
+    int_transfer_ip();
     return 0;
+
 }
