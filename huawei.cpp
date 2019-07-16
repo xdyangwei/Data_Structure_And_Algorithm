@@ -766,9 +766,31 @@ void max_symmetrical_substring(string s){
     cout<<Max<<endl;
 }
 
+//单词倒排
+void Reverse_String(){
+    string s;
+    while(getline(cin,s)){
+        for(auto &xx:s){
+            if(xx<'A'||(xx>'Z'&&xx<'a')||xx>'z')
+                xx=' ';
+        }
+        stringstream s1(s);
+        string str;vector<string> v;
+        while(s1>>str){
+            v.push_back(str);
+        }
+        string ss="";
+        for(auto i=v.rbegin();i<v.rend();i++){
+            ss+=(*i);
+            ss+=" ";
+        }
+        ss.erase(ss.end()-1);
+        cout<<ss<<endl;
+    }
+}
+
+
 int main(){
-    string s1;
-    while(cin>>s1)
-    max_symmetrical_substring(s1);
+    Reverse_String();
     return 0;
 }
