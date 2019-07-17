@@ -850,9 +850,39 @@ void picture_sort(){
     }
 }
 
+//蛇形矩阵是由1开始的自然数依次排列成的一个矩阵上三角形。
+//找规律
+void print_row(set<int>& v,int n,int m){
+    auto x=(*v.begin());
+    for(int i=0;i<n;i++){
+        cout<<x<<" ";
+        v.erase(x);
+        x+=(m++);
+    }
+    cout<<endl;
+}
+void snake_rectangle(){
+    int n;
+    while(cin>>n){
+        int x=n,y=1;
+        set<int> v;
+        while(x){
+            for(int i=1;i<=x;i++){
+                v.insert(y++);
+            }
+            x--;
+        }
+        int z=n;
+        for(int i=0;i<n;i++){
+            print_row(v,z,n-z+2);
+            z--;
+        }
+    }
+}
+
 
 int main(){
-    picture_sort();
+    snake_rectangle();
     return 0;
 
 }
