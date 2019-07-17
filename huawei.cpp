@@ -880,9 +880,43 @@ void snake_rectangle(){
     }
 }
 
+void str_encryption(){
+    string key,str;
+    while(cin>>key>>str){
+        set<char> s;
+        string ss="";
+        for(int i=0;i<key.size();i++){
+            if(s.find(key[i])==s.end()){
+                s.insert(key[i]);
+                ss+=string(1,key[i]);
+            }else{
+                continue;
+            }
+        }
+        //cout<<ss<<endl;
+        for(char c='A';c<='Z';c++){
+            if(s.find(c)==s.end()&&s.find(c+32)==s.end())
+                ss+=c;
+        }
+        map<char,char> m;int i=0;
+        for(char c='A';c<='Z';c++){
+            if(ss[i]>='a'&&ss[i]<='z') {
+                m[c+32] = ss[i];
+                i++;
+            }else{
+            m[c]=ss[i++];
+            m[c+32]=m[c]+32;}
+        }
+        string sss="";
+        for(auto xx:str){
+            sss+=m[xx];
+        }
+        cout<<sss<<endl;
+    }
+}
 
 int main(){
-    snake_rectangle();
+    str_encryption();
     return 0;
 
 }
