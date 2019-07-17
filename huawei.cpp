@@ -840,9 +840,19 @@ void int_transfer_ip(){
     }
 }
 
+//把这些图片按照大小（ASCII码值从小到大）排列收好
+//使用sort函数
+void picture_sort(){
+    string s;
+    while(cin>>s){
+        sort(s.begin(),s.end());
+        cout<<s<<endl;
+    }
+}
+
 
 int main(){
-    int_transfer_ip();
+    picture_sort();
     return 0;
 
 }
