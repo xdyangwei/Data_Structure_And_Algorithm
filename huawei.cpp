@@ -987,11 +987,32 @@ void fama_1(){
         }
         cout<<Count<<endl;
     }
+}
 
+//字符统计，输入一行字符，分别统计出包含英文字母、空格、数字和其它字符的个数。
+void str_judge(){
+    string str;
+    while(getline(cin,str)){
+        int word=0,space=0,number=0,other=0;
+        for(auto xx:str){
+            if((xx>='A'&&xx<='Z')||(xx>='a'&&xx<='z')){
+                word+=1;
+            }else if(xx==' ')
+                space+=1;
+            else if(xx>='0'&&xx<='9')
+                number+=1;
+            else
+                other+=1;
+        }
+        cout<<word<<endl;
+        cout<<space<<endl;
+        cout<<number<<endl;
+        cout<<other<<endl;
+    }
 }
 
 int main(){
-    fama_1();
+    str_judge();
     return 0;
 
 }
