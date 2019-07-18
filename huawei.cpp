@@ -915,8 +915,83 @@ void str_encryption(){
     }
 }
 
+//称砝码，使用递归时间复杂度过大，尝试使用迭代
+void sum_of_fama(int n,vector<int> &v,vector<int> &v1,int &count,set<int>& sum){
+    if(n<v.size()){
+        for(int i=0;i<=v1[n];i++){
+            auto x=count;
+            count+=v[n]*i;
+            sum_of_fama(n+1,v,v1,count,sum);
+            count=x;
+        }
+    } else{
+        sum.insert(count);
+        }
+}
+
+void fama(){
+    int n;
+    while(cin>>n){
+        int n1=n;
+        vector<int> v;
+        while(n1--){
+            int x;
+            cin>>x;
+            v.push_back(x);
+        }
+        n1=n;
+        vector<int> v1;
+        while(n1--){
+            int x;cin>>x;v1.push_back(x);
+        }
+        int count=0;
+        set<int> sum;
+        sum_of_fama(0,v,v1,count,sum);
+        cout<<sum.size()<<endl;//递归代码,复杂度超限
+    }
+}
+
+//使用动态规划求解称砝码问题
+void fama_1(){
+    int n;
+    while(cin>>n){
+        int n1=n;
+        vector<int> v;
+        while(n1--){
+            int x;
+            cin>>x;
+            v.push_back(x);
+        }
+        n1=n;
+        vector<int> v1;int sum=0;
+        while(n1--){
+            int x;cin>>x;
+            v1.push_back(x);
+        }
+        for(int i=0;i<n;i++)
+            sum+=(v1[i]*v[i]);
+        vector<int> dp(sum+1,0);
+        dp[0]=1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<v1[i];j++){
+                for(int k=sum;k>=v[i];k--){
+                    if(dp[k-v[i]]==1)
+                        dp[k]=1;
+            }
+        }
+        }
+        int Count=0;
+        for(auto xx:dp){
+            if(xx==1)
+                Count+=1;
+        }
+        cout<<Count<<endl;
+    }
+
+}
+
 int main(){
-    str_encryption();
+    fama_1();
     return 0;
 
 }
