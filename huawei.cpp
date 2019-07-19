@@ -1011,8 +1011,85 @@ void str_judge(){
     }
 }
 
+//学英语，为了快速读出一串数字，编写程序将数字转换成英文
+static map<char,string> mm1{{'2',"twenty"},{'3',"thirty"},{'4',"forty"},{'5',"fifty"},{'6',"sixty"},{'7',"seventy"},{'8',"eighty"},{'9',"ninty"}};
+static map<string,string> mm2{{"10","ten"},{"11","eleven"},{"12","twelve"},{"13","thirteen"},{"14","fourteen"},{"15","fifteen"},{"16","sixteen"},{"17","seventeen"},{"18","eighteen"},{"19","ninteen"}};
+static map<char,string> mm3{{'1',"one"},{'2',"two"},{'3',"three"},{'4',"four"},{'5',"five"},{'6',"six"},{'7',"seven"},{'8',"eight"},{'9',"nine"},{'0',""}};
+static bool flag=1;
+void recursive_parse(string s){
+    if(s.empty())
+        return ;
+    else{
+        if(s.size()<=9&&s.size()>=7){
+            int index=0;
+            if(s.size()==7)
+                index=1;
+            else if(s.size()==8)
+                index=2;
+            else
+                index=3;
+            recursive_parse(s.substr(0,index));
+            if(s[0]!='0')
+            cout<<"million"<<" ";
+            recursive_parse(s.substr(index));
+        }else if(s.size()<=6&&s.size()>=4){
+            int index=0;
+            if(s.size()==4)
+                index=1;
+            else if(s.size()==5)
+                index=2;
+            else
+                index=3;
+            recursive_parse(s.substr(0,index));
+            if(s[0]!='0')
+            cout<<"thousand"<<" ";
+            recursive_parse(s.substr(index));
+        }else if(s.size()==3){
+            recursive_parse(s.substr(0,1));
+            if(s[0]!='0'){
+                cout<<"hundred"<<" ";
+            }else
+                flag=false;
+            recursive_parse(s.substr(1));
+        }else if(s.size()==2){
+            if(s[0]!='0'||s[1]!='0') {
+                if(flag==true)
+                cout << "and ";
+            }
+            if(s[0]>='2') {
+                //cout<<s[1]<<endl;
+                cout << mm1[s[0]] << " ";
+                recursive_parse(s.substr(1, 1));
+            }
+            else if(s[0]=='1'){
+                cout<<mm2[s]<<" ";
+            }else{
+                recursive_parse(s.substr(1, 1));
+            }
+
+        }else{
+            cout<<mm3[s[0]]<<" ";
+        }
+
+    }
+}
+
+void parse(){
+    long number;
+    while(cin>>number){
+        auto s=to_string(number);
+        if(s.size()<=2)
+            flag= false;
+        if(s.size()<=9)
+            recursive_parse(s);
+        else
+            cout<<"error";
+        cout<<endl;
+    }
+}
+
 int main(){
-    str_judge();
+    parse();
     return 0;
 
 }
