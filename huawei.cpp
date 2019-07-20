@@ -1088,8 +1088,46 @@ void parse(){
     }
 }
 
-int main(){
-    parse();
-    return 0;
+void beautify_of_one(string name){
+    vector<pair<char,int>> v;
+    for(auto xx:name){
+        auto it=find_if(v.begin(),v.end(),[=](pair<char,int> p){
+            return p.first==xx||p.first==xx-32?true: false;
+        });
+        if(it==v.end()){
+            if(xx<='Z'&&xx>='A')
+                v.push_back(make_pair(xx+32,1));
+            else
+                v.push_back(make_pair(xx,1));
+        }else{
+            (*it).second+=1;
+        }
+    }
+    sort(v.begin(),v.end(),[](pair<char,int> p1,pair<char,int> p2){
+        return p1.second>p2.second?true: false;
+    });
+    int Count=0;
+    for(int i=0;i<v.size();i++){
+        Count+=((26-i)*v[i].second);
+    }
+    cout<<Count<<endl;
+}
 
+void beautity_of_name(){
+    int n;
+    cin>>n;
+    string name;
+    vector<string> v;
+    while(n--){
+        cin>>name;
+        v.push_back(name);
+    }
+    for(auto xx:v){
+        beautify_of_one(xx);
+    }
+}
+
+int main(){
+    beautity_of_name();
+    return 0;
 }
