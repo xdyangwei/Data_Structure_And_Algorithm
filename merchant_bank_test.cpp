@@ -234,8 +234,64 @@ void reverse_str(){
     }
 }
 
+//取平均数使得剩下的数最大
+double average_of_numbers(vector<double>& v){
+    if(v.size()==1)
+        return v[0];
+    else{
+        double x=(v[0]+v[1])/2;
+        v.push_back(x);
+        v.erase(v.begin(),v.begin()+2);
+        sort(v.begin(),v.end());
+        return average_of_numbers(v);
+    }
+}
+
+//不在同一行同一列的两个数乘积最大
+struct dim{
+    int value;
+    int x;
+    int y;
+    dim(int a,int b,int c):
+    value(a),x(b),y(c){}
+};
+int max_product(vector<vector<int>> &v){
+    if(v.empty()||v[0].empty())
+        return 0;
+    vector<dim> v1;
+    for(int i=0;i<v.size();i++){
+        for(int j=0;j<v[0].size();j++) {
+            v1.push_back(dim(v[i][j],i,j));
+        }
+    }
+    sort(v1.begin(),v1.end(),[](dim a,dim b){
+        return a.value>b.value?true: false;
+    });
+    int Max=0;
+    for(int i=0;i<v1.size();i++){
+        for(int j=0;j<v1.size()&&j!=i;j++){
+            if(v1[i].x!=v1[j].x&&v1[i].y!=v1[j].y)
+                Max=max(Max,v1[i].value*v1[j].value);
+        }
+    }
+    return Max;
+}
 
 int main(){
-    reverse_str();
+    int m,n;
+    vector<vector<int>> v;
+    cin>>m>>n;
+    while(m--){
+        vector<int> v1;
+        int c=n;
+        while(c--){
+            int x;cin>>x;
+            v1.push_back(x);
+        }
+        v.push_back(v1);
+    }
+
+    cout<<max_product(v);
+    return 0;
 
 }
