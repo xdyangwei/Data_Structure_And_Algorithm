@@ -11,6 +11,8 @@
 #include <map>
 #include <sstream>
 #include <tuple>
+#include <mutex>
+#include <thread>
 using namespace std;
 
 //输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
@@ -1241,7 +1243,21 @@ void list_insert_and_delete(){
         }
     }
 }
+//多线程处理
 
+void fun1(int n){
+    static int iter_num=n;
+
+    while(iter_num--){
+
+    }
+}
+void multi_thread(){
+    int n;
+    while(cin>>n){
+
+    }
+}
 
 int main(){
     list_insert_and_delete();
