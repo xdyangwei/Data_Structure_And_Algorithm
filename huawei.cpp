@@ -1154,7 +1154,96 @@ void linear_insert(){
     }
 }
 
+//单向链表插入与删除
+namespace huawei {
+    struct ListNode {
+        int m_nKey;
+        ListNode *m_pNext;
+    };
+}
+
+void list_insert_and_delete(){
+    int n;
+    while(cin>>n){
+        int head_value;
+        cin>>head_value;
+        auto head=new huawei::ListNode;
+        head->m_nKey=head_value;
+        head->m_pNext= nullptr;
+        int delete_value;
+        vector<pair<int,int>> v;
+        while(n--!=1){
+            int node,next;
+            cin>>next>>node;
+            v.push_back(make_pair(next,node));
+        }
+        cin>>delete_value;
+        auto it=find_if(v.begin(),v.end(),[=](pair<int,int> p1){
+            return p1.second==head_value;
+        });
+        while(it!=v.end()) {
+            if(!head->m_pNext){
+            head->m_pNext = new huawei::ListNode;
+            head->m_pNext->m_nKey = (*it).first;
+            head->m_pNext->m_pNext= nullptr;
+            }
+            else{
+                auto y=head->m_pNext;
+                head->m_pNext = new huawei::ListNode;
+                head->m_pNext->m_nKey = (*it).first;
+                head->m_pNext->m_pNext=y;
+            }
+            it=find_if(it+1,v.end(),[=](pair<int,int> p1){
+                return p1.second==head_value;
+            });
+        }
+        for(auto xx:v){
+            if(xx.second!=head_value){
+                auto x=head;
+                while(x){
+                    if(x->m_nKey==xx.second){
+                        if(!x->m_pNext){
+                            x->m_pNext = new huawei::ListNode;
+                            x->m_pNext->m_nKey = xx.first;
+                            x->m_pNext->m_pNext= nullptr;
+                        }
+                        else{
+                            auto y=x->m_pNext;
+                            x->m_pNext = new huawei::ListNode;
+                            x->m_pNext->m_nKey = xx.first;
+                            x->m_pNext->m_pNext=y;
+                        }
+                    }
+                    x=x->m_pNext;
+                }
+            }
+        }
+        if(head->m_nKey==delete_value){
+            auto x=head;
+            head=head->m_pNext;
+            delete x;
+        }else{
+            auto z=head;
+            while(z->m_pNext){
+                if(z->m_pNext->m_nKey==delete_value){
+                    auto x=z->m_pNext->m_pNext;
+                    auto delete_node=z->m_pNext;
+                    z->m_pNext=x;
+                    delete delete_node;
+                }
+                z=z->m_pNext;
+            }
+        }
+        auto p=head;
+        while(p!= nullptr){
+            cout<<p->m_nKey<<" ";
+            p=p->m_pNext;
+        }
+    }
+}
+
+
 int main(){
-    linear_insert();
+    list_insert_and_delete();
     return 0;
 }
