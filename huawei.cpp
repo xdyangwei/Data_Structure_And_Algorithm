@@ -13,6 +13,7 @@
 #include <tuple>
 #include <mutex>
 #include <thread>
+#include <iomanip>
 using namespace std;
 
 //输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
@@ -1244,6 +1245,7 @@ void list_insert_and_delete(){
     }
 }
 
+//找到单链表的倒数第k个节点
 using namespace huawei;
 ListNode* FindKthToTail(ListNode* pListHead, unsigned int k){
     auto p=pListHead;
@@ -1259,7 +1261,61 @@ ListNode* FindKthToTail(ListNode* pListHead, unsigned int k){
     return p;
 }
 
+//求最小公倍数
+void min_common_multiple(){
+    int m,n;
+    while(cin>>m>>n){
+        auto x=max(m,n);
+        while(1){
+            if(x%m==0&&x%n==0)
+                break;
+            else
+                x++;
+        }
+        cout<<x<<endl;
+    }
+}
+
+//求解立方根
+void cube_root(){
+    double num;
+    while(cin>>num){
+        double i=0;
+        while(1){
+            auto j=i+1;
+            if(i*i*i<=num&&j*j*j>num){
+                break;
+            }
+            i++;
+
+        }
+        double j=i;
+        while(1){
+            auto k=j+0.1;
+            if(j*j*j<=num&&k*k*k>num){
+                break;
+            }
+            j+=0.1;
+        }
+        double k=j;
+        while(1){
+            auto l=k+0.01;
+            if(k*k*k<=num&&l*l*l>num){
+                break;
+            }
+            k+=0.01;
+        }
+        double z=k-j-(j+0.1-k);
+        if(z>=0||abs(z)<=0.000000001) {
+            j = j + 0.1;
+        }
+        cout.setf(ios::fixed);
+        cout<<setprecision(1);
+        cout<<j<<endl;
+    }
+}
+
 int main(){
-    list_insert_and_delete();
+    cube_root();
     return 0;
 }
