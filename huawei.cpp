@@ -1243,20 +1243,20 @@ void list_insert_and_delete(){
         }
     }
 }
-//多线程处理
 
-void fun1(int n){
-    static int iter_num=n;
-
-    while(iter_num--){
-
+using namespace huawei;
+ListNode* FindKthToTail(ListNode* pListHead, unsigned int k){
+    auto p=pListHead;
+    while(--k&&pListHead!= nullptr){
+        pListHead=pListHead->m_pNext;
     }
-}
-void multi_thread(){
-    int n;
-    while(cin>>n){
-
+    if(k>0)
+        return nullptr;
+    while(pListHead!= nullptr){
+        pListHead=pListHead->m_pNext;
+        p=p->m_pNext;
     }
+    return p;
 }
 
 int main(){
