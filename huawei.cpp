@@ -1315,7 +1315,31 @@ void cube_root(){
     }
 }
 
+//记负均正2
+void count_negative_equal_postive(){
+    double x;
+    vector<double> v;
+    while(cin>>x){
+        v.push_back(x);
+    }
+    auto n=count_if(v.begin(),v.end(),[](double a){
+       return a<0;
+    });
+    double y=0.0;
+    for(auto xx:v){
+        if(xx>=0)
+            y+=xx;
+    }
+    cout<<n<<endl;
+    if(n==v.size())
+        cout<<0.0<<endl;
+    else{
+        cout.setf(ios::fixed);
+        cout<<setprecision(1);
+        cout<<y/(v.size()-n)<<endl;}
+}
+
 int main(){
-    cube_root();
+    count_negative_equal_postive();
     return 0;
 }
