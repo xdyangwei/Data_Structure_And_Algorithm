@@ -1339,7 +1339,35 @@ void count_negative_equal_postive(){
         cout<<y/(v.size()-n)<<endl;}
 }
 
+void recursive_str_split(string s){
+    if(s.size()<=8){
+        int n=8-s.size();
+        while(n--){
+            s.push_back('0');
+        }
+        cout<<s<<endl;
+    }else{
+        cout<<s.substr(0,8)<<endl;
+        recursive_str_split(s.substr(8));
+    }
+}
+
+//字符串分割，每隔8个字符分割，少于8个字符后面补0
+void str_split(){
+    int n;
+    while(cin>>n){
+        string s;
+        vector<string> v;
+        while(n--){
+            cin>>s;
+            v.push_back(s);
+        }
+        for(auto ss:v)
+            recursive_str_split(ss);
+    }
+}
+
 int main(){
-    count_negative_equal_postive();
+    str_split();
     return 0;
 }
