@@ -1419,7 +1419,45 @@ void character_sort(){
     }
 }
 
+//最长递增子序列
+//思路：使用DP
+void LIS(){
+    int n;
+    while (cin>>n){
+        vector<int> v;
+        while(n--){
+            int x;cin>>x;v.push_back(x);
+        }
+        vector<int> v1(v.size(),1);
+        for(int i=1;i<v1.size();i++){
+            for(int j=i-1;j>=0;j--){
+                if(v[i]>v[j]){
+                    v1[i]=max(v1[i],v1[j]+1);
+                }
+            }
+        }
+        int Max=0;
+        for(auto xx:v1)
+            Max=max(xx,Max);
+        cout<<Max<<endl;
+    }
+}
+
+//等差数列之和
+void sum_of_array(){
+    int n;
+    while(cin>>n){
+        if(n&0x1){
+            auto x=2+(n/2)*3;
+            cout<<x*n<<endl;
+        }else{
+            auto x=2+(n/2-1)*3;
+            cout<<x*(n-1)+2+(n-1)*3<<endl;
+        }
+    }
+}
+
 int main(){
-    character_sort();
+    sum_of_array();
     return 0;
 }
