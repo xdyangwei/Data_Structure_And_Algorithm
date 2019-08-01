@@ -1367,7 +1367,59 @@ void str_split(){
     }
 }
 
+//输入整型数组和排序标识，对其元素按照升序或降序进行排序
+void sortIntegerArray(){
+    int n;
+    while(cin>>n){
+        vector<int> v;
+        while(n--){
+            int x;cin>>x;v.push_back(x);
+        }
+        int flag;
+        cin>>flag;
+        if(flag==0){
+            sort(v.begin(),v.end());
+        }else{
+            sort(v.begin(),v.end(),[](int a,int b){
+                return a>b;
+            });
+        }
+        for(auto xx:v)
+            cout<<xx<<" ";
+        cout<<endl;
+    }
+}
+
+//字符统计
+void character_sort(){
+    string str;
+    while(cin>>str){
+        vector<pair<char,int>> v;
+        for(auto ss:str){
+            auto it=find_if(v.begin(),v.end(),[=](pair<char,int> p){
+                return p.first==ss;
+            });
+            if(it==v.end()){
+                v.push_back(make_pair(ss,1));
+            } else{
+                (*it).second+=1;
+            }
+        }
+        sort(v.begin(),v.end(),[](pair<char,int> p1,pair<char,int> p2){
+            if(p1.second>p2.second)
+                return true;
+            else if(p1.second==p2.second)
+                return p1.first<p2.first;
+            else
+                return false;
+        });
+        for(auto xx:v)
+            cout<<xx.first;
+        cout<<endl;
+    }
+}
+
 int main(){
-    str_split();
+    character_sort();
     return 0;
 }
