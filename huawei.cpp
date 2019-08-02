@@ -1457,7 +1457,50 @@ void sum_of_array(){
     }
 }
 
+//自守数
+void CalcAutomorphicNumbers(){
+    int n;
+    while(cin>>n){
+        int Count=1;
+        for(int i=1;i<=n;i++){
+            string s1=to_string(i);
+            long x=i*i;
+            string s2=to_string(x);
+            if(s2.substr(s2.size()-s1.size())==s1) {
+                Count += 1;
+            }
+        }
+        cout<<Count<<endl;
+    }
+};
+
+//记负均正
+void neg_count_pos_equal(){
+    int n;
+    while(cin>>n){
+        vector<int> v;
+        while (n--){
+            int x;cin>>x;v.push_back(x);
+        }
+        auto x=count_if(v.begin(),v.end(),[](int a){
+            return a<0;
+        });
+        auto y=count_if(v.begin(),v.end(),[](int a){
+            return a==0;
+        });
+        double sum=0;
+        for(auto xx:v){
+            if(xx>=0)
+                sum+=xx;
+        }
+        int z=v.size();
+        cout.setf(ios::fixed);
+        cout<<setprecision(1);
+        cout<<x<<" "<<sum/(v.size()-x-y)<<endl;
+    }
+}
+
 int main(){
-    sum_of_array();
+    neg_count_pos_equal();
     return 0;
 }
