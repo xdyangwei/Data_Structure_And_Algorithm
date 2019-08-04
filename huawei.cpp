@@ -1728,7 +1728,93 @@ void sequence_exchange(){
         cout<<xx<<" ";
 }
 
+struct window{
+    int x;
+    int y;
+    int w;
+    int h;
+};
+
+void simulate_click(){
+    int n,m;
+    cin>>n>>m;
+    vector<pair<int,window>> v;
+    int j=1;
+    while(n--){
+        int x,y,w,h;
+        window win;
+        cin>>x>>y>>w>>h;
+        win.x=x;win.y=y;win.w=w;win.h=h;
+        v.push_back(make_pair(j++,win));
+    }
+    vector<pair<int,int>> clicks;
+    while(m--){
+        int x,y;
+        cin>>x>>y;
+        clicks.push_back(make_pair(x,y));
+    }
+    for(auto p:clicks){
+        bool flag=false;
+        for(int i=v.size()-1;i>=0;i--){
+            if((p.first>=v[i].second.x&&p.first<=v[i].second.x+v[i].second.w)&&(p.second>=v[i].second.y&&p.second<=v[i].second.y+v[i].second.h)){
+                cout<<v[i].first<<endl;flag=true;
+                auto z=v[i];v.erase(v.begin()+i);v.push_back(z);break;
+            }
+        }
+        if(flag==false)
+            cout<<-1<<endl;
+    }
+}
+
+void select(vector<int> &v1,vector<int> &v2) {
+    if(v2.empty()){
+        return ;
+    }else {
+        if (v1.empty()) {
+            if (abs(v2[0] - 0) > abs(v2[v2.size() - 1] - 0)) {
+                v1.push_back(v2[0]);
+                v2.erase(v2.begin());
+            } else {
+                v1.push_back(v2[v2.size() - 1]);
+                v2.pop_back();
+            }
+        } else {
+            if (abs(v1[v1.size() - 1] - v2[0]) > abs(v1[v1.size() - 1] - v2[v2.size() - 1])) {
+                v1.push_back(v2[0]);
+                v2.erase(v2.begin());
+            } else {
+                v1.push_back(v2[v2.size() - 1]);
+                v2.pop_back();
+            }
+        }
+    }
+}
+//
+void double_number_game(){
+    int n;
+    cin>>n;
+    vector<int> v;
+    while(n--){
+    int x;cin>>x;
+    v.push_back(x);
+    }
+    vector<int> v1;vector<int> v2;
+    while(!v.empty()){
+        select(v1,v);
+        select(v2,v);
+    }
+    int sum1=abs(v1[0]-0);
+    for(int i=1;i<v1.size();i++){
+        sum1+=abs(v1[i]-v1[i-1]);
+    }
+    int sum2=abs(v2[0]-0);
+    for(int i=1;i<v2.size();i++){
+        sum2+=abs(v2[i]-v2[i-1]);
+    }
+    cout<<sum1<<" "<<sum2<<endl;
+}
+
 int main(){
-    sequence_exchange();
+    double_number_game();
     return 0;
 }
