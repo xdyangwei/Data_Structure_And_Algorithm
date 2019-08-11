@@ -1814,7 +1814,29 @@ void double_number_game(){
     cout<<sum1<<" "<<sum2<<endl;
 }
 
+void variance(){
+    int n;
+    cin>>n;
+    vector<double> v;
+    while(n--){
+        double x;
+        cin>>x;
+        v.push_back(x);
+    }
+    sort(v.begin(),v.end());
+    double variance=1000000000;
+    for(int i=1;i<(int)v.size()-1;i++){
+        double average=(v[i]+v[i-1]+v[i+1])/3;
+        double x=(v[i-1]-average)*(v[i-1]-average)+(v[i]-average)*(v[i]-average)+(v[i+1]-average)*(v[i+1]-average);
+        double y=x/3;
+        variance=min(y,variance);
+    }
+    cout.setf(ios::fixed);
+    cout<<setprecision(2);
+    cout<<variance<<endl;
+}
+
 int main(){
-    double_number_game();
+    variance();
     return 0;
 }
