@@ -8,6 +8,8 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <bitset>
+
 using namespace std;
 int chocolate(int n){
     if(n>=1){
@@ -277,21 +279,31 @@ int max_product(vector<vector<int>> &v){
     return Max;
 }
 
-int main(){
-    int m,n;
-    vector<vector<int>> v;
-    cin>>m>>n;
-    while(m--){
-        vector<int> v1;
-        int c=n;
-        while(c--){
-            int x;cin>>x;
-            v1.push_back(x);
+//最大连续bit数
+void longest_one_number(){
+    int n;
+    while(cin>>n){
+        bitset<32> b(n);
+        int Max=0;
+        for(int i=0;i<32;){
+            if(b[i]){
+                int j=1;
+                while(b[i+j]){
+                    j++;
+                }
+                Max=max(Max,j);
+                i+=j;
+            }else{
+                i++;
+            }
         }
-        v.push_back(v1);
+        cout<<Max<<endl;
     }
 
-    cout<<max_product(v);
+}
+
+int main(){
+    longest_one_number();
     return 0;
 
 }
