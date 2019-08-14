@@ -9,6 +9,7 @@
 #include <set>
 #include <algorithm>
 #include <bitset>
+#include <stack>
 
 using namespace std;
 int chocolate(int n){
@@ -321,8 +322,125 @@ void knapsack_0_1(){
     }
 }
 
-int main(){
-    knapsack_0_1();
-    return 0;
+void find_bit(){
+    int n;
+    while(cin>>n){
+        bitset<32> b(n);
+        int pos=32;int Count=0;
+        for(int i=0;i<30;i++){
+            if(b[i]==1&&b[i+1]==0&&b[i+2]==1){
+                pos=min(pos,i);
+                Count++;
+            }
+        }
+        if(pos==32)
+            pos=-1;
+        cout<<Count<<" "<<pos<<endl;
+    }
+}
 
+void table_data_parse(){
+    string str;
+    while(cin>>str){
+        int x=count(str.begin(),str.end(),',');
+        string s;int Count=1;bool flag=true;vector<string> v(x+2,"");
+        for(int i=0;i<str.size();i++){
+            if(str[i]==','&&s.empty()){
+                Count++;}
+            else if(str[i]==','&&!s.empty()){
+                s.push_back(str[i]);
+                v[Count].push_back(str[i]);
+            }else if(str[i]=='"'&&!s.empty()){
+                auto it=find(s.begin(),s.end(),'"');
+                if(it==s.end()) {
+                    flag = false;break;
+                }else if((i<str.size()-1&&str[i+1]!=',')){
+                    v[Count].push_back(str[i]);
+                }else{
+                    for(int i=0;i<s.size();){
+                        if(s[i]=='"'||s[i]==',')
+                            s.erase(s.begin()+i);
+                        else
+                            i++;
+                    }
+                }
+            }else if(str[i]=='"'&&s.empty()){
+                s.push_back(str[i]);
+            }else{
+                v[Count].push_back(str[i]);
+            }
+        }
+        if(flag&&s.empty()){
+            cout<<Count<<endl;
+            for(int i=1;i<=Count;i++){
+                if(v[i].size()==0)
+                    cout<<"--"<<endl;
+                else if(find(v[i].begin(),v[i].end(),'"')!=v[i].end()){
+                    for(int j=0;j<v[i].size()-1;j++){
+                        if(v[i][j]=='"'&&v[i][j+1]=='"'){
+                            v[i].erase(v[i].begin()+j);
+                        }
+                    }
+                    cout<<v[i]<<endl;
+                }
+                else
+                    cout<<v[i]<<endl;}
+        }else{
+            cout<<"Error"<<endl;
+        }
+    }
+}
+
+struct data1{
+    int m;
+    int i;
+    int n;
+};
+
+void recommend_friends(){
+    int n;
+    while(cin>>n){
+        vector<vector<int>> v2;
+        vector<decltype(v2)> vv;
+        vector<data1> v3;
+        while(n--){
+            int m,i,n;data1 d;
+            cin>>m>>i>>n;
+            d.m=m;d.i=i;d.n=n;
+            v3.push_back(d);
+            int k;cin>>k;
+            vector<vector<int>> v1(m,vector<int>(m,0));
+            while(k--){
+                int j,l,v;
+                cin>>j>>l>>v;
+                v1[j][l]=v;v1[l][j]=v;
+            }
+            vv.push_back(v1);
+        }
+        int z=0;
+        for(auto xx:vv){
+            set<int> vvv;
+            auto ii=v3[z].i;auto nn=v3[z].n;
+            vector<vector<int>> vvvv(nn+1);
+            if(nn==1){
+                for(int i=0;i<xx.size();i++){
+                    if(xx[ii][i]!=0){
+                        vvv.insert(i);
+                    }
+                }
+            }else{
+
+        }
+            cout<<vvv.size()<<" ";
+            for(auto xx:vvv){
+                cout<<xx<<" ";
+            }
+            cout<<endl;
+        }
+    }
+}
+
+int main(){
+    recommend_friends();
+    return 0;
 }
