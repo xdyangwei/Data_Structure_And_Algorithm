@@ -302,8 +302,27 @@ void longest_one_number(){
 
 }
 
+//0-1背包问题
+void knapsack_0_1(){
+    int n,W;
+    while(cin>>n>>W){
+        vector<pair<int,int>> v1;
+        while(n--){
+            int w,v;
+            cin>>w>>v;
+            v1.push_back(make_pair(w,v));
+        }
+        vector<int> v2(W+1,0);
+        for(int i=0;i<v1.size();i++){
+            for(int j=W;j>=v1[i].first;j--)
+                v2[j]=max(v2[j-v1[i].first]+v1[i].second,v2[j]);
+        }
+        cout<<v2[W]<<endl;
+    }
+}
+
 int main(){
-    longest_one_number();
+    knapsack_0_1();
     return 0;
 
 }
