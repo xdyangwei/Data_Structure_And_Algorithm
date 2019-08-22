@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <bitset>
 #include <stack>
-
+#include <sstream>
 using namespace std;
 int chocolate(int n){
     if(n>=1){
@@ -440,7 +440,86 @@ void recommend_friends(){
     }
 }
 
+
+void str_split(){
+    string str;
+    cin>>str;
+    map<int,int> m;
+    for(int i=0;i<str.size();i++){
+        auto it=str.rfind(str[i]);
+        m.insert(make_pair(i,it));
+    }
+    int start=0;
+    for(int i=0;i<str.size();){
+        auto x=m[i];bool flag=true;
+        for(int j=i+1;j<x;j++){
+            if(m[j]<=x)
+                continue;
+            else{
+                flag= false;
+                break;}
+        }
+        if(flag== false)
+            i++;
+        else{
+            cout<<x-start+1<<endl;
+            start=x+1;
+            i=x+1;
+        }
+    }
+}
+
+void str_sort(){
+    string str;
+    getline(cin,str);
+    stringstream s(str);
+    string word;vector<string> words;
+    while(s>>word)
+        words.push_back(word);
+    if(words.size()<=1) {
+        cout << "invalid";
+        return ;
+    }
+    vector<char> v;bool flag=true;
+    for(int i=1;i<words.size();i++){
+        auto s1=words[i-1];auto s2=words[i];
+        int len=min(s1.size(),s2.size());
+        for(int j=0;j<len;){
+            if(s1[j]==s2[j]){
+                if(find(v.begin(),v.end(),s1[j])==v.end())
+                    v.push_back(s1[j]);
+                j++;
+            }else{
+                auto it1=find(v.begin(),v.end(),s1[j]);
+                auto it2=find(v.begin(),v.end(),s2[j]);
+                if(it1==v.end()&&it2==v.end())
+                {v.push_back(s1[j]);v.push_back(s2[j]);}
+                else if(it1==v.end()&&it2!=v.end())
+                    v.insert(it2,s1[j]);
+                else if(it1!=v.end()&&it2==v.end())
+                    v.insert(it1+1,s2[j]);
+                else{
+                    if(it1>it2){
+                        flag= false;break;
+                    }else{
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if(flag==false)
+            break;
+    }
+    if(flag==false)
+        cout<<"invalid";
+    else{
+        for(auto xx:v)
+            cout<<xx;
+    }
+}
+
 int main(){
-    recommend_friends();
+    str_sort();
     return 0;
 }
