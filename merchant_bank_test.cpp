@@ -519,7 +519,15 @@ void str_sort(){
     }
 }
 
+void number_transfer(){
+    int n;
+    cin>>n;
+    string str;cin.get();
+    getline(cin,str);
+    
+    cout<<str<<endl;
+}
 int main(){
-    str_sort();
+    number_transfer();
     return 0;
 }
