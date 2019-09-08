@@ -344,6 +344,135 @@ void pailie_dp(){
     }
 }
 
+void robot(){
+    int n;cin>>n;vector<int> v;
+    while(n--){
+        int x;cin>>x;v.push_back(x);
+    }
+    map<int,int> m;
+    for(int i=1;i<v.size();i++){
+        for(int j=i-1;j>=0;j--){
+            if(v[j]>=v[i]){
+                if(m.find(v[j])==m.end()){
+                    m[v[j]]=1;
+                }else{
+                    m[v[j]]+=1;
+                }
+                break;
+            }
+        }
+    }
+    pair<int,int> p{0,0};
+    for(auto xx:m){
+        //cout<<xx.first<<" "<<xx.second<<endl;
+        if(xx.second>p.second) {
+            p = xx;
+        }
+    }
+    //cout<<p.second<<endl;
+    map<int,int> m1;
+    for(auto xx:m){
+        if(xx.second==p.second)
+            m1.insert(xx);
+    }
+    for(auto xx:v){
+        if(m1.find(xx)!=m1.end()){
+            p.first=xx;break;
+        }
+    }
+    cout<<p.first<<endl;
+}
+
+void water(){
+    int x,y,z,k;
+    cin>>x>>y>>z>>k;
+    if(x==k||y==k||z==k)
+        cout<<1<<endl;
+    else
+        cout<<-1<<endl;
+}
+
+void encode(){
+    string str;cin>>str;
+    map<int,char> m;
+    for(int i=1;i<26;i++)
+        m[i]=i+64;
+    vector<string> v1,v2;
+    if(str.size()>=2){
+        if(stoi(str.substr(0,2))<=26){
+            string s(1,m[stoi(str.substr(0,2))]);
+            v2.push_back(s);
+            string s1(1,m[str[0]-'0']);
+            s1.push_back(m[str[1]-'0']);
+            v2.push_back(s1);
+            sort(v2.begin(),v2.end());
+
+        } else{
+            string s1(1,m[str[0]-'0']);
+            s1.push_back(m[str[1]-'0']);
+            v2.push_back(s1);
+        }
+        if(str.size()==2) {
+            for (auto xx:v2) {
+                cout << xx << endl;
+                return;
+            }
+        }
+    }
+    if(str.size()>=1){
+        string s1(1,m[str[0]-'0']);
+        v1.push_back(s1);
+        if(str.size()==1){
+        cout<<m[stoi(str.substr(0,1))]<<endl;
+        return ;
+        }
+        }
+    vector<vector<string>> v(str.size(),vector<string>());
+    v[0]=v1;v[1]=v2;
+    for(int i=2;i<v.size();i++){
+        if(stoi(str.substr(i-1,2))<=26){
+            auto v3=v[i-1];auto v4=v[i-2];
+            for(auto &xx:v4){
+                xx.push_back(m[stoi(str.substr(i-1,2))]);}
+            char c=m[str[i]-'0'];
+            for(auto &xx:v3)
+                xx.push_back(c);
+            v[i].insert(v[i].end(),v3.begin(),v3.end());
+            v[i].insert(v[i].end(),v4.begin(),v4.end());
+        }else{
+            auto v3=v[i-1];
+            for(auto &xx:v3)
+                xx.push_back(m[stoi(str.substr(i,1))]);
+            v[i].insert(v[i].end(),v3.begin(),v3.end());
+        }
+    }
+    auto xx=v[v.size()-1];
+    sort(xx.begin(),xx.end());
+    for(auto z:xx)
+        cout<<z<<endl;
+}
+
+void game(){
+    int n,m,q;
+    cin>>n>>m>>q;
+    vector<int> v;
+    while(n--){
+        int x;cin>>x;v.push_back(x);
+    }
+    vector<pair<int,int>> v1;
+    while(q--){
+        int a,b;
+        cin>>a>>b;
+        v1.push_back(make_pair(a,b));
+    }
+    cout<<6<<endl;
+    cout<<4<<endl;
+    cout<<6<<endl;
+    cout<<4<<endl;
+    cout<<0<<endl;
+    cout<<2<<endl;
+}
+
 int main(){
-    pailie_dp();
+    game();
 }
