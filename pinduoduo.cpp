@@ -7,6 +7,8 @@
 #include <bitset>
 #include <map>
 #include <set>
+#include <cmath>
+
 using namespace std;
 
 struct BinaryNode{
@@ -221,6 +223,127 @@ void yinzhang(){
     }
 }
 
+bool judge_1(vector<int> v,vector<int> a){
+    bool flag=true;
+    for(int i=0;i<a.size();i++){
+        if(a[i]==0){
+            if(v[i]>=v[i+1]){
+                flag= false;break;
+            }
+        }else{
+            if(v[i]<=v[i+1]){
+                flag=false;break;
+            }
+        }
+    }
+    return flag;
+}
+
+void pailie(){
+    int n;cin>>n;
+    int n1=n-1;
+    vector<int> a;
+    while(n1--){
+        int x;cin>>x;a.push_back(x);
+    }
+    vector<int> p;
+    for(int i=1;i<=n;i++){
+        p.push_back(i);
+    }
+    int Count=0;
+    if(judge_1(p,a))
+        Count++;
+    while(next_permutation(p.begin(),p.end())){
+        if(judge_1(p,a))
+            Count++;
+    }
+    cout<<Count<<endl;
+}
+
+vector<vector<int>> vv;
+void pailie_recursive(vector<int> &v,int n,vector<int> a){
+    if(v.size()==n){
+        vv.push_back(v);
+        return ;
+    }
+    for(int i=1;i<=n;i++){
+        if(find(v.begin(),v.end(),i)==v.end()){
+            v.push_back(i);
+            int m=v.size()-1;
+            if(a[m-1]==0&&m>=1){
+                if(v[m-1]>=v[m]) {
+                    v.pop_back();
+                    continue;
+                }
+            }
+            if(a[m-1]==1&&m>=1){
+                if(v[m-1]<=v[m]) {
+                    v.pop_back();
+                    continue;
+                }
+            }
+            pailie_recursive(v,n,a);
+            v.pop_back();
+        }
+    }
+}
+
+void pailie_2(){
+    int n;cin>>n;
+    int n1=n-1;
+    vector<int> a;
+    while(n1--){
+        int x;cin>>x;a.push_back(x);
+    }
+    vector<int> p;
+    pailie_recursive(p,n,a);
+    for(auto x:vv){
+        for(auto xx:x)
+            cout<<xx<<" ";
+        cout<<endl;
+    }
+    cout<<vv.size()<<endl;
+}
+
+void pailie_dp(){
+    int n;cin>>n;
+    int n1=n-1;
+    vector<int> a;
+    while(n1--){
+        int x;cin>>x;a.push_back(x);
+    }
+    vector<vector<int>> v1(n,vector<int>(n,0));
+    vector<vector<int>> v2(n,vector<int>(n,0));
+    for(int i=0;i<n;i++){
+        v2[i][0]=1;
+        for(int j=1;j<=i;j++){
+            v2[i][j]=(v2[i-1][j-1]+v2[i-1][j])%(int)(pow(10,9)+7);
+        }
+    }
+    for(int i=0;i<n;i++)
+        v1[i][i]=1;
+    for(int i=2;i<n;i++){
+        for(int j=1;j<=n-i+1;j++){
+            int k=j+i-1;
+            if(a[j]==1){
+                v1[j][k]=(v1[j][k]+v1[j+1][k])%(int)(pow(10,9)+7);
+            }
+            if(a[k-1]==0)
+                v1[j][k]=(v1[j][k]+v1[j][k-1])%(int)(pow(10,9)+7);
+            for(int z=j+1;z<=k-1;z++){
+                if(a[z-1]==0&&a[z]==1){
+                    v1[j][k]=(v1[j][k]+(long long)(v2[i-1][z-j]*v1[j][z-1]%(int)(pow(10,9)+7)*v1[z+1][k]%(int)(pow(10,9)+7)))%(int)(pow(10,9)+7);
+                }
+            }
+        }
+    }
+    for(auto x:v1){
+        for(auto xx:x)
+            cout<<xx<<" ";
+        cout<<endl;
+    }
+}
+
 int main(){
-    yinzhang();
+    pailie_dp();
 }
