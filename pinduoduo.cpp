@@ -570,6 +570,27 @@ cout<<m1[25]->left_child->data<<endl;
     cout<<LCA(root,p1,p2)->data<<endl;
 }
 
+void str_len(){
+    int k;cin>>k;
+    string str;cin.get();
+    getline(cin,str);
+    int max_len=0;
+    for(int i=0;i<str.size();i++){
+        set<char> s;
+        int j;
+        for(j=i;j<str.size();j++){
+            s.insert(str[j]);
+            if(s.size()>3){
+                break;
+            }
+            //cout<<j<<endl;
+        }
+        max_len=max(max_len,j-i);
+    }
+    cout<<max_len<<endl;
+}
+
+
 int main(){
-    zuxian();
+    str_len();
 }
