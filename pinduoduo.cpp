@@ -8,7 +8,7 @@
 #include <map>
 #include <set>
 #include <cmath>
-
+#include <sstream>
 using namespace std;
 
 struct BinaryNode{
@@ -473,6 +473,103 @@ void game(){
     cout<<2<<endl;
 }
 
+//
+void process(){
+    string s1,s2;
+    getline(cin,s1);
+    stringstream s(s1);
+    int x;vector<int> v;
+    while(s>>x){
+        v.push_back(x);
+    }
+    getline(cin,s2);
+    stringstream ss(s2);
+    int y;vector<int> v1;
+    while(ss>>y){
+        v1.push_back(y);
+    }
+    map<int,int> m;
+    for(int i=0;i<v.size();i++){
+        //cout<<v1[i]<<" "<<v[i]<<endl;
+        m.insert(make_pair(v[i],v1[i]));
+    }
+    int n;cin>>n;
+    auto m1=m;
+    set<int> vv;vv.insert(n);
+    while(!vv.empty()){
+        auto mm=m;
+        for (auto zz:vv) {
+            //cout<<zz<<endl;
+        for(auto xx:mm) {
+            //cout<<xx.second<<endl;
+                if (xx.second == zz) {
+                    m.erase(xx.first);
+                    vv.insert(xx.first);
+                }
+            }
+        //cout<<m.size()<<endl;
+            vv.erase(zz);
+        }
+    }
+    cout<<m1.size()-m.size()+1<<endl;
+}
+
+BinaryNode* LCA(BinaryNode* root,BinaryNode* a,BinaryNode* b){
+    if(root== nullptr)
+        return nullptr;
+    if(root->data>a->data&&root->data<b->data)
+        return root;
+    if(root->data>a->data&&root->data>b->data)
+        return LCA(root->left_child,a,b);
+    if(root->data<a->data&&root->data<b->data)
+        return LCA(root->right_child,a,b);
+    return root;
+}
+
+void zuxian(){
+    int n;cin>>n;
+    auto m=(int)pow(2,n)-1;vector<int> v;
+    while(m--){
+        int x;cin>>x;v.push_back(x);
+    }
+    int height=1;
+    int a,b;cin>>a>>b;
+    map<int,BinaryNode*> m1;
+    for(int i=0;i<v.size();i++){
+        if(v[i]!=-1){
+            auto p=new BinaryNode;
+            if(m1.find(v[i])==m1.end()){
+            auto p=new BinaryNode;p->data=v[i];
+                cout<<v[i]<<endl;
+                m1.insert(make_pair(v[i],p));
+            }
+            else
+            p=m1[v[i]];
+            int next=i+(int)pow(2,height)-1;
+            if(next<=v.size()){
+                if(v[next]==-1)
+                    p->left_child= nullptr;
+                else{
+                    p->left_child=new BinaryNode;p->left_child->data=v[next];
+                    m1.insert(make_pair(v[next],p->left_child));
+                }
+                if(v[next+1]==-1)
+                    p->right_child= nullptr;
+                else{
+                    p->right_child=new BinaryNode;p->right_child->data=v[next+1];
+                    m1.insert(make_pair(v[next+1],p->right_child));
+                }
+            }
+        }
+    }
+//    for(auto xx:m1)
+//        cout<<xx.first<<endl;
+cout<<m1[25]->left_child->data<<endl;
+    auto root=m1[v[0]];
+    auto p1=m1[a];auto p2=m1[b];
+    cout<<LCA(root,p1,p2)->data<<endl;
+}
+
 int main(){
-    game();
+    zuxian();
 }
