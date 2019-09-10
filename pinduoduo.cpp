@@ -590,7 +590,79 @@ void str_len(){
     cout<<max_len<<endl;
 }
 
+void huochai(){
+    map<int,int> m1{{1,2},{2,5},{3,5},{4,4},{5,5},{6,6},{7,3},{8,7},{9,6}};
+    int n,m;
+    cin>>n>>m;vector<int> v;
+    while(m--){
+        int x;cin>>x;v.push_back(x);
+    }
+    vector<vector<int>> v1(v.size()+1,vector<int>(n+1,0));
+    for(int i=1;i<=v.size();i++){
+        for(int j=1;j<=n;j++){
+            if(j>=v[i-1]){
+                v1[i][j]=max(v1[i-1][j],v1[i-1][j-v[i-1]]+v[i-1]);
+            } else
+                v1[i][j]=v1[i-1][j];
+        }
+    }
+    int Max=0;
+    for(auto xx:v1[v.size()]){
+        Max=max(xx,Max);
+    }
+    cout<<Max<<endl;
+}
+
+void juice(){
+    int n,k;
+    cin>>n>>k;
+    vector<int> v;
+    while(n--){
+        int x;cin>>x;v.push_back(x);
+    }
+    set<int> s;
+    int sum=0;
+    for(auto xx:v){
+        if(s.find(xx)==s.end()){
+            int cnt=count(v.begin(),v.end(),xx);
+            if(cnt&0x1)
+                sum+=(cnt/2)+1;
+            else
+                sum+=cnt/2;
+            s.insert(xx);
+        }
+    }
+    cout<<sum<<endl;
+}
+
+void money(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> v;
+    while(n--){
+        int q;int c;
+        cin>>q>>c;
+        while(c--){
+            v.push_back(q);
+        }
+    }
+    int Count=0;
+    sort(v.begin(),v.end(),[](int a,int b){return a>b;});
+    for(int i=0,j=v.size()-1;i<=j;){
+        if(v[i]>=m) {
+            i++;
+            Count++;
+        }
+        else if(v[i]+v[j]>=m){
+            i++;j--;
+            Count++;
+        }else{
+            j--;
+        }
+    }
+    cout<<Count<<endl;
+}
 
 int main(){
-    str_len();
+    huochai();
 }
