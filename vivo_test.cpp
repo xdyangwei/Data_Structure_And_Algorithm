@@ -7,7 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
-
+#include <sstream>
 using namespace std;
 int solution(string str)
 {
@@ -97,17 +97,73 @@ int solution(const char* input){
         v[0][i]=0;
     for(int i=1;i<=countOfApp;i++){
         for(int j=1;j*disks[i]<=disk&&j*mems[i]<=mem;j++){
-            v[i]=max(v[i-1][j],v[]);
+            //
         }
     }
-
-
     return res;
+}
+
+string solution(vector<string> input) {
+   vector<int> v(input.size(),0);
+   vector<vector<int>> v1;
+   for(auto xx:input){
+       stringstream s(xx);vector<int> vv;
+       int x;
+       while(s>>x)
+           vv.push_back(x);
+       v1.push_back(vv);
+   }
+    for(int j=0;j<v1.size();j++){
+        auto &xx=v1[j];
+       for(int i=0;i<xx.size();i++){
+           if(xx[i]==xx[i+1]&&xx[i]!=0) {
+               //cout<<j<<" "<<i<<endl;
+               xx[i] +=xx[i+1];
+               xx.erase(xx.begin()+i+1);
+               xx.push_back(0);
+               v[j]+=1;
+
+           }
+       }
+   }
+  /*  for(auto xx:v1){
+        for(auto xxx:xx)
+            cout<<xxx<<" ";
+        cout<<endl;
+    }*/
+    int Max=0;
+    for(auto xx:v){
+        //cout<<xx<<endl;
+        Max=max(xx,Max);
+    }
+    //cout<<Max<<endl;
+   for(int i=0;i<v1.size();i++){
+       auto x=Max-v[i];
+       string s="";
+       for(int j=x;j<v1[i].size();j++){
+           s+=to_string(v1[i][j]);
+           s+=" ";
+       }
+       while(x>=2){
+           s.push_back('0');
+           s.push_back(' ');
+           x--;
+       }
+       if(x==1){
+       s.push_back('0');}
+       input[i]=s;
+   }
+   string str;
+    for(int i=0;i<input.size()-1;i++){
+        str+=input[i];
+        str.push_back('\n');
+    }
+    str+=input[input.size()-1];
+    return str;
 }
 
 int main(int argc, char* args[])
 {
-    char input[10000];
-    cin.getline(input,10000);
-    cout<<solution(input)<<endl;
+    vector<string> v{"0 0 2 4","0 2 2 2","0 4 2 2","8 8 2 2"};
+    solution(v);
 }
