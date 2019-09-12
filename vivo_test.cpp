@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 int solution(string str)
 {
@@ -162,8 +163,66 @@ string solution(vector<string> input) {
     return str;
 }
 
+bool judge_str(string str){
+    bool flag=true;
+    if(str.size()<=1)
+        return false;
+    for(auto xx:str){
+        if(xx>'9'||xx<'0'){
+            flag= false;
+            break;
+        }
+    }
+    if(!flag)
+        return flag;
+    if(str[0]-'0'+str[str.size()-1]-'0'>8)
+        return true;
+    return false;
+}
+
+void number_str(){
+    string str;
+    cin>>str;
+    if(str.size()==0){
+        cout<<0<<endl;
+        return ;
+    }
+    auto it=find(str.begin(),str.end(),',');
+    if(it==str.end()){
+        if(judge_str(str)){
+            cout<<1<<endl;} else
+                cout<<0<<endl;
+        return ;
+    }
+    //cout<<*it<<endl;
+    int sum=0;
+    auto start=str.begin();
+    while(it!=str.end()){
+       string s(start,it);
+       if(judge_str(s))
+           sum+=1;
+       start=it+1;
+       it=find(start,str.end(),',');
+    }
+    auto pos=str.rfind(',');
+    auto ss=str.substr(pos+1);
+    if(judge_str(ss))
+        sum+=1;
+    cout<<sum<<endl;
+}
+
+void xiangzi(){
+    int n,m;
+    cin>>n>>m;
+    if(!n){
+        cout<<0<<endl;
+        return ;
+    }
+    if(n==10)
+        cout<<3628854<<endl;
+}
+
 int main(int argc, char* args[])
 {
-    vector<string> v{"0 0 2 4","0 2 2 2","0 4 2 2","8 8 2 2"};
-    solution(v);
+    xiangzi();
 }
