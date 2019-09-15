@@ -222,7 +222,93 @@ void xiangzi(){
         cout<<3628854<<endl;
 }
 
+void robot(){
+    string s;
+    cin>>s;
+    vector<int> v(s.size(),1);
+    while(true){
+        auto v1=v,v2=v;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='R'&&i+1<s.size()){
+                v1[i+1]+=v[i];
+            }
+            if(s[i]=='L'&&i-1>=0){
+                v1[i-1]+=v[i];
+            }
+            for(auto xx:v1)
+                cout<<xx<<" ";
+            cout<<endl;
+        }
+        v=v1;
+        if(v2==v)
+            break;
+    }
+    for(auto xx:v)
+        cout<<xx<<" ";
+}
+
+void road(){
+    int n;cin>>n;
+    vector<vector<int>> v(n+1,vector<int>(n+1,-1));
+    while(n!=1){
+        int x,y,z;
+        cin>>x>>y>>z;
+        v[x][y]=z;
+        n--;
+    }
+   // cout<<v.size()<<endl;
+    for(int i=1;i<v.size();i++){
+        for(int j=1;j<v.size();j++){
+            for(int k=1;k<v.size();k++)
+            if(v[k][j]!=-1&&v[i][k]!=-1)
+                v[i][j]=max(v[i][j],v[i][k]+v[k][j]);
+            else if(v[i][j]!=-1)
+                v[i][j]=v[i][j];
+            else
+                v[i][j]=-1;
+        }
+    }
+    //cout<<v.size()<<endl;
+    for(int i=1;i<v.size();i++){
+        int Max=0;
+        for(auto xx:v[i])
+            Max=max(Max,xx);
+        cout<<Max<<" ";
+    }
+}
+
+vector<string> results;
+void recursive_str(vector<char>& v,int n,string str){
+    if(v.size()==n) {
+        int i=0;
+        for(auto &xx:str){
+            if(xx=='?')
+                xx=v[i++];
+        }
+        results.push_back(str);
+        return;
+    }
+    for(char i='0';i<='9';i++){
+        v.push_back(i);
+        recursive_str(v,n,str);
+        v.pop_back();
+    }
+}
+void str_mod(){
+    string str;
+    cin>>str;
+    int n=count(str.begin(),str.end(),'?');
+    vector<char> v;
+    recursive_str(v,n,str);
+    int sum=0;
+    for(auto xx:results){
+        int x=stoi(xx);
+        if(x%13==5)
+        sum++;}
+    cout<<sum<<endl;
+}
+
 int main(int argc, char* args[])
 {
-    xiangzi();
+    str_mod();
 }
