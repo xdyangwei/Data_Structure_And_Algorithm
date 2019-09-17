@@ -5,6 +5,8 @@
 #include <memory>
 #include <cstring>
 #include <bitset>
+#include <mutex>
+
 using namespace std;
 //单字节拷贝实现memcpy函数
 void *my_memcpy(void* dst,const void* src,int n){
@@ -94,6 +96,40 @@ char* my_strncpy(char* dst,const char* src,size_t n){
         }
     }
     return y;
+}
+
+//饿汉式单例模式
+class Singlton{
+public:
+    static Singlton* getInstance();
+private:
+    Singlton(){};
+    static Singlton* instance;
+};
+Singlton* Singlton::getInstance(){
+    return instance;
+}
+Singlton* Singlton::instance=new Singlton();
+
+//懒汉式单例模式
+//线程不安全，线程安全需要加锁
+class Singlton_2{
+public:
+    static Singlton_2* getInstance();
+private:
+    Singlton_2(){};
+    static Singlton_2* instance;
+};
+
+Singlton_2* Singlton_2::instance= nullptr;
+Singlton_2* Singlton_2::getInstance() {
+    //if(instance== nullptr) {
+        //unique_lock<mutex> u;
+        if (instance == nullptr)
+            instance = new Singlton_2();
+      //  u.unlock();
+    //}
+    return instance;
 }
 
 int main(){
