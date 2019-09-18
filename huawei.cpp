@@ -1836,7 +1836,58 @@ void variance(){
     cout<<variance<<endl;
 }
 
+//找出一串数字中相加为0的所有三个数字
+//转换为两个数的和来求解
+vector<vector<int>> three_sum_zero(vector<int>& v){
+    vector<vector<int>> results;
+    for(int i=0;i<v.size();i++){
+        auto x=v;x.erase(x.begin()+i);int k=-v[i];
+        sort(x.begin(),x.end());
+        int start=0,end=x.size()-1;
+        while(start<=end){
+            int sum=x[start]+x[end];
+            if(sum==k){
+                //cout<<i<<" "<<start<<" "<<end<<endl;
+                vector<int> tmp;
+                tmp.push_back(v[i]);tmp.push_back(x[start]);tmp.push_back(x[end]);
+                results.push_back(tmp);
+                start++;
+            }else if(sum<k)
+                start++;
+            else
+                end--;
+        }
+    }
+    return results;
+}
+
+//给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
+int minimumTotal(vector<vector<int>>& triangle) {
+    if(triangle.size()==0)
+        return 0;
+    vector<vector<int>> dp(triangle.size(),vector<int>(triangle[triangle.size()-1].size(),0));
+    int n=triangle.size();
+    dp[0][0]=triangle[0][0];
+    for(int i=1;i<n;i++){
+        for(int j=0;j<triangle[i].size();j++){
+            if(j-1>=0&&j<triangle[i].size()-1)
+                dp[i][j]=min(dp[i-1][j],dp[i-1][j-1])+triangle[i][j];
+            else if(j==0)
+                dp[i][j]=dp[i-1][j]+triangle[i][j];
+            else
+                dp[i][j]=dp[i-1][j-1]+triangle[i][j];
+        }
+    }
+    return dp[n-1][triangle[n-1].size()-1];
+}
+
 int main(){
-    variance();
+    vector<int> v{-2,2,0,1,3,-4};
+    auto vv=three_sum_zero(v);
+    for(auto x:vv){
+        for(auto xx:x)
+            cout<<xx<<" ";
+        cout<<endl;
+    }
     return 0;
 }
