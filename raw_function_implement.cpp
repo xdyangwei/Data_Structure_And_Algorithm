@@ -6,6 +6,8 @@
 #include <cstring>
 #include <bitset>
 #include <mutex>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 //单字节拷贝实现memcpy函数
@@ -132,14 +134,40 @@ Singlton_2* Singlton_2::getInstance() {
     return instance;
 }
 
+//二分查找循环版本
+void binary_search(vector<int>& v,int k){
+    sort(v.begin(),v.end());
+    int start=0,end=v.size()-1;
+    int flag=-1;
+    while(start<end){
+        int mid=(start+end)/2;
+        if(v[mid]==k){
+            flag=mid;break;
+        }else if(v[mid]>k){
+            end=mid;
+        }else{
+            start=mid;
+        }
+    }
+    cout<<flag<<endl;
+}
+
+//二分查找递归版本
+int binary_search_recursive(vector<int>& v,int k,int start,int end){
+    if(start<end){
+        int mid=(start+end)/2;
+        if(v[mid]==k)
+            return mid;
+        else if(v[mid]<k)
+            return binary_search_recursive(v,k,mid,end);
+        else
+            return binary_search_recursive(v,k,start,mid);
+    }else{
+        return -1;
+    }
+}
+
 int main(){
-    char a[]="aaaaaaaa";
-//    cout<<(*y)<<endl;
-allocator<char> aa;
-auto p=aa.allocate(2);
-    auto x=my_strncpy(p,a,1);
-    while(*(x)!='\0'){
-        cout<<*x<<endl;
-        x=x+1;}
-    //cout<<strlen(x)<<endl;
+    vector<int> v{1,2,3,4,5};
+    cout<<binary_search_recursive(v,2,0,4);
 }
