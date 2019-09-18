@@ -4,6 +4,7 @@
 #include <iostream>
 #include <bitset>
 #include <cmath>
+#include <stack>
 #include <string>
 #include <algorithm>
 #include <set>
@@ -1881,13 +1882,101 @@ int minimumTotal(vector<vector<int>>& triangle) {
     return dp[n-1][triangle[n-1].size()-1];
 }
 
-int main(){
-    vector<int> v{-2,2,0,1,3,-4};
-    auto vv=three_sum_zero(v);
-    for(auto x:vv){
-        for(auto xx:x)
-            cout<<xx<<" ";
-        cout<<endl;
+//找出一串数字中的最大递减数
+int max_desc_number(string str){
+    int n=str.size();
+    vector<int> dp(n,1);
+    for(int i=1;i<n;i++){
+        if(str[i]<str[i-1])
+            dp[i]=dp[i-1]+1;
+        else
+            dp[i]=1;
     }
+    int Max=0;
+    for(auto xx:dp)
+        Max=max(xx,Max);
+    string s="";
+    for(int i=0;i<n;i++){
+        auto xx=dp[i];
+        if(xx==Max){
+            string ss=str.substr(i-xx+1,xx);
+           // cout<<ss<<endl;
+            s=ss>s?ss:s;
+        }
+    }
+    return stoi(s);
+}
+
+//给定两个无序数组，不用set求二者的交集
+vector<int> two_array_common(vector<int>& v1,vector<int>& v2){
+    vector<int> vv;
+    sort(v1.begin(),v1.end());sort(v2.begin(),v2.end());
+    int m=v1[v1.size()-1];int n=v2[v2.size()-1];
+    m=max(m,n);
+    vector<int> v(m+1,0);
+    for(auto xx:v1) {
+        if(v[xx]==0)
+        v[xx] = 1;
+    }
+    for(auto xx:v2){
+        if(v[xx]==1){
+            if(find(vv.begin(),vv.end(),xx)==vv.end())
+            vv.push_back(xx);
+        }
+    }
+    return vv;
+}
+
+struct TreeNode_1{
+    int data;
+    TreeNode_1* left;
+    TreeNode_1* right;
+};
+
+//非递归二叉树前序遍历
+void preorder(TreeNode_1* root){
+    if(!root)
+        return ;
+    stack<TreeNode_1*> s;
+    while(!s.empty()||root){
+        while(root){
+            cout<<root->data<<endl;
+            s.push(root);
+            root=root->left;
+        }
+        if(!s.empty()){
+            root=s.top();
+            cout<<root->data<<endl;
+            s.pop();
+            root=root->right;
+        }
+    }
+}
+
+//非递归中序遍历
+void inorder(TreeNode_1* root){
+    if(!root)
+        return ;
+    stack<TreeNode_1*> s;
+    while(!s.empty()||root){
+        while(root){
+            s.push(root);
+            root=root->left;
+        }
+        if(!s.empty()){
+            root=s.top();
+            cout<<root->data<,endl;
+            s.pop();
+            root=root->right;
+        }
+    }
+}
+
+int main(){
+    vector<int> v1{1,2,3};
+    vector<int> v2{2,3,2};
+    auto xx=two_array_common(v1,v2);
+    for(auto xxx:xx)
+        cout<<xxx<<" ";
     return 0;
 }
