@@ -9,6 +9,10 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <map>
+#include <set>
+#include <bitset>
+#include <numeric>
 using namespace std;
 int solution(string str)
 {
@@ -308,7 +312,169 @@ void str_mod(){
     cout<<sum<<endl;
 }
 
+//电话号码
+void tele_number(){
+    int n;cin>>n;
+    vector<pair<int,string>> v;
+    while(n--){
+        int len;cin>>len;cin.get();
+        string str;
+        getline(cin,str);
+        v.push_back(make_pair(len,str));
+    }
+    for(auto xx:v){
+        auto str=xx.second;
+        if(str.size()<11){
+            cout<<"NO"<<endl;
+        }else{
+            auto it=str.find('8');
+            auto s=str.substr(it);
+            if(s.size()<11)
+                cout<<"NO"<<endl;
+            else
+                cout<<"YES"<<endl;
+        }
+    }
+}
+
+//两两配对
+void double_pair(){
+    int n;cin>>n;
+    vector<pair<int,int>> m;
+    while(n--){
+        int x;cin>>x;int y;cin>>y;
+        m.push_back(make_pair(y,x));
+    }
+    int Max=0;
+    sort(m.begin(),m.end(),[](pair<int,int> p1,pair<int,int> p2){return p1.first<p2.first;});
+    for(int i=0,j=m.size()-1;i<j;){
+        Max=max(Max,m[i].first+m[j].first);
+        m[i].second-=1;m[j].second-=1;
+        if(!m[i].second)
+            i++;
+        if(!m[j].second)
+            j--;
+    }
+    cout<<Max<<endl;
+}
+
+//最小非零元素
+void min_not_zero(){
+    int n,k;
+    cin>>n>>k;
+    vector<int> v;
+    while(n--){
+        int x;cin>>x;v.push_back(x);
+    }
+    sort(v.begin(),v.end());
+    bool flag=true;
+    while(k--){
+        if(!flag){
+            cout<<0<<endl;
+            continue;
+        }
+        auto it=find_if(v.begin(),v.end(),[](int a){return a!=0;});
+        if(it==v.end()){
+            flag=false;
+            cout<<0<<endl;
+            continue;
+        }
+        cout<<*it<<endl;
+        auto x=*it;
+        for(auto &xx:v) {
+            if(xx)
+                xx -= x;
+        }
+    }
+}
+
+//异或值
+void or_value(){
+    int n;cin>>n;
+    vector<int> v1;vector<int> v2;
+    while(n--){
+        int x;cin>>x;v1.push_back(x);
+    }
+    n=v1.size();
+    while(n--){
+        int x;cin>>x;v2.push_back(x);
+    }
+    map<int,int> m;
+    for(int i=0;i<v1.size();i++){
+        for(int j=0;j<v2.size();j++){
+            int sum=v1[i]+v2[j];
+            if(m.find(sum)==m.end())
+                m[sum]=1;
+            else
+                m[sum]+=1;
+        }
+    }
+    for(auto &xx:m){
+        if(xx.second&0x1)
+            xx.second=1;
+        else
+            xx.second=0;
+    }
+    int sum=(*(m.begin())).first;
+    bool flag=false;
+    for(auto xx:m){
+        if(xx.second==0)
+            flag=true;
+    }
+    for(auto it=++m.begin();it!=m.end();it++){
+        if((*it).second)
+        sum^=(*it).first;
+    }
+    if(flag)
+        sum^=0;
+    cout<<sum<<endl;
+}
+
+pair<int,int> plus_1(vector<int> x){
+    int sum1,sum2;
+    if(x.size()%2&0x1){
+        sum1=accumulate(x.begin(),x.begin()+x.size()/2,0);
+        sum2=accumulate(x.begin()+x.size()/2+2,x.end(),0);
+        if(sum1<sum2)
+            sum1+=x[x.size()/2];
+        else
+            sum2+=x[x.size()/2];
+    }else{
+
+        sum1=accumulate(x.begin(),x.begin()+x.size()/2,0);
+        sum2=accumulate(x.begin()+x.size()/2,x.end(),0);
+    }
+    return make_pair(min(sum1,sum2),max(sum1,sum2));
+}
+//分组
+void fenzu(){
+    int n;cin>>n;
+    vector<vector<int>> v;
+    while(n--){
+        vector<int> v1;
+        int n1;cin>>n1;
+        while(n1--){
+            int x;cin>>x;
+            v1.push_back(x);
+        }
+        v.push_back(v1);
+    }
+    for(auto x:v){
+        sort(x.begin(),x.end());
+        auto y=plus_1(x);
+        int des=abs(y.first-y.second);
+        //cout<<y.first<<" "<<y.second<<endl;
+        while(next_permutation(x.begin(),x.end())){
+            auto z=plus_1(x);
+           //cout<<z.first<<" "<<z.second<<endl;
+            if(abs(z.first-z.second)<abs(y.first-y.second))
+                y=z;
+        }
+        cout<<y.first<<" "<<y.second<<endl;
+    }
+}
+
 int main(int argc, char* args[])
 {
-    str_mod();
+    fenzu();
 }
