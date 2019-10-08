@@ -474,6 +474,15 @@ void fenzu(){
     }
 }
 
+int amazon(int busCount,int busStops[][2]){
+    int Count=0;
+    for(int i=0;i<busCount-1;i++){
+        if(busStops[i][1]>=busStops[i+1][0]&&busStops[i][1]<=busStops[i+1][1])
+            Count++;
+    }
+    return Count;
+}
+
 int main(int argc, char* args[])
 {
     fenzu();
