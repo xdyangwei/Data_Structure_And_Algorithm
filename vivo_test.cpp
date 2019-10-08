@@ -474,7 +474,21 @@ void fenzu(){
     }
 }
 
-int amazon(int busCount,int busStops[][2]){
+int amazon_flag(int buildcounts,int buildings[]){
+    int largest=0;
+    for(int i=0;i<buildcounts-1;i++){
+        for(int j=i+1;j<buildcounts;j++){
+            int smallest=buildings[j];
+            for(int k=i;k<=j;k++){
+                smallest=min(smallest,buildings[k]);
+            }
+            largest=max(largest,(j-i+1)*smallest);
+        }
+    }
+    return largest;
+}
+
+int amazon_bus(int busCount,int busStops[][2]){
     int Count=0;
     for(int i=0;i<busCount-1;i++){
         if(busStops[i][1]>=busStops[i+1][0]&&busStops[i][1]<=busStops[i+1][1])
