@@ -31,7 +31,27 @@ int Ackerman_with_stack(int m,int n){
     return temp[m][n];
 }
 
+int Ackerman_with_stack2(int m,int n){
+    stack<int> s;
+    s.push(m);
+    while(!s.empty()){
+        m=s.top();
+        s.pop();
+        if(!m)
+            n=n+1;
+        else if(!n){
+            n=1;
+            m=m-1;
+            s.push(m);
+        }else{
+            n=n-1;
+            s.push(m-1);
+            s.push(m);
+        }
+    }
+    return n;
+}
 int main(){
-    cout<<Ackerman_with_stack(3,1)<<endl;
+    cout<<Ackerman_with_stack2(3,1)<<endl;
     cout<<Ackerman_recursive(3,1)<<endl;
 }

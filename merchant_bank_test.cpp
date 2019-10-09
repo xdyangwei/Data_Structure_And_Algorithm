@@ -524,10 +524,10 @@ void number_transfer(){
     cin>>n;
     string str;cin.get();
     getline(cin,str);
-    
+
     cout<<str<<endl;
 }
 int main(){
-    number_transfer();
+    cout<<"Hello,World"<<endl;
     return 0;
 }

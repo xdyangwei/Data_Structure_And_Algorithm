@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Stack">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Stack.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Stack.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -33,15 +33,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Stack"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Stack"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Stack/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Stack.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Stack.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -55,15 +55,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Stack/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Stack/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Data_Structure_And_Algorithm">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Data_Structure_And_Algorithm.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Data_Structure_And_Algorithm.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -77,15 +77,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Data_Structure_And_Algorithm"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Data_Structure_And_Algorithm"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Data_Structure_And_Algorithm/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Data_Structure_And_Algorithm.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Data_Structure_And_Algorithm.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -99,25 +99,25 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Data_Structure_And_Algorithm/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Data_Structure_And_Algorithm/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Coding_Interviews">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Coding_Interviews.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Coding_Interviews.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -131,15 +131,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Coding_Interviews"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Coding_Interviews"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Coding_Interviews/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Coding_Interviews.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Coding_Interviews.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -153,15 +153,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Coding_Interviews/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Coding_Interviews/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Binary_Tree">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Binary_Tree.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Binary_Tree.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -175,15 +175,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Binary_Tree"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Binary_Tree"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Binary_Tree/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Binary_Tree.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Binary_Tree.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -197,15 +197,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Binary_Tree/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Binary_Tree/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="json_parse">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/json_parse.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/json_parse.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -219,15 +219,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 json_parse"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 json_parse"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="json_parse/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/json_parse.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/json_parse.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -241,15 +241,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 json_parse/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 json_parse/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Function_implement">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Function_implement.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Function_implement.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -263,15 +263,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Function_implement"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Function_implement"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Function_implement/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Function_implement.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Function_implement.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -285,15 +285,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Function_implement/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Function_implement/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Array_And_String">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Array_And_String.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Array_And_String.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -307,15 +307,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Array_And_String"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Array_And_String"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Array_And_String/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/Array_And_String.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/Array_And_String.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -329,15 +329,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 Array_And_String/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 Array_And_String/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="merchant_test">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/merchant_test.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/merchant_test.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -351,15 +351,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 merchant_test"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 merchant_test"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="merchant_test/fast">
-				<Option output="C:/Data_Structure_And_Algorithm/cmake-build-debug/merchant_test.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option output="C:/CLionProjects/cmake-build-debug/merchant_test.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -373,48 +373,333 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 merchant_test/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 merchant_test/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DP">
+				<Option output="C:/CLionProjects/cmake-build-debug/DP.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 DP"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DP/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/DP.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 DP/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lt34">
+				<Option output="C:/CLionProjects/cmake-build-debug/lt34.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 lt34"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lt34/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/lt34.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 lt34/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="huawei">
+				<Option output="C:/CLionProjects/cmake-build-debug/huawei.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 huawei"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="huawei/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/huawei.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 huawei/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="back_tracking">
+				<Option output="C:/CLionProjects/cmake-build-debug/back_tracking.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 back_tracking"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="back_tracking/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/back_tracking.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 back_tracking/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pinduoduo">
+				<Option output="C:/CLionProjects/cmake-build-debug/pinduoduo.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 pinduoduo"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pinduoduo/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/pinduoduo.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 pinduoduo/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="guidance_for_my_love">
+				<Option output="C:/CLionProjects/cmake-build-debug/guidance_for_my_love.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 guidance_for_my_love"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="guidance_for_my_love/fast">
+				<Option output="C:/CLionProjects/cmake-build-debug/guidance_for_my_love.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 guidance_for_my_love/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Data_Structure_And_Algorithm/cmake-build-debug"/>
+				<Option working_dir="C:/CLionProjects/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Data_Structure_And_Algorithm/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/CLionProjects/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Data_Structure_And_Algorithm/Array_And_String_Problems.cpp">
+		<Unit filename="C:/CLionProjects/Array_And_String_Problems.cpp">
 			<Option target="Array_And_String"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/Binary_Tree.cpp">
+		<Unit filename="C:/CLionProjects/Binary_Tree.cpp">
 			<Option target="Binary_Tree"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/Json_Parse.cpp">
+		<Unit filename="C:/CLionProjects/Json_Parse.cpp">
 			<Option target="json_parse"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/List_Problems.cpp">
+		<Unit filename="C:/CLionProjects/List_Problems.cpp">
 			<Option target="Coding_Interviews"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/Stack_And_Queue.cpp">
+		<Unit filename="C:/CLionProjects/Stack_And_Queue.cpp">
 			<Option target="Stack"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/main.cpp">
+		<Unit filename="C:/CLionProjects/back_tracking.cpp">
+			<Option target="back_tracking"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/dynamic_programming.cpp">
+			<Option target="DP"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/guidance_for_my_love.cpp">
+			<Option target="guidance_for_my_love"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/huawei.cpp">
+			<Option target="huawei"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/leetcode_medium_34.cpp">
+			<Option target="lt34"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/leetcode_medium_54.cpp">
+			<Option target="lt34"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/main.cpp">
 			<Option target="Data_Structure_And_Algorithm"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/merchant_bank_test.cpp">
+		<Unit filename="C:/CLionProjects/merchant_bank_test.cpp">
 			<Option target="merchant_test"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/raw_function_implement.cpp">
+		<Unit filename="C:/CLionProjects/pinduoduo.cpp">
+			<Option target="pinduoduo"/>
+		</Unit>
+		<Unit filename="C:/CLionProjects/raw_function_implement.cpp">
 			<Option target="Function_implement"/>
 		</Unit>
-		<Unit filename="C:/Data_Structure_And_Algorithm/CMakeLists.txt">
+		<Unit filename="C:/CLionProjects/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
