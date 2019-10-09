@@ -45,7 +45,7 @@ int Ackerman_with_stack2(int m,int n){
             s.push(m);
         }else{
             n=n-1;
-            s.push(m-1);
+            s.push(m-1);//sequece is specifiec because calculate m first
             s.push(m);
         }
     }
