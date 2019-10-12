@@ -3,6 +3,11 @@
 //
 #include <iostream>
 #include <stack>
+#include <vector>
+#define DOWN 1
+#define RIGHT 2
+#define UP 3
+#define LEFT 4
 using namespace std;
 int Ackerman_recursive(int m,int n){
     if(m==0)
@@ -50,6 +55,105 @@ int Ackerman_with_stack2(int m,int n){
         }
     }
     return n;
+}
+
+struct my_type{
+    int x;
+    int y;
+    int next;
+};
+void maze_with_obstacles(vector<vector<int>>& v){
+    if(v.empty()||v[0].empty()||v[0][0]==1)
+        return ;
+    stack<my_type> s1;
+    vector<vector<int>> visited(v.size(),vector<int>(v[0].size(),0));
+    my_type entrance;entrance.x=1;entrance.y=1;entrance.next=DOWN;visited[0][0]=1;
+    s1.push(entrance);
+    while(true){
+        auto &tmp=s1.top();
+        cout<<tmp.x<<" "<<tmp.y<<" "<<tmp.next<<endl;
+        if(tmp.x==v.size()&&tmp.y==v[0].size())
+            break;
+        my_type next_pos;
+        switch(tmp.next){
+            case DOWN:
+                if(tmp.x==v.size()){
+                    tmp.next=RIGHT;
+                }else{
+                    if(v[tmp.x][tmp.y-1]||visited[tmp.x][tmp.y-1]){
+                        tmp.next=RIGHT;
+                    }else{
+                        next_pos.x=tmp.x+1;
+                        //cout<<next_pos.x<<endl;
+                        next_pos.y=tmp.y;
+                        next_pos.next=DOWN;
+                        visited[tmp.x][tmp.y-1]=1;
+                        s1.push(next_pos);
+                        //cout<<s1.top().x<<endl;
+                    }
+                }
+                break;
+            case RIGHT:
+                if(tmp.y==v[0].size())
+                    tmp.next=UP;
+                else{
+                    if(v[tmp.x-1][tmp.y]||visited[tmp.x-1][tmp.y]){
+                        tmp.next=UP;
+                    }else{
+                        next_pos.x=tmp.x;
+                        next_pos.y=tmp.y+1;
+                        next_pos.next=DOWN;
+                        visited[tmp.x-1][tmp.y]=1;
+                        s1.push(next_pos);
+                    }}
+                break;
+            case UP:
+                if(tmp.x==0){
+                    tmp.next=LEFT;
+                }else {
+                    if (v[tmp.x - 2][tmp.y - 1]||visited[tmp.x - 2][tmp.y - 1]) {
+                        tmp.next = LEFT;
+                    } else {
+                        next_pos.x = tmp.x - 1;
+                        next_pos.y = tmp.y;
+                        next_pos.next = DOWN;
+                        visited[tmp.x - 2][tmp.y - 1]=1;
+                        s1.push(next_pos);
+                    }
+                }
+                break;
+            case LEFT:
+                if(tmp.y==0){
+                    s1.pop();
+                    visited[tmp.x-1][tmp.y-1]=0;
+                }
+                else {
+                    if (v[tmp.x - 1][tmp.y - 2]||visited[tmp.x - 1][tmp.y - 2]) {
+                        s1.pop();
+                        visited[tmp.x-1][tmp.y-1]=0;
+                    }
+                    else {
+                        next_pos.x = tmp.x;
+                        next_pos.y = tmp.y - 1;
+                        next_pos.next = DOWN;
+                        visited[tmp.x - 1][tmp.y - 2]=1;
+                        s1.push(next_pos);
+                    }
+                }
+        }
+        //cout<<s1.top().x<<endl;
+    }
+    stack<my_type> s2;
+    while(!s1.empty()){
+        auto x=s1.top();
+        s2.push(x);
+        s1.pop();
+    }
+    while(!s2.empty()){
+        auto x=s2.top();
+        cout<<x.x<<" "<<x.y<<" "<<x.next<<endl;
+        s2.pop();
+    }
 }
 int main(){
     cout<<Ackerman_with_stack2(3,1)<<endl;
