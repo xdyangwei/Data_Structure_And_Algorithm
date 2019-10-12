@@ -65,6 +65,9 @@ struct my_type{
     map<int,bool> m{{DOWN,1},{RIGHT,1},{UP,1},{LEFT,1}};
 };
 
+//栈解决迷宫问题
+//思路：每次都依次判断下右上左是否可走，可走压栈，不可走就换个方向，当发现四个方向都无路可走的时候就出栈，然后将此时的栈顶
+//元素即上一步路径所走的当前方向设置为不可走即可
 void maze_with_obstacles(vector<vector<int>>& v){
     if(v.empty()||v[0].empty()||v[0][0]==1)
         return ;
