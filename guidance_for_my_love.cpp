@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <map>
 #define DOWN 1
 #define RIGHT 2
 #define UP 3
@@ -61,7 +62,9 @@ struct my_type{
     int x;
     int y;
     int next;
+    map<int,bool> m{{DOWN,1},{RIGHT,1},{UP,1},{LEFT,1}};
 };
+
 void maze_with_obstacles(vector<vector<int>>& v){
     if(v.empty()||v[0].empty()||v[0][0]==1)
         return ;
@@ -71,7 +74,6 @@ void maze_with_obstacles(vector<vector<int>>& v){
     s1.push(entrance);
     while(true){
         auto &tmp=s1.top();
-        cout<<tmp.x<<" "<<tmp.y<<" "<<tmp.next<<endl;
         if(tmp.x==v.size()&&tmp.y==v[0].size())
             break;
         my_type next_pos;
@@ -80,39 +82,41 @@ void maze_with_obstacles(vector<vector<int>>& v){
                 if(tmp.x==v.size()){
                     tmp.next=RIGHT;
                 }else{
-                    if(v[tmp.x][tmp.y-1]||visited[tmp.x][tmp.y-1]){
+                    if(v[tmp.x][tmp.y-1]||visited[tmp.x][tmp.y-1]||!tmp.m[DOWN]){
                         tmp.next=RIGHT;
                     }else{
                         next_pos.x=tmp.x+1;
-                        //cout<<next_pos.x<<endl;
                         next_pos.y=tmp.y;
                         next_pos.next=DOWN;
                         visited[tmp.x][tmp.y-1]=1;
                         s1.push(next_pos);
-                        //cout<<s1.top().x<<endl;
                     }
                 }
                 break;
             case RIGHT:
-                if(tmp.y==v[0].size())
-                    tmp.next=UP;
+                if(tmp.y==v[0].size()) {
+                    tmp.next = UP;
+                }
                 else{
-                    if(v[tmp.x-1][tmp.y]||visited[tmp.x-1][tmp.y]){
+                    if(v[tmp.x-1][tmp.y]||visited[tmp.x-1][tmp.y]||!tmp.m[RIGHT]){
                         tmp.next=UP;
+                        visited[tmp.x-1][tmp.y]=0;
                     }else{
                         next_pos.x=tmp.x;
                         next_pos.y=tmp.y+1;
                         next_pos.next=DOWN;
                         visited[tmp.x-1][tmp.y]=1;
                         s1.push(next_pos);
-                    }}
+                    }
+                }
                 break;
             case UP:
                 if(tmp.x==0){
                     tmp.next=LEFT;
                 }else {
-                    if (v[tmp.x - 2][tmp.y - 1]||visited[tmp.x - 2][tmp.y - 1]) {
+                    if (v[tmp.x - 2][tmp.y - 1]||visited[tmp.x - 2][tmp.y - 1]||!tmp.m[UP]) {
                         tmp.next = LEFT;
+                        visited[tmp.x - 2][tmp.y - 1]=0;
                     } else {
                         next_pos.x = tmp.x - 1;
                         next_pos.y = tmp.y;
@@ -125,12 +129,12 @@ void maze_with_obstacles(vector<vector<int>>& v){
             case LEFT:
                 if(tmp.y==0){
                     s1.pop();
-                    visited[tmp.x-1][tmp.y-1]=0;
+                    s1.top().m[s1.top().next]= false;
                 }
                 else {
-                    if (v[tmp.x - 1][tmp.y - 2]||visited[tmp.x - 1][tmp.y - 2]) {
+                    if (v[tmp.x - 1][tmp.y - 2]||visited[tmp.x - 1][tmp.y - 2]||!tmp.m[LEFT]) {
                         s1.pop();
-                        visited[tmp.x-1][tmp.y-1]=0;
+                        s1.top().m[s1.top().next]= false;
                     }
                     else {
                         next_pos.x = tmp.x;
@@ -141,7 +145,6 @@ void maze_with_obstacles(vector<vector<int>>& v){
                     }
                 }
         }
-        //cout<<s1.top().x<<endl;
     }
     stack<my_type> s2;
     while(!s1.empty()){
@@ -156,6 +159,6 @@ void maze_with_obstacles(vector<vector<int>>& v){
     }
 }
 int main(){
-    cout<<Ackerman_with_stack2(3,1)<<endl;
-    cout<<Ackerman_recursive(3,1)<<endl;
+    vector<vector<int>> v{{0,0,1,0,0,0,1,0},{0,0,1,0,0,0,1,0},{0,0,0,0,1,1,0,1},{0,1,1,1,0,0,1,0},{0,0,0,1,0,0,0,0},{0,1,0,0,0,1,0,1},{0,1,1,1,1,0,0,1},{1,1,0,0,0,1,0,1},{1,1,0,0,0,0,0,0}};
+    maze_with_obstacles(v);
 }
