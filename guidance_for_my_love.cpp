@@ -175,12 +175,17 @@ queue<parking_car> road;
 int parking_lot_size=2;
 void car_arrival(parking_car car){
     if(parking_lot.size()==parking_lot_size){
+        auto len=road.size();
         road.push(car);
-    } else
+        cout<<"waiting at "<<len+1<<" position"<<endl;
+    } else{
         parking_lot.push(car);
+        auto len=parking_lot.size();
+        cout<<"parking at "<<len<<" position"<<endl;
+    }
 }
 
-int car_departure(parking_car car){
+void car_departure(parking_car car){
     stack<parking_car> s1;
     while(true){
         auto x=parking_lot.top();
@@ -196,6 +201,12 @@ int car_departure(parking_car car){
             s1.push(x);
             parking_lot.pop();
         }
+    }
+    if(!road.empty()){
+        auto x=road.front();
+        x.time=car.time;
+        parking_lot.push(x);
+        road.pop();
     }
 }
 void parking_lot_management(int number){
