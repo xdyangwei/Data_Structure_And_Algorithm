@@ -5,6 +5,8 @@
 #include <stack>
 #include <vector>
 #include <map>
+#include <queue>
+
 #define DOWN 1
 #define RIGHT 2
 #define UP 3
@@ -161,6 +163,51 @@ void maze_with_obstacles(vector<vector<int>>& v){
         s2.pop();
     }
 }
+
+struct parking_car{
+    char status;
+    int number;
+    int time;
+};
+
+stack<parking_car> parking_lot;
+queue<parking_car> road;
+int parking_lot_size=2;
+void car_arrival(parking_car car){
+    if(parking_lot.size()==parking_lot_size){
+        road.push(car);
+    } else
+        parking_lot.push(car);
+}
+
+int car_departure(parking_car car){
+    stack<parking_car> s1;
+    while(true){
+        auto x=parking_lot.top();
+        if(x.number==car.number){
+            parking_lot.pop();
+            cout<<"parking_time: "<<car.time-x.time<<" total_cost: "<<(car.time-x.time)*3<<endl;
+            while(!s1.empty()){
+                parking_lot.push(s1.top());
+                s1.pop();
+            }
+            break;
+        }else{
+            s1.push(x);
+            parking_lot.pop();
+        }
+    }
+}
+void parking_lot_management(int number){
+    parking_car car;
+    cin>>car.status>>car.number>>car.time;
+    if(car.status=='A')
+        car_arrival(car);
+    else
+        car_departure(car);
+}
+
+
 int main(){
     vector<vector<int>> v{{0,0,1,0,0,0,1,0},{0,0,1,0,0,0,1,0},{0,0,0,0,1,1,0,1},{0,1,1,1,0,0,1,0},{0,0,0,1,0,0,0,0},{0,1,0,0,0,1,0,1},{0,1,1,1,1,0,0,1},{1,1,0,0,0,1,0,1},{1,1,0,0,0,0,0,0}};
     maze_with_obstacles(v);
