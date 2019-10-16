@@ -6,6 +6,8 @@
 #include <vector>
 #include <map>
 #include <queue>
+#include <fstream>
+#include <sstream>
 
 #define DOWN 1
 #define RIGHT 2
@@ -218,8 +220,40 @@ void parking_lot_management(int number){
         car_departure(car);
 }
 
+struct word_appear{
+    int line_number;
+    int Count;
+};
+
+void words_count(string word){
+    ifstream f("C:\\data.txt",ios::in);
+    if(!f)
+        cout<<"failed"<<endl;
+    string s1;
+    int line=1;
+    int sum=0;
+    vector<word_appear> v;
+    while(getline(f,s1)){
+        //cout<<s1<<endl;
+        stringstream ss(s1);
+        string s2;
+        word_appear w1;
+        w1.line_number=line;w1.Count=0;
+        while(ss>>s2){
+            if(s2==word)
+                w1.Count++;
+        }
+        v.push_back(w1);
+        sum+=w1.Count;
+        line++;
+    }
+    cout<<"total: "<<sum<<endl;
+    for(auto xx:v)
+        if(xx.Count)
+        cout<<"line "<<xx.line_number<<" appears "<<xx.Count<<" times"<<endl;
+}
+
 
 int main(){
-    vector<vector<int>> v{{0,0,1,0,0,0,1,0},{0,0,1,0,0,0,1,0},{0,0,0,0,1,1,0,1},{0,1,1,1,0,0,1,0},{0,0,0,1,0,0,0,0},{0,1,0,0,0,1,0,1},{0,1,1,1,1,0,0,1},{1,1,0,0,0,1,0,1},{1,1,0,0,0,0,0,0}};
-    maze_with_obstacles(v);
+    words_count("10.250000");
 }
