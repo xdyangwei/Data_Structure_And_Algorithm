@@ -40,7 +40,7 @@ void file_output(const char* str){
         line_number++;
     }
     //输出所需内容
-    printf("%s total appears:%d\n",str,total_number);//输出总次数
+    printf("%s total appears %d times\n",str,total_number);//输出总次数
     for(int i=0;i<index;i++){
         printf("No.%d line appear %d times\n",array[i].line_numer,array[i].number);//输出匹配成功的每一行中出现的次数
     }
